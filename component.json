@@ -1,0 +1,112 @@
+{
+    "title": "SugarCRM 7",
+    "description": "SugarCRM REST API",
+    "credentials": {
+        "fields":{
+            "baseUrl": {
+                "label": "Your SugarCRM domain",
+                "required": true,
+                "viewClass": "TextFieldView"
+            },
+            "userName": {
+                "label": "Your login",
+                "required": true,
+                "viewClass": "TextFieldView"
+            },
+            "password": {
+                "label": "Your password",
+                "required": true,
+                "viewClass": "PasswordFieldView"
+            },
+            "clientID": {
+                "label": "Your OAuth 2.0 Consumer Key",
+                "required": false,
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "getAccounts": {
+            "main": "./lib/triggers/getAccounts.js",
+            "type": "polling",
+            "title": "Query Accounts",
+            "metadata": {
+                "out": "./lib/schemas/getAccounts.out.json"
+            }
+        },
+        "getContacts": {
+            "main": "./lib/triggers/getContacts.js",
+            "type": "polling",
+            "title": "Query Contacts",
+            "metadata": {
+                "out": "./lib/schemas/getContacts.out.json"
+            }
+        },
+        "getLeads": {
+            "main": "./lib/triggers/getLeads.js",
+            "type": "polling",
+            "title": "Query Leads",
+            "metadata": {
+                "out": "./lib/schemas/getLeads.out.json"
+            }
+        },
+        "getOpportunities": {
+            "main": "./lib/triggers/getOpportunities.js",
+            "type": "polling",
+            "title": "Query Opportunities",
+            "metadata": {
+                "out": "./lib/schemas/getOpportunities.out.json"
+            }
+        },
+        "getTasks": {
+            "main": "./lib/triggers/getTasks.js",
+            "type": "polling",
+            "title": "Query Tasks",
+            "metadata": {
+                "out": "./lib/schemas/getTasks.out.json"
+            }
+        }
+    },
+    "actions": {
+        "createOrUpdateAccount": {
+            "main": "./lib/actions/createOrUpdateAccount.js",
+            "title": "Sync Account",
+            "metadata": {
+                "in": "./lib/schemas/createOrUpdateAccount.in.json",
+                "out": "./lib/schemas/getAccounts.out.json"
+            }
+        },
+        "createOrUpdateContact": {
+            "main": "./lib/actions/createOrUpdateContact.js",
+            "title": "Sync Contact",
+            "metadata": {
+                "in": "./lib/schemas/createOrUpdateContact.in.json",
+                "out": "./lib/schemas/getContacts.out.json"
+            }
+        },
+        "createOrUpdateLead": {
+            "main": "./lib/actions/createOrUpdateLead.js",
+            "title": "Sync Lead",
+            "metadata": {
+                "in": "./lib/schemas/createOrUpdateLead.in.json",
+                "out": "./lib/schemas/getLeads.out.json"
+            }
+        },
+        "createOrUpdateOpportunity": {
+            "main": "./lib/actions/createOrUpdateOpportunity.js",
+            "title": "Sync Opportunity",
+            "metadata": {
+                "in": "./lib/schemas/createOrUpdateOpportunity.in.json",
+                "out": "./lib/schemas/getOpportunities.out.json"
+            }
+        },
+        "createOrUpdateTask": {
+            "main": "./lib/actions/createOrUpdateTask.js",
+            "title": "Sync Task",
+            "metadata": {
+                "in": "./lib/schemas/createOrUpdateTask.in.json",
+                "out": "./lib/schemas/getTasks.out.json"
+            }
+        }
+    }
+}

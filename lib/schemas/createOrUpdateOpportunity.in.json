@@ -1,0 +1,180 @@
+{
+    "type": "object",
+    "properties": {
+        "my_favorite": {
+            "type": "boolean",
+            "required": false,
+            "title": "My Favorite Flag"
+        },
+        "following": {
+            "type": "boolean",
+            "required": false,
+            "title": "Following Flag"
+        },
+        "id": {
+            "type": "string",
+            "required": true,
+            "title": "External ID"
+        },
+        "name": {
+            "type": "string",
+            "required": true,
+            "title": "Name"
+        },
+        "user_favorites": {
+            "type": "string",
+            "required": false,
+            "title": "User Favorites"
+        },
+        "description": {
+            "type": "string",
+            "required": false,
+            "title": "Description"
+        },
+        "team_count": {
+            "type": "string",
+            "required": false,
+            "title": "Team Count"
+        },
+        "team_name": {
+            "type": "array",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Team ID"
+                },
+                "name": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Team Name"
+                },
+                "name_2": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Team Name 2"
+                },
+                "primary": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Team Primary Flag"
+                }
+            }
+        },
+        "opportunity_type": {
+            "type": "string",
+            "required": false,
+            "title": "Opportunity Type"
+        },
+        "account_name": {
+            "type": "string",
+            "required": false,
+            "title": "Account Name"
+        },
+        "account_id": {
+            "type": "string",
+            "required": false,
+            "title": "Account ID"
+        },
+        "campaign_id": {
+            "type": "string",
+            "required": false,
+            "title": "Campaign ID"
+        },
+        "campaign_name": {
+            "type": "string",
+            "required": false,
+            "title": "Campaign Name"
+        },
+        "lead_source": {
+            "type": "string",
+            "required": false,
+            "title": "Lead Source"
+        },
+        "amount": {
+            "type": "string",
+            "required": false,
+            "title": "Amount"
+        },
+        "base_rate": {
+            "type": "number",
+            "required": false,
+            "title": "Base Rate"
+        },
+        "amount_usdollar": {
+            "type": "string",
+            "required": false,
+            "title": "Amount USDollar"
+        },
+        "currency_id": {
+            "type": "string",
+            "required": false,
+            "title": "Currency ID"
+        },
+        "currency_name": {
+            "type": "string",
+            "required": false,
+            "title": "Currency Name"
+        },
+        "currency_symbol": {
+            "type": "string",
+            "required": false,
+            "title": "Currency Symbol"
+        },
+        "next_step": {
+            "type": "string",
+            "required": false,
+            "title": "Next Step"
+        },
+        "sales_stage": {
+            "type": "string",
+            "required": false,
+            "title": "Sales Stage"
+        },
+        "sales_status": {
+            "type": "string",
+            "required": false,
+            "title": "Sales Status"
+        },
+        "probability": {
+            "type": "number",
+            "required": false,
+            "title": "Probability"
+        },
+        "best_case": {
+            "type": "string",
+            "required": false,
+            "title": "Best Case"
+        },
+        "worst_case": {
+            "type": "string",
+            "required": false,
+            "title": "Worst Case"
+        },
+        "commit_stage": {
+            "type": "string",
+            "required": false,
+            "title": "Commit Stage"
+        },
+        "total_revenue_line_items": {
+            "type": "number",
+            "required": false,
+            "title": "Total Revenue Line Items"
+        },
+        "closed_revenue_line_items": {
+            "type": "number",
+            "required": false,
+            "title": "Closed Revenue Line Items"
+        },
+        "contact_role": {
+            "type": "string",
+            "required": false,
+            "title": "Contact Role"
+        },
+        "mkto_sync": {
+            "type": "boolean",
+            "required": false,
+            "title": "MKTO Sync Flag"
+        }
+    }
+}

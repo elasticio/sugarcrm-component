@@ -1,0 +1,295 @@
+{
+    "type": "object",
+    "properties": {
+        "my_favorite": {
+            "type": "boolean",
+            "required": false,
+            "title": "Favorite Flag"
+        },
+        "following": {
+            "type": "boolean",
+            "required": false,
+            "title": "Following Flag"
+        },
+        "id": {
+            "type": "string",
+            "required": true,
+            "title": "External ID"
+        },
+        "name": {
+            "type": "string",
+            "required": true,
+            "title": "Name"
+        },
+        "description": {
+            "type": "string",
+            "required": false,
+            "title": "Description"
+        },
+        "team_count": {
+            "type": "string",
+            "required": false,
+            "title": "Team Count"
+        },
+        "team_name": {
+            "type": "array",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Team Name ID"
+                },
+                "name": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Team Name"
+                },
+                "name_2": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Team Name 2"
+                },
+                "primary": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Team Primary Flag"
+                }
+            }
+        },
+        "email": {
+            "type": "array",
+            "properties": {
+                "email_address": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Email Address"
+                },
+                "primary_address": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Primary Address Flag"
+                },
+                "reply_to_address": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Reply To Address Flag"
+                },
+                "invalid_email": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Invalid Email Flag"
+                },
+                "opt_out": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Email Opt Out Flag"
+                }
+            }
+        },
+        "email1": {
+            "type": "string",
+            "required": false,
+            "title": "Email 1"
+        },
+        "email2": {
+            "type": "string",
+            "required": false,
+            "title": "Email 2"
+        },
+        "invalid_email": {
+            "type": "boolean",
+            "required": false,
+            "title": "Invalid Email Flag"
+        },
+        "email_opt_out": {
+            "type": "boolean",
+            "required": false,
+            "title": "Email Opt Out"
+        },
+        "email_addresses_non_primary": {
+            "type": "string",
+            "required": false,
+            "title": "Email Addresses Non Primary"
+        },
+        "facebook": {
+            "type": "string",
+            "required": false,
+            "title": "Facebook"
+        },
+        "twitter": {
+            "type": "string",
+            "required": false,
+            "title": "Twitter"
+        },
+        "googleplus": {
+            "type": "string",
+            "required": false,
+            "title": "Googleplus"
+        },
+        "account_type": {
+            "type": "string",
+            "required": false,
+            "title": "Account Type"
+        },
+        "industry": {
+            "type": "string",
+            "required": false,
+            "title": "Industry"
+        },
+        "annual_revenue": {
+            "type": "string",
+            "required": false,
+            "title": "Annual Revenue"
+        },
+        "phone_fax": {
+            "type": "string",
+            "required": false,
+            "title": "Phone Fax"
+        },
+        "billing_address_street": {
+            "type": "string",
+            "required": false,
+            "title": "Billing Address Street"
+        },
+        "billing_address_street_2": {
+            "type": "string",
+            "required": false,
+            "title": "Billing Address Street 2"
+        },
+        "billing_address_street_3": {
+            "type": "string",
+            "required": false,
+            "title": "Billing Address Street 3"
+        },
+        "billing_address_street_4": {
+            "type": "string",
+            "required": false,
+            "title": "Billing Address Street 4"
+        },
+        "billing_address_city": {
+            "type": "string",
+            "required": false,
+            "title": "Billing Address City"
+        },
+        "billing_address_state": {
+            "type": "string",
+            "required": false,
+            "title": "Billing Address State"
+        },
+        "billing_address_postalcode": {
+            "type": "string",
+            "required": false,
+            "title": "Billing Address Postal Code"
+        },
+        "billing_address_country": {
+            "type": "string",
+            "required": false,
+            "title": "Billing Address Country"
+        },
+        "rating": {
+            "type": "string",
+            "required": false,
+            "title": "Rating"
+        },
+        "phone_office": {
+            "type": "string",
+            "required": false,
+            "title": "Phone Office"
+        },
+        "phone_alternate": {
+            "type": "string",
+            "required": false,
+            "title": "Phone Alternate"
+        },
+        "website": {
+            "type": "string",
+            "required": false,
+            "title": "Website"
+        },
+        "ownership": {
+            "type": "string",
+            "required": false,
+            "title": "Ownership"
+        },
+        "employees": {
+            "type": "string",
+            "required": false,
+            "title": "Employees"
+        },
+        "ticker_symbol": {
+            "type": "string",
+            "required": false,
+            "title": "Ticker Symbol"
+        },
+        "shipping_address_street": {
+            "type": "string",
+            "required": false,
+            "title": "Shipping Address Street"
+        },
+        "shipping_address_street_2": {
+            "type": "string",
+            "required": false,
+            "title": "Shipping Address Street 2"
+        },
+        "shipping_address_street_3": {
+            "type": "string",
+            "required": false,
+            "title": "Shipping Address Street 3"
+        },
+        "shipping_address_street_4": {
+            "type": "string",
+            "required": false,
+            "title": "Shipping Address Street 4"
+        },
+        "shipping_address_city": {
+            "type": "string",
+            "required": false,
+            "title": "Shipping Address City"
+        },
+        "shipping_address_state": {
+            "type": "string",
+            "required": false,
+            "title": "Shipping Address State"
+        },
+        "shipping_address_postalcode": {
+            "type": "string",
+            "required": false,
+            "title": "Shipping Address Postal Code"
+        },
+        "shipping_address_country": {
+            "type": "string",
+            "required": false,
+            "title": "Shipping Address Country"
+        },
+        "parent_id": {
+            "type": "string",
+            "required": false,
+            "title": "Parent ID"
+        },
+        "sic_code": {
+            "type": "string",
+            "required": false,
+            "title": "Sic Code"
+        },
+        "duns_num": {
+            "type": "string",
+            "required": false,
+            "title": "Duns Num"
+        },
+        "parent_name": {
+            "type": "string",
+            "required": false,
+            "title": "Parent Name"
+        },
+        "campaign_id": {
+            "type": "string",
+            "required": false,
+            "title": "Campaign ID"
+        },
+        "campaign_name": {
+            "type": "string",
+            "required": false,
+            "title": "Campaign Name"
+        }
+    }
+}

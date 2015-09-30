@@ -1,0 +1,380 @@
+{
+    "type": "object",
+    "properties": {
+        "my_favorite": {
+            "type": "boolean",
+            "required": false,
+            "title": "My Favorite Flag"
+        },
+        "following": {
+            "type": "boolean",
+            "required": false,
+            "title": "Following Flag"
+        },
+        "id": {
+            "type": "string",
+            "required": true,
+            "title": "External ID"
+        },
+        "name": {
+            "type": "string",
+            "required": true,
+            "title": "Name"
+        },
+        "user_favorites": {
+            "type": "string",
+            "required": false,
+            "title": "User Favorites"
+        },
+        "description": {
+            "type": "string",
+            "required": false,
+            "title": "Description"
+        },
+        "team_count": {
+            "type": "string",
+            "required": false,
+            "title": "Team Count"
+        },
+        "team_name": {
+            "type": "array",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Team ID"
+                },
+                "name": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Team Name"
+                },
+                "name_2": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Team Name 2"
+                },
+                "primary": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Team Primary Flag"
+                }
+            }
+        },
+        "email": {
+            "type": "array",
+            "properties": {
+                "email_address": {
+                    "type": "string",
+                    "required": false,
+                    "title": "Email Address"
+                },
+                "primary_address": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Primary Address"
+                },
+                "reply_to_address": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Reply To Address"
+                },
+                "invalid_email": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Invalid Email Flag"
+                },
+                "opt_out": {
+                    "type": "boolean",
+                    "required": false,
+                    "title": "Opt Out Flag"
+                }
+            }
+        },
+        "email1": {
+            "type": "string",
+            "required": false,
+            "title": "Email 1"
+        },
+        "email2": {
+            "type": "string",
+            "required": false,
+            "title": "Email 2"
+        },
+        "invalid_email": {
+            "type": "boolean",
+            "required": false,
+            "title": "Invalid Email Flag"
+        },
+        "email_opt_out": {
+            "type": "boolean",
+            "required": false,
+            "title": "Email Opt Out Flag"
+        },
+        "email_addresses_non_primary": {
+            "type": "string",
+            "required": false,
+            "title": "Email Addresses Non Primary"
+        },
+        "salutation": {
+            "type": "string",
+            "required": false,
+            "title": "Salutation"
+        },
+        "first_name": {
+            "type": "string",
+            "required": false,
+            "title": "First Name"
+        },
+        "last_name": {
+            "type": "string",
+            "required": false,
+            "title": "Last Name"
+        },
+        "full_name": {
+            "type": "string",
+            "required": false,
+            "title": "Full Name"
+        },
+        "title": {
+            "type": "string",
+            "required": false,
+            "title": "Title"
+        },
+        "facebook": {
+            "type": "string",
+            "required": false,
+            "title": "Facebook"
+        },
+        "twitter": {
+            "type": "string",
+            "required": false,
+            "title": "Twitter"
+        },
+        "googleplus": {
+            "type": "string",
+            "required": false,
+            "title": "Googleplus"
+        },
+        "department": {
+            "type": "string",
+            "required": false,
+            "title": "Department"
+        },
+        "do_not_call": {
+            "type": "boolean",
+            "required": false,
+            "title": "Do Not Call Flag"
+        },
+        "phone_home": {
+            "type": "string",
+            "required": false,
+            "title": "Phone Home"
+        },
+        "phone_mobile": {
+            "type": "string",
+            "required": false,
+            "title": "Phone Mobile"
+        },
+        "phone_work": {
+            "type": "string",
+            "required": false,
+            "title": "Phone Work"
+        },
+        "phone_other": {
+            "type": "string",
+            "required": false,
+            "title": "Phone Other"
+        },
+        "phone_fax": {
+            "type": "string",
+            "required": false,
+            "title": "Phone Fax"
+        },
+        "primary_address_street": {
+            "type": "string",
+            "required": false,
+            "title": "Primary Address Street"
+        },
+        "primary_address_street_2": {
+            "type": "string",
+            "required": false,
+            "title": "Primary Address Street 2"
+        },
+        "primary_address_street_3": {
+            "type": "string",
+            "required": false,
+            "title": "Primary Address Street 3"
+        },
+        "primary_address_city": {
+            "type": "string",
+            "required": false,
+            "title": "Primary Address City"
+        },
+        "primary_address_state": {
+            "type": "string",
+            "required": false,
+            "title": "Primary Address State"
+        },
+        "primary_address_postalcode": {
+            "type": "string",
+            "required": false,
+            "title": "Primary Address Postal Code"
+        },
+        "primary_address_country": {
+            "type": "string",
+            "required": false,
+            "title": "Primary Address Country"
+        },
+        "alt_address_street": {
+            "type": "string",
+            "required": false,
+            "title": "Alt Address Street"
+        },
+        "alt_address_street_2": {
+            "type": "string",
+            "required": false,
+            "title": "Alt Address Street 2"
+        },
+        "alt_address_street_3": {
+            "type": "string",
+            "required": false,
+            "title": "Alt Address Street 3"
+        },
+        "alt_address_city": {
+            "type": "string",
+            "required": false,
+            "title": "Alt Address City"
+        },
+        "alt_address_state": {
+            "type": "string",
+            "required": false,
+            "title": "Alt Address State"
+        },
+        "alt_address_postalcode": {
+            "type": "string",
+            "required": false,
+            "title": "Alt Address Postal Code"
+        },
+        "alt_address_country": {
+            "type": "string",
+            "required": false,
+            "title": "Alt Address Country"
+        },
+        "assistant": {
+            "type": "string",
+            "required": false,
+            "title": "Assistant"
+        },
+        "assistant_phone": {
+            "type": "string",
+            "required": false,
+            "title": "Assistant Phone"
+        },
+        "picture": {
+            "type": "string",
+            "required": false,
+            "title": "Picture"
+        },
+        "email_and_name1": {
+            "type": "string",
+            "required": false,
+            "title": "Email And Name 1"
+        },
+        "lead_source": {
+            "type": "string",
+            "required": false,
+            "title": "Lead Source"
+        },
+        "account_name": {
+            "type": "string",
+            "required": false,
+            "title": "Account Name"
+        },
+        "account_id": {
+            "type": "string",
+            "required": false,
+            "title": "Account ID"
+        },
+        "dnb_principal_id": {
+            "type": "string",
+            "required": false,
+            "title": "Dnb Principal ID"
+        },
+        "opportunity_role_fields": {
+            "type": "string",
+            "required": false,
+            "title": "Opportunity Role Fields"
+        },
+        "opportunity_role_id": {
+            "type": "string",
+            "required": false,
+            "title": "Opportunity Role ID"
+        },
+        "opportunity_role": {
+            "type": "string",
+            "required": false,
+            "title": "Opportunity Role"
+        },
+        "reports_to_id": {
+            "type": "string",
+            "required": false,
+            "title": "Reports To ID"
+        },
+        "report_to_name": {
+            "type": "string",
+            "required": false,
+            "title": "Report To Name"
+        },
+        "birthdate": {
+            "type": "string",
+            "required": false,
+            "title": "Birthdate"
+        },
+        "portal_name": {
+            "type": "string",
+            "required": false,
+            "title": "Portal Name"
+        },
+        "portal_active": {
+            "type": "boolean",
+            "required": false,
+            "title": "Portal Active Flag"
+        },
+        "portal_app": {
+            "type": "string",
+            "required": false,
+            "title": "Portal App"
+        },
+        "preferred_language": {
+            "type": "string",
+            "required": false,
+            "title": "Preferred Language"
+        },
+        "campaign_id": {
+            "type": "string",
+            "required": false,
+            "title": "Campaign ID"
+        },
+        "campaign_name": {
+            "type": "string",
+            "required": false,
+            "title": "Campaign Name"
+        },
+        "sync_contact": {
+            "type": "boolean",
+            "required": false,
+            "title": "Sync Contact Flag"
+        },
+        "mkto_sync": {
+            "type": "boolean",
+            "required": false,
+            "title": "MKTO Sync Flag"
+        },
+        "deptcat_c": {
+            "type": "string",
+            "required": false,
+            "title": "Deptcat C"
+        }
+    }
+}

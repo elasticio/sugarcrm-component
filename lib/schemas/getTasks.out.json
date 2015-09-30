@@ -1,0 +1,183 @@
+{
+  "type": "object",
+  "properties": {
+    "my_favorite": {
+      "type": "boolean",
+      "required": false,
+      "title": "My Favorite Flag"
+    },
+    "following": {
+      "type": "boolean",
+      "required": false,
+      "title": "Following Flag"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "title": "ID"
+    },
+    "name": {
+      "type": "string",
+      "required": false,
+      "title": "Name"
+    },
+    "date_entered": {
+      "type": "string",
+      "required": false,
+      "title": "Date Entered"
+    },
+    "date_modified": {
+      "type": "string",
+      "required": false,
+      "title": "Date Modified"
+    },
+    "modified_user_id": {
+      "type": "string",
+      "required": false,
+      "title": "Modified User ID"
+    },
+    "modified_by_name": {
+      "type": "string",
+      "required": false,
+      "title": "Modified By Name"
+    },
+    "created_by": {
+      "type": "string",
+      "required": false,
+      "title": "Created By"
+    },
+    "created_by_name": {
+      "type": "string",
+      "required": false,
+      "title": "Created By Name"
+    },
+    "doc_owner": {
+      "type": "string",
+      "required": false,
+      "title": "Doc Owner"
+    },
+    "user_favorites": {
+      "type": "string",
+      "required": false,
+      "title": "User Favorites"
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "title": "Description"
+    },
+    "deleted": {
+      "type": "boolean",
+      "required": false,
+      "title": "Deleted Flag"
+    },
+    "assigned_user_id": {
+      "type": "string",
+      "required": false,
+      "title": "Assigned User ID"
+    },
+    "assigned_user_name": {
+      "type": "string",
+      "required": false,
+      "title": "Assigned User Name"
+    },
+    "team_count": {
+      "type": "string",
+      "required": false,
+      "title": "Team Count"
+    },
+    "team_name": {
+      "type": "array",
+      "properties": {
+        "id": {
+          "type": "string",
+          "required": false,
+          "title": "Team ID"
+        },
+        "name": {
+          "type": "string",
+          "required": false,
+          "title": "Team Name"
+        },
+        "name_2": {
+          "type": "string",
+          "required": false,
+          "title": "Team Name 2"
+        },
+        "primary": {
+          "type": "boolean",
+          "required": false,
+          "title": "Team Primary Flag"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "required": false,
+      "title": "Status"
+    },
+    "date_due_flag": {
+      "type": "boolean",
+      "required": false,
+      "title": "Date Due Flag"
+    },
+    "date_due": {
+      "type": "string",
+      "required": false,
+      "title": "Date Due"
+    },
+    "time_due": {
+      "type": "string",
+      "required": false,
+      "title": "Time Due"
+    },
+    "date_start_flag": {
+      "type": "boolean",
+      "required": false,
+      "title": "Date Start Flag"
+    },
+    "date_start": {
+      "type": "string"
+    },
+    "parent_type": {
+      "type": "string",
+      "required": false,
+      "title": "Parent Type"
+    },
+    "parent_name": {
+      "type": "string",
+      "required": false,
+      "title": "Parent Name"
+    },
+    "parent_id": {
+      "type": "string",
+      "required": false,
+      "title": "Parent ID"
+    },
+    "contact_id": {
+      "type": "string",
+      "required": false,
+      "title": "Contact ID"
+    },
+    "contact_name": {
+      "type": "string",
+      "required": false,
+      "title": "Contact Name"
+    },
+    "contact_phone": {
+      "type": "string",
+      "required": false,
+      "title": "Contact Phone"
+    },
+    "contact_email": {
+      "type": "string",
+      "required": false,
+      "title": "Contact Email"
+    },
+    "priority": {
+      "type": "string",
+      "required": false,
+      "title": "Priority"
+    }
+  }
+}
