@@ -48,7 +48,6 @@ describe('sugarCRM create or update contacts', function () {
                 self,
                 {body: {id: 'test', name: '1'}},
                 cfg,
-                null,
                 {test: 'c24c4069-7092-b95d-c040-523cc74a3d06'}
             );
         });
