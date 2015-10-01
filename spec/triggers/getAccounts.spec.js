@@ -18,7 +18,7 @@ describe('sugarCRM query accounts', function () {
             .reply(200, require('../data/list.out.json'));
 
         runs(function(){
-            trigger.process.call(self, {}, cfg, null, {});
+            trigger.process.call(self, {}, cfg, {});
         });
 
         waitsFor(function(){
@@ -41,7 +41,7 @@ describe('sugarCRM query accounts', function () {
             .reply(401);
 
         runs(function(){
-            trigger.process.call(self, {}, cfg, null, {});
+            trigger.process.call(self, {}, cfg, {});
         });
 
         waitsFor(function(){
@@ -64,7 +64,7 @@ describe('sugarCRM query accounts', function () {
             .reply(501);
 
         runs(function(){
-            trigger.process.call(self, {}, cfg, null, {});
+            trigger.process.call(self, {}, cfg, {});
         });
 
         waitsFor(function(){

@@ -18,7 +18,7 @@ describe('sugarCRM create or update opportunities', function () {
             .reply(200, require('../data/list.out.json').records[0]);
 
         runs(function(){
-            action.process.call(self, {body: {id: 'test', name: '1'}}, cfg, null, {});
+            action.process.call(self, {body: {id: 'test', name: '1'}}, cfg, {});
         });
 
         waitsFor(function(){
@@ -74,7 +74,7 @@ describe('sugarCRM create or update opportunities', function () {
             .reply(401);
 
         runs(function(){
-            action.process.call(self, {body: {id: 'test', name: '1'}}, cfg, null, {});
+            action.process.call(self, {body: {id: 'test', name: '1'}}, cfg, {});
         });
 
         waitsFor(function(){
@@ -97,7 +97,7 @@ describe('sugarCRM create or update opportunities', function () {
             .reply(501);
 
         runs(function(){
-            action.process.call(self, {body: {id: 'test', name: '1'}}, cfg, null, {});
+            action.process.call(self, {body: {id: 'test', name: '1'}}, cfg, {});
         });
 
         waitsFor(function(){
