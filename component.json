@@ -1,6 +1,7 @@
 {
     "title": "SugarCRM 7",
     "description": "SugarCRM REST API",
+    "docsUrl": "https://github.com/elasticio/sugarcrm-component",
     "credentials": {
         "fields":{
             "baseUrl": {
