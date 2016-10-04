@@ -27,6 +27,29 @@
         }
     },
     "triggers": {
+        "executeQueryTrigger": {
+            "title": "Plain SugarCRM query",
+            "main": "./lib/triggers/query.js",
+            "type": "polling",
+            "metadata": {
+                "out": {}
+            },
+            "fields": {
+                "query": {
+                    "label": "Query",
+                    "required": true,
+                    "viewClass": "TextAreaWithNoteView",
+                    "placeholder": "{\n  \"filter\":[\n    {\"name\":\"Nelson Inc\"}\n  ]\n}",
+                    "note": "Complete list of query params you can get <a href='http://support.sugarcrm.com/Documentation/Sugar_Developer/Sugar_Developer_Guide_7.7/Integration/Web_Services/v10/Endpoints/modulefilter_POST/' target='_blank'>here</a>"
+
+                },
+                "module": {
+                    "label": "Module",
+                    "required": true,
+                    "viewClass": "TextFieldView"
+                }
+            }
+        },
         "getAccounts": {
             "main": "./lib/triggers/getAccounts.js",
             "type": "polling",
@@ -69,6 +92,30 @@
         }
     },
     "actions": {
+        "executeQueryAction": {
+            "title": "Plain SugarCRM query",
+            "main": "./lib/triggers/query.js",
+            "metadata": {
+                "out": {},
+                "in": {
+                     "type": "object",
+                     "properties": {
+                         "query": {
+                             "maxLength": 20000,
+                             "title": "Query",
+                             "type": "string",
+                             "required": true
+                         },
+                         "module": {
+                             "maxLength": 100,
+                             "title": "Module",
+                             "type": "string",
+                             "required": true
+                         }
+                     }
+                }
+            }
+        },
         "createOrUpdateAccount": {
             "main": "./lib/actions/createOrUpdateAccount.js",
             "title": "Sync Account",
