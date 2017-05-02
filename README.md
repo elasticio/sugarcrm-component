@@ -1,8 +1,8 @@
 # sugarcrm-component
 
-> Sugar CRM component template for the [elastic.io platform](http://www.elastic.io "elastic.io platform")
+> Sugar CRM component template for the [elastic.io platform](https://www.elastic.io "elastic.io platform")
 
-This is an open source component template for [Sugar CRM](https://www.sugarcrm.com) which is developed specifically to run on [elastic.io platform](http://www.elastic.io "elastic.io platform"). You can clone it and change it as you wish. However, **if you plan to deploy it into [elastic.io platform](http://www.elastic.io "elastic.io platform") you must follow sets of instructions to succeed**.
+This is an open source component template for [Sugar CRM](https://www.sugarcrm.com) which is developed specifically to run on [elastic.io platform](https://www.elastic.io "elastic.io platform"). You can clone it and change it as you wish. However, **if you plan to deploy it into [elastic.io platform](https://www.elastic.io "elastic.io platform") you must follow sets of instructions to succeed**.
 
 ## Before you Begin
 
@@ -10,15 +10,15 @@ Before you can deploy any code into our system **you must be a registered elasti
 
 > Any attempt to deploy a code into our platform without a registration would be rejected.
 
-After the registration and opening of the account you must **[upload your SSH Key](http://docs.elastic.io/docs/ssh-key)** into our platform.
+After the registration and opening of the account you must **[upload your SSH Key](http://go2.elastic.io/manage-ssh-keys)** into our platform.
 
 > If you fail to upload you SSH Key you will get **permission denied** error during the deployment.
 
 ## Getting Started
 
 After registration and uploading of your SSH Key you can proceed to deploy it into our system. At this stage we suggest you to:
-* [Create a team](http://docs.elastic.io/page/team-management) to work on your new component. This is not required but will be automatically created using random naming by our system so we suggest you name your team accordingly.
-* [Create a repository](http://docs.elastic.io/page/repository-management) where your new component is going to *reside* inside the team that you have just created. For a simplicity you can name your repository **sugarcrm-component** or **sugarcrm**.
+* [Create a team](http://go2.elastic.io/manage-teams) to work on your new component (**required**).
+* [Create a repository](http://go2.elastic.io/manage-repositories) where your new component is going to *reside* inside the team that you have just created. For a simplicity you can name your repository **sugarcrm-component** or **sugarcrm**.
 
 ```bash
 $ git clone https://github.com/elasticio/sugarcrm-component.git sugarcrm-component
@@ -32,6 +32,4 @@ $ git remote add elasticio your-team@git.elastic.io:sugarcrm-component.git
 
 $ git push elasticio master
 ```
-Obviously the naming of your team and repository is entirely up-to you and if you do not put any corresponding naming our system will auto generate it for you but the naming might not entirely correspond to your project requirements.
-
-To learn on how to use this component please check our [sugarcrm documentation](http://docs.elastic.io/docs/sugarcrm-component).
+Please follow the instruction provided in the [Create a team](http://go2.elastic.io/manage-teams) and [Create a repository](http://go2.elastic.io/manage-repositories) for a success.
