@@ -14,7 +14,7 @@ describe('sugarCRM query accounts', function () {
         nock('https://test.com/')
             .post('/rest/v10/oauth2/token')
             .reply(200, {access_token: 1})
-            .post('/rest/v10/Accounts')
+            .post('/rest/v10/Accounts/filter')
             .reply(200, require('../data/list.out.json'));
 
         runs(function(){
