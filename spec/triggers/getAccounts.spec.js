@@ -1,6 +1,6 @@
-describe('sugarCRM query accounts', function () {
+describe('sugarCRM query tests', function () {
     var nock = require('nock');
-    var trigger = require('../../lib/triggers/getAccounts');
+    var modules = ['Accounts', 'Contacts', 'Leads', 'Opportunities'];
 
     var cfg = {
         baseUrl: 'test.com'
@@ -10,71 +10,31 @@ describe('sugarCRM query accounts', function () {
     beforeEach(function() {
         self = jasmine.createSpyObj('self', ['emit']);
     });
-    iit('should emit msg, snapshot events on success request', function () {
-        nock('https://test.com/')
-            .post('/rest/v10/oauth2/token')
-            .reply(200, {access_token: 1})
-            .post('/rest/v10/Accounts/filter')
-            .reply(200, require('../data/list.out.json'));
+    it('should emit msg, snapshot events on success request', function () {
+        modules.forEach(module => {
+            var trigger = require('../../lib/triggers/get' + module);
 
-        runs(function(){
-            trigger.process.call(self, {}, cfg, {});
-        });
+            nock('https://test.com/')
+                .post('/rest/v10/oauth2/token')
+                .reply(200, {access_token: 1})
+                .post('/rest/v10/' + module + '/filter')
+                .reply(200, require('../data/list.out.json'));
 
-        waitsFor(function(){
-            return self.emit.calls.length > 0;
-        });
+            runs(function () {
+                trigger.process.call(self, {}, cfg, {});
+            });
 
-        runs(function(){
-            var calls = self.emit.calls;
-            expect(calls.length).toEqual(2);
-            expect(calls[0].args[0]).toEqual('data');
-            expect(calls[0].args[1].body.data.length).toEqual(20);
-            expect(calls[1].args[0]).toEqual('snapshot');
-        });
-    });
+            waitsFor(function () {
+                return self.emit.calls.length > 0;
+            });
 
-    it('should emit error, end events on failed auth', function () {
-        nock('https://test.com/')
-            .post('/rest/v10/oauth2/token')
-            .reply(401);
-
-        runs(function(){
-            trigger.process.call(self, {}, cfg, {});
-        });
-
-        waitsFor(function(){
-            return self.emit.calls.length;
-        });
-
-        runs(function(){
-            var calls = self.emit.calls;
-            expect(calls.length).toEqual(2);
-            expect(calls[0].args[0]).toEqual('error');
-            expect(calls[1].args[0]).toEqual('end');
-        });
-    });
-
-    it('should emit error, end events on failed list request', function () {
-        nock('https://test.com/')
-            .post('/rest/v10/oauth2/token')
-            .reply(200, {access_token: 1})
-            .get('/rest/v10/Accounts')
-            .reply(501);
-
-        runs(function(){
-            trigger.process.call(self, {}, cfg, {});
-        });
-
-        waitsFor(function(){
-            return self.emit.calls.length;
-        });
-
-        runs(function(){
-            var calls = self.emit.calls;
-            expect(calls.length).toEqual(2);
-            expect(calls[0].args[0]).toEqual('error');
-            expect(calls[1].args[0]).toEqual('end');
+            runs(function () {
+                var calls = self.emit.calls;
+                expect(calls.length).toEqual(2);
+                expect(calls[0].args[0]).toEqual('data');
+                expect(calls[0].args[1].body.data.length).toEqual(20);
+                expect(calls[1].args[0]).toEqual('snapshot');
+            });
         });
     });
 });
