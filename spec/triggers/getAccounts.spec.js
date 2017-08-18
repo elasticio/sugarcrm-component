@@ -12,12 +12,12 @@ describe('sugarCRM query tests', function () {
     });
     it('should emit msg, snapshot events on success request', function () {
         modules.forEach(module => {
-            var trigger = require('../../lib/triggers/get' + module);
+            var trigger = require(`../../lib/triggers/get${module}`);
 
             nock('https://test.com/')
                 .post('/rest/v10/oauth2/token')
                 .reply(200, {access_token: 1})
-                .post('/rest/v10/' + module + '/filter')
+                .post(`/rest/v10/${module}/filter`)
                 .reply(200, require('../data/list.out.json'));
 
             runs(function () {
