@@ -27,7 +27,7 @@
             "clientSecret" : {
                 "label": "Your OAuth 2.0 Consumer Secret",
                 "required" : true,
-                "viewClass": "TextFieldView"
+                "viewClass": "PasswordFieldView"
             }
         }
     },
