@@ -6,25 +6,34 @@ describe('Verify Credentials', function () {
     var cfg;
     var cb;
 
+    var self;
+
     beforeEach(function () {
         cfg = {baseUrl: 'test.com'};
         cb = jasmine.createSpy('cb');
+        self = jasmine.createSpyObj('self', ['emit']);
 
     });
 
     it('should return verified false if user did not provide baseUrl required param', function () {
         var cfg = {};
 
-        waitsFor(function () {
-            return cb.callCount;
+        var result, exception;
+        runs(async function() {
+            try {
+                result = await verify.call(self, cfg, cb);
+            } catch (e) {
+                exception = e;
+            }
         });
 
-        verify(cfg, cb);
+        waitsFor(function() {
+            return typeof(result) === 'boolean';
+        });
 
         runs(function () {
-            expect(cb).toHaveBeenCalled();
-            expect(cb.calls.length).toEqual(1);
-            expect(cb).toHaveBeenCalledWith(null, {verified: false});
+            expect(e).not.toBeNull();
+            expect(e.message).toBe('SugarCRM Configuration is missing base URL');
         });
     });
 

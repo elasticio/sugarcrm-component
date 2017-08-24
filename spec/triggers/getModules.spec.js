@@ -1,9 +1,13 @@
-describe('sugarCRM query tests', function () {
+ddescribe('sugarCRM query tests', function () {
     var nock = require('nock');
     var modules = ['Accounts', 'Contacts', 'Leads', 'Opportunities'];
 
     var cfg = {
-        baseUrl: 'test.com'
+        baseUrl: 'test.com',
+        auth: {
+            access_token: 1,
+            access_token_expiry: new Date((new Date()).getTime() + 7000)
+        }
     };
 
     var self;
@@ -15,8 +19,6 @@ describe('sugarCRM query tests', function () {
             var trigger = require(`../../lib/triggers/get${module}`);
 
             nock('https://test.com/')
-                .post('/rest/v10/oauth2/token')
-                .reply(200, {access_token: 1})
                 .post(`/rest/v10/${module}/filter`)
                 .reply(200, require('../data/list.out.json'));
 
