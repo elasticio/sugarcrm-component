@@ -4,7 +4,7 @@ ddescribe('sugarCRM query tests', function () {
 
     var cfg = {
         baseUrl: 'test.com',
-        auth: {
+        oauth: {
             access_token: 1,
             access_token_expiry: new Date((new Date()).getTime() + 7000)
         }
