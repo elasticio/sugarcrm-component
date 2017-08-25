@@ -8,6 +8,7 @@ async function verify(credentials) {
         const pingResponse = await instance.makeRequest('ping', 'GET');
         return pingResponse === 'pong';
     } catch (e) {
+        // Workaround for https://github.com/elasticio/sailor-nodejs/issues/58
         console.log(`Exception: ${e.toString()} \n ${e.stack}`);
         return false;
     }
