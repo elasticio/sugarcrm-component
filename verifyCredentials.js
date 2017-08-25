@@ -8,7 +8,7 @@ async function verify(credentials) {
         const pingResponse = await instance.makeRequest('ping', 'GET');
         return pingResponse === 'pong';
     } catch (e) {
-        console.log('Exception: ' + e.toString());
+        console.log(`Exception: ${e.toString()} \n ${e.stack}`);
         return false;
     }
 }
