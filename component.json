@@ -70,43 +70,29 @@
                     "prompt": "Select a SugarCRM module"
                 },
                 "newUpdatedOrAll" : {
-                    "label": "T"
+                    "label": "Entries to fetch",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": {
+                        "new": "Only fetch new objects",
+                        "updated": "Only fetch objects after an update",
+                        "all": "Fetch both new and updated objects"
+                    },
+                    "prompt": "Choose an option"
+                },
+                "returnIndividually" : {
+                    "label": "Return results individually",
+                    "viewClass": "SelectView",
+                    "required": true,
+                    "model" : {
+                        "individually": "Return results one at a time",
+                        "array": "Return results as an array"
+                    },
+                    "prompt": "Choose an option"
                 }
             },
             "metadata": {
-                "out": "./lib/schemas/getAccounts.out.json"
-            }
-        },
-        "getContacts": {
-            "main": "./lib/triggers/getContacts.js",
-            "type": "polling",
-            "title": "Query Contacts",
-            "metadata": {
-                "out": "./lib/schemas/getContacts.out.json"
-            }
-        },
-        "getLeads": {
-            "main": "./lib/triggers/getLeads.js",
-            "type": "polling",
-            "title": "Query Leads",
-            "metadata": {
-                "out": "./lib/schemas/getLeads.out.json"
-            }
-        },
-        "getOpportunities": {
-            "main": "./lib/triggers/getOpportunities.js",
-            "type": "polling",
-            "title": "Query Opportunities",
-            "metadata": {
-                "out": "./lib/schemas/getOpportunities.out.json"
-            }
-        },
-        "getTasks": {
-            "main": "./lib/triggers/getTasks.js",
-            "type": "polling",
-            "title": "Query Tasks",
-            "metadata": {
-                "out": "./lib/schemas/getTasks.out.json"
+                "out": {}
             }
         }
     },
