@@ -121,44 +121,63 @@
                 }
             }
         },
-        "createOrUpdateAccount": {
-            "main": "./lib/actions/createOrUpdateAccount.js",
-            "title": "Sync Account",
-            "metadata": {
-                "in": "./lib/schemas/createOrUpdateAccount.in.json",
-                "out": "./lib/schemas/getAccounts.out.json"
+        "createEntry" :{
+            "main": "./lib/actions/createEntry.js",
+            "title": "Create a new entry",
+            "description": "Create a new entry",
+            "dynamicMetadata": true,
+            "fields" : {
+                "module" : {
+                    "label": "SugarCRM module to create",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": "modules",
+                    "prompt": "Select a SugarCRM module"
+                }
             }
         },
-        "createOrUpdateContact": {
-            "main": "./lib/actions/createOrUpdateContact.js",
-            "title": "Sync Contact",
-            "metadata": {
-                "in": "./lib/schemas/createOrUpdateContact.in.json",
-                "out": "./lib/schemas/getContacts.out.json"
+        "updateEntry" :{
+            "main": "./lib/actions/updateEntry.js",
+            "title": "Update an existing entry",
+            "description": "Update an existing entry",
+            "dynamicMetadata": true,
+            "fields" : {
+                "module" : {
+                    "label": "SugarCRM module to update",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": "modules",
+                    "prompt": "Select a SugarCRM module"
+                },
+                "externalIdField" : {
+                    "viewClass":"TextFieldView",
+                    "label":"Property to match",
+                    "required":true,
+                    "note": "This is the property to match.  This component will find a single object which has this value and update it.",
+                    "placeholder": ""
+                }
             }
         },
-        "createOrUpdateLead": {
-            "main": "./lib/actions/createOrUpdateLead.js",
-            "title": "Sync Lead",
-            "metadata": {
-                "in": "./lib/schemas/createOrUpdateLead.in.json",
-                "out": "./lib/schemas/getLeads.out.json"
-            }
-        },
-        "createOrUpdateOpportunity": {
-            "main": "./lib/actions/createOrUpdateOpportunity.js",
-            "title": "Sync Opportunity",
-            "metadata": {
-                "in": "./lib/schemas/createOrUpdateOpportunity.in.json",
-                "out": "./lib/schemas/getOpportunities.out.json"
-            }
-        },
-        "createOrUpdateTask": {
-            "main": "./lib/actions/createOrUpdateTask.js",
-            "title": "Sync Task",
-            "metadata": {
-                "in": "./lib/schemas/createOrUpdateTask.in.json",
-                "out": "./lib/schemas/getTasks.out.json"
+        "upsertEntry" :{
+            "main": "./lib/actions/upsertEntry.js",
+            "title": "Upsert Entry",
+            "description": "Update an existing entry if it exists or otherwise create it",
+            "dynamicMetadata": true,
+            "fields" : {
+                "module" : {
+                    "label": "SugarCRM module to update",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": "modules",
+                    "prompt": "Select a SugarCRM module"
+                },
+                "externalIdProperty" : {
+                    "viewClass":"TextFieldView",
+                    "label":"Property to match",
+                    "required":true,
+                    "note": "This is the property to match.  This component will find a single object which has this value and update it.  If this object does not exist, we will create it.",
+                    "placeholder": ""
+                }
             }
         }
     }

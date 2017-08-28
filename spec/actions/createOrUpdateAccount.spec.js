@@ -1,6 +1,6 @@
 describe('sugarCRM create or update accounts', function () {
     var nock = require('nock');
-    var action = require('../../lib/actions/createOrUpdateAccount');
+    var action = require('../../lib/actions/createEntry');
 
     var cfg = {
         baseUrl: 'test.com'
