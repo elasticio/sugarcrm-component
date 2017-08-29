@@ -1,10 +1,10 @@
-var sugarCRM = require('./lib/sugarcrm');
+'use strict';
 
-module.exports = verify;
+const SugarCRM = require('./lib/sugarcrm');
 
-async function verify(credentials) {
+module.exports = async function Verify(credentials) {
     try {
-        const instance = new sugarCRM(credentials, this);
+        const instance = new SugarCRM(credentials, this);
         const pingResponse = await instance.makeRequest('ping', 'GET');
         if (pingResponse === 'pong') {
             console.log('Successfully verified credentials.');
@@ -17,5 +17,4 @@ async function verify(credentials) {
         console.log(`Exception: ${e.toString()} \n ${e.stack}`);
         return false;
     }
-}
-
+};

@@ -4,10 +4,11 @@
   "description": "elastic.io component that connects to Sugar CRM API (node.js)",
   "main": "index.js",
   "engines": {
-    "node": "8.1.0"
+    "node": "^8.4.0"
   },
   "scripts": {
-    "test": "echo"
+    "pretest": "eslint --ignore-pattern '*uery.js' verifyCredentials.js lib --fix",
+    "test": "exit 0"
   },
   "repository": {
     "type": "git",
@@ -28,22 +29,10 @@
     "crc": "3.2.1",
     "elasticio-node": "0.0.7",
     "elasticio-sailor-nodejs": "^2.2.0",
-    "q": "^1.4.1",
-    "request": "^2.61.0",
+    "request": "^2.81.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "nock": "0.53.0",
-    "grunt": "~0.4.5",
-    "grunt-cli": "~0.1.9",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-jasmine-node": "0.3.1",
-    "grunt-contrib-jshint": "~0.7.2",
-    "grunt-contrib-copy": "~0.5.0",
-    "grunt-istanbul": "0.5.0",
-    "grunt-env": "~0.4.1",
-    "grunt-coveralls": "0.3.0",
-    "stream-buffers": "0.2.5",
-    "grunt-jscs": "^0.7.0"
+    "nock": "0.53.0"
   }
 }
