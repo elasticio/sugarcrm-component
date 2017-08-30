@@ -2,25 +2,7 @@
 
 const expect = require('chai').expect;
 const GetEntry = require('../lib/triggers/getEntry');
-const EventEmitter = require('events');
-
-class TestEmitter extends EventEmitter {
-    constructor() {
-        super();
-        this.data = [];
-        this.error = [];
-        this.snapshot = [];
-        this.keys = [];
-
-        this.on('data', (value) => this.data.push(value));
-        this.on('error', (value) => {
-            this.error.push(value);
-            console.error(value.stack || value);
-        });
-        this.on('snapshot', (value) => this.snapshot.push(value));
-        this.on('updateKeys', (value) => this.keys.push(value));
-    }
-}
+const TestEmitter = require('./TestEmitter');
 
 describe('Get Entry Test', function getEntryTest() {
     let username;
