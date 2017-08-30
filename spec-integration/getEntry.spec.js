@@ -22,7 +22,7 @@ class TestEmitter extends EventEmitter {
     }
 }
 
-describe('Get Enty Test', function getEntryTest() {
+describe('Get Entry Test', function getEntryTest() {
     let username;
     let password;
     let appId;
@@ -73,5 +73,19 @@ describe('Get Enty Test', function getEntryTest() {
         expect(emitter.data.length).to.be.above(1);
         expect(emitter.data[1]).to.be.a('object');
         expect(emitter.data[1]).to.not.deep.equal(emitter.data[0]);
+    });
+
+    it('Get Modules', async function getModules() {
+        const cfg = {
+            clientID: appId,
+            clientSecret: appSecret,
+            userName: username,
+            password: password,
+            baseUrl: sugarDoman
+        };
+
+        const modules = await GetEntry.modules(cfg);
+
+        expect(modules['Contacts']).to.equal('Contacts');
     });
 });
