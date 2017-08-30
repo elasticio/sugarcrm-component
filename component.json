@@ -89,6 +89,11 @@
                         "array": "Return results as an array"
                     },
                     "prompt": "Choose an option"
+                },
+                "maxNum": {
+                    "label": "Number of records to fetch",
+                    "viewClass": "TextFieldView",
+                    "prompt": "20"
                 }
             },
             "metadata": {

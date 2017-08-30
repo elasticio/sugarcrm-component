@@ -7,8 +7,9 @@
     "node": "^8.4.0"
   },
   "scripts": {
-    "pretest": "eslint --ignore-pattern '*uery.js' verifyCredentials.js lib --fix",
-    "test": "exit 0"
+    "pretest": "eslint --ignore-pattern '*uery.js' verifyCredentials.js lib spec spec-integration --fix",
+    "test": "mocha spec",
+    "integration-test": "mocha spec-integration"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,11 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "chai": "^4.1.1",
+    "dotenv": "^4.0.0",
+    "eslint": "^3.1.1",
+    "eslint-plugin-mocha": "^4.8.0",
+    "mocha": "^3.2.0",
     "nock": "0.53.0"
   }
 }
