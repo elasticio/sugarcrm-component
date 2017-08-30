@@ -154,7 +154,7 @@
                     "model": "modules",
                     "prompt": "Select a SugarCRM module"
                 },
-                "externalIdField" : {
+                "externalIdProperty" : {
                     "viewClass":"TextFieldView",
                     "label":"Property to match",
                     "required":true,

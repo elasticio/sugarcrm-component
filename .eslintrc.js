@@ -156,6 +156,7 @@ module.exports = {
         ],
         'no-console': [
             OFF
-        ]
+        ],
+        "mocha/no-exclusive-tests": "error"
     }
 };
