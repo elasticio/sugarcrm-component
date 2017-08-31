@@ -4,7 +4,8 @@
   "description": "elastic.io component that connects to Sugar CRM API (node.js)",
   "main": "index.js",
   "engines": {
-    "node": "^8.4.0"
+    "node": "^8.4.0",
+    "npm": "^5.3.4"
   },
   "scripts": {
     "pretest": "eslint --ignore-pattern '*uery.js' verifyCredentials.js lib spec spec-integration --fix",
