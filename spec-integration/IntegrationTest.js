@@ -6,7 +6,7 @@ const SugarCrm = require('../lib/sugarcrm');
 const TestEmitter = require('./TestEmitter');
 const verifyCredentials = require('../verifyCredentials');
 const createEntry = require('../lib/actions/createEntry');
-const updateEntry = require('../lib/actions/updateEntry')
+const updateEntry = require('../lib/actions/updateEntry');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
@@ -116,11 +116,13 @@ describe('Integration Test', function GetEntryTest() {
         it('Create Contact and Then Update', async function CreateAndThenContact() {
             const id = Math.random();
             const emitter = new TestEmitter();
-            const msg = {body: {
-                name: 'CreateIntegrationTestContact',
-                description: `Created at ${(new Date()).toISOString()}`,
-                externalid_c: id
-            }};
+            const msg = {
+                body: {
+                    name: 'CreateIntegrationTestContact',
+                    description: `Created at ${(new Date()).toISOString()}`,
+                    externalid_c: id
+                }
+            };
             cfg.module = 'Contacts';
 
             const newEntry = await createEntry.process.call(emitter, msg, cfg);
@@ -132,7 +134,9 @@ describe('Integration Test', function GetEntryTest() {
             newEntry.description = `${newEntry.description}\nUpdated at ${(new Date()).toISOString()}`;
             cfg.externalIdProperty = 'externalid_c';
 
-            const updatedEntry = await updateEntry.process.call(emitter, {body: newEntry}, cfg);
+            const updatedEntry = await updateEntry.process.call(emitter, {
+                body: newEntry
+            }, cfg);
             expect(updatedEntry.id).to.exist;
             expect(updatedEntry.id).to.be.equal(originalId);
         });
@@ -140,11 +144,13 @@ describe('Integration Test', function GetEntryTest() {
         it('Upsert test', async function UpsertTest() {
             const id = Math.random();
             const emitter = new TestEmitter();
-            const msg = {body: {
-                name: 'UpsertIntegrationTestContact',
-                description: `Created at ${(new Date()).toISOString()}`,
-                externalid_c: id
-            }};
+            const msg = {
+                body: {
+                    name: 'UpsertIntegrationTestContact',
+                    description: `Created at ${(new Date()).toISOString()}`,
+                    externalid_c: id
+                }
+            };
             cfg.module = 'Contacts';
 
             const newEntry = await createEntry.process.call(emitter, msg, cfg);
@@ -156,7 +162,9 @@ describe('Integration Test', function GetEntryTest() {
             newEntry.description = `${newEntry.description}\nUpdated at ${(new Date()).toISOString()}`;
             cfg.externalIdProperty = 'externalid_c';
 
-            const updatedEntry = await updateEntry.process.call(emitter, {body: newEntry}, cfg);
+            const updatedEntry = await updateEntry.process.call(emitter, {
+                body: newEntry
+            }, cfg);
             expect(updatedEntry.id).to.exist;
             expect(updatedEntry.id).to.be.equal(originalId);
         });
