@@ -66,11 +66,21 @@ describe('Integration Test', function GetEntryTest() {
             expect(emitter.data[1]).to.be.a('object');
             expect(emitter.data[1]).to.not.deep.equal(emitter.data[0]);
         });
+    });
 
+    describe('Metadata tests', function MetadataTests() {
         it('Get Modules', async function GetModules() {
             const modules = await getEntry.modules(cfg);
 
             expect(modules.Contacts).to.equal('Contacts');
+        });
+
+        it.only('Build schema', async function BuildSchemaTest() {
+            cfg.module = 'Contacts';
+            const schema = await createEntry.getMetaModel(cfg);
+
+            expect(schema.properties.id.required).to.be.true;
+            expect(schema.properties.date_modified).to.not.exist;
         });
     });
 
