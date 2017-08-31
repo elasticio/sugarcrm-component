@@ -79,8 +79,8 @@ describe('Integration Test', function GetEntryTest() {
             cfg.module = 'Contacts';
             const schema = await createEntry.getMetaModel(cfg);
 
-            expect(schema.properties.id.required).to.be.true;
-            expect(schema.properties.date_modified).to.not.exist;
+            expect(schema.in.properties.id.required).to.be.true;
+            expect(schema.in.properties.date_modified).to.not.exist;
         });
     });
 
