@@ -75,7 +75,7 @@ describe('Integration Test', function GetEntryTest() {
             expect(modules.Contacts).to.equal('Contacts');
         });
 
-        it.only('Build schema', async function BuildSchemaTest() {
+        it('Build schema', async function BuildSchemaTest() {
             cfg.module = 'Contacts';
             const schema = await createEntry.getMetaModel(cfg);
 
