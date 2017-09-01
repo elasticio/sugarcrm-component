@@ -21,8 +21,13 @@
             },
             "clientID": {
                 "label": "Your OAuth 2.0 Consumer Key",
-                "required": false,
+                "required": true,
                 "viewClass": "TextFieldView"
+            },
+            "clientSecret" : {
+                "label": "Your OAuth 2.0 Consumer Secret",
+                "required" : true,
+                "viewClass": "PasswordFieldView"
             }
         }
     },
