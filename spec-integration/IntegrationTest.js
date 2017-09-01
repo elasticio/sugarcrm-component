@@ -23,7 +23,7 @@ describe('Integration Test', function GetEntryTest() {
             require('dotenv').config();
         }
 
-        username = process.env.USERNAME;
+        username = process.env.SUGAR_USERNAME;
         password = process.env.PASSWORD;
         appId = process.env.OAUTH_APPLICATION_ID;
         appSecret = process.env.OAUTH_APPLICATION_SECRET;
