@@ -8,29 +8,6 @@ describe('sugarcrm.js', function () {
             expect(instance.getConfig().baseUrl).toEqual('test.com');
         });
     });
-    describe('getList', function () {
-        var expectedResult = require('./data/list.result.json');
-        var result;
-        beforeEach(function () {
-            nock('https://test.com/')
-                .get('/rest/v10/Accounts')
-                .reply(200, require('./data/list.out.json'));
-            instance
-                .getList('Accounts', {})
-                .then(function (data) {
-                    result = data;
-                });
-            waitsFor(function () {
-                return result;
-            });
-        });
-        afterEach(function () {
-            result = null;
-        });
-        it('should return proper hashmap', function () {
-            expect(result).toEqual(expectedResult);
-        });
-    });
 
     describe('auth', function () {
         it('should return promise resolve on success auth check', function (done) {
