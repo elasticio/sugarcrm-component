@@ -1,27 +1,20 @@
-var sugarCRM = require('./lib/sugarcrm');
+'use strict';
 
-module.exports = verify;
+const SugarCRM = require('./lib/sugarcrm');
 
-function verify(credentials, cb) {
-    if (!credentials.baseUrl) {
-        return cb(null, {verified: false});
-    }
-
-    var instance = new sugarCRM(credentials);
-
-    function onResponse(response) {
-        cb(null, {verified: true});
-    }
-
-    function onFail(error) {
-        if (error.statusCode && (error.statusCode === 401 || error.statusCode === 400)) {
-            return cb(null, {verified: false});
+module.exports = async function Verify(credentials) {
+    try {
+        const instance = new SugarCRM(credentials, this);
+        const pingResponse = await instance.makeRequest('ping', 'GET');
+        if (pingResponse === 'pong') {
+            console.log('Successfully verified credentials.');
+            return true;
         }
-        cb(error);
+        console.log(`Error in validating credentials.  Expected pong.  Instead got: ${JSON.stringify(pingResponse)}`);
+        return false;
+    } catch (e) {
+        // Workaround for https://github.com/elasticio/sailor-nodejs/issues/58
+        console.log(`Exception: ${e.toString()} \n ${e.stack}`);
+        return false;
     }
-
-    instance.auth()
-        .then(onResponse)
-        .fail(onFail);
-}
-
+};

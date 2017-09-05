@@ -1,4 +1,4 @@
-# sugarcrm-component
+# sugarcrm-component [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
 > Sugar CRM component template for the [elastic.io platform](https://www.elastic.io "elastic.io platform")
 
@@ -33,3 +33,27 @@ $ git remote add elasticio your-team@git.elastic.io:sugarcrm-component.git
 $ git push elasticio master
 ```
 Please follow the instruction provided in the [Create a team](http://go2.elastic.io/manage-teams) and [Create a repository](http://go2.elastic.io/manage-repositories) for a success.
+
+## Creating an app on a SugarCRM instance
+
+# As an admin on your SugarCRM instance, go to the Administration panel
+# Select **OAuth Keys**
+# In the top bar, select the dropdown for the now visible **OAuth Keys** option
+# Select **Create OAuth Key**
+# Fill in the following values:
+** **Consumer Key Name**: Pick a name that is convenient to remember
+** **Consumer Key**: Pick a strongly random string.  You will need to provide this information as part of the SugarCRM component account information
+** **Consumer Secret**: Pick a strongly random string.  You will need to provide this information as part of the SugarCRM component account information
+** **OAuth Version**: OAuth 2.0
+** Client Type**: Sugar User
+** **Description**: Optional value for your conveience
+# Click save
+
+
+
+[npm-image]: https://badge.fury.io/js/sugarcrm-component.svg
+[npm-url]: https://npmjs.org/package/sugarcrm-component
+[travis-image]: https://travis-ci.org/elasticio/sugarcrm-component.svg?branch=master
+[travis-url]: https://travis-ci.org/elasticio/sugarcrm-component
+[daviddm-image]: https://david-dm.org/elasticio/sugarcrm-component.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/elasticio/sugarcrm-component
