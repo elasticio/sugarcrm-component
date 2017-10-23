@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const getEntry = require('../lib/triggers/getEntry');
+const getEntry = require('../lib/triggers/getEntitiesPolling');
 const SugarCrm = require('../lib/sugarcrm');
 const TestEmitter = require('./TestEmitter');
 const verifyCredentials = require('../verifyCredentials');

@@ -55,10 +55,10 @@
                 }
             }
         },
-        "getEntry": {
-            "main": "./lib/triggers/getEntry.js",
+        "getEntitiesPolling": {
+            "main": "./lib/triggers/getEntitiesPolling.js",
             "type": "polling",
-            "title": "Fetch new and updated objects",
+            "title": "Fetch new and updated objects (getEntities - Polling)",
             "description": "Get SugarCRM objects which have recently been modified or created",
             "dynamicMetadata": true,
             "fields" : {
@@ -69,31 +69,11 @@
                     "model": "modules",
                     "prompt": "Select a SugarCRM module"
                 },
-                "newUpdatedOrAll" : {
-                    "label": "Entries to fetch",
-                    "required": true,
-                    "viewClass": "SelectView",
-                    "model": {
-                        "new": "Only fetch new objects",
-                        "updated": "Only fetch objects after an update",
-                        "all": "Fetch both new and updated objects"
-                    },
-                    "prompt": "Choose an option"
-                },
-                "returnIndividually" : {
-                    "label": "Return results individually",
-                    "viewClass": "SelectView",
-                    "required": true,
-                    "model" : {
-                        "individually": "Return results one at a time",
-                        "array": "Return results as an array"
-                    },
-                    "prompt": "Choose an option"
-                },
                 "maxNum": {
                     "label": "Number of records to fetch",
                     "viewClass": "TextFieldView",
-                    "prompt": "20"
+                    "prompt": "20",
+                    "note": "Defaults to 20"
                 }
             },
             "metadata": {
