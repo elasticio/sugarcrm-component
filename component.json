@@ -60,7 +60,6 @@
             "type": "polling",
             "title": "Fetch new and updated objects (getEntities - Polling)",
             "description": "Get SugarCRM objects which have recently been modified or created",
-            "dynamicMetadata": true,
             "fields" : {
                 "module" : {
                     "label": "SugarCRM module to fetch",
