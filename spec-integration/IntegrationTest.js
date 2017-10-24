@@ -84,12 +84,20 @@ describe('Integration Test', function GetEntryTest() {
             expect(modules.Contacts).to.equal('Contacts');
         });
 
-        it('Build schema', async function BuildSchemaTest() {
+        it('Build in schema', async function BuildInSchemaTest() {
             cfg.module = 'Contacts';
             const schema = await createEntry.getMetaModel(cfg);
 
             expect(schema.in.properties.id.required).to.be.true;
             expect(schema.in.properties.date_modified).to.not.exist;
+        });
+
+        it('Build out schema', async function BuildOutSchemaTest() {
+            cfg.module = 'Contacts';
+            const schema = await getEntitiesWebhook.getMetaModel(cfg);
+
+            expect(schema.out.properties.id.required).to.be.true;
+            expect(schema.out.properties.date_modified).to.exist;
         });
     });
 
