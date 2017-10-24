@@ -78,6 +78,25 @@
             "metadata": {
                 "out": {}
             }
+        },
+        "getEntitiesWebhook": {
+            "main": "./lib/triggers/getEntitiesWebhook.js",
+            "type": "webhook",
+            "title": "Fetch new and updated objects (getEntities - Webhook)",
+            "description": "Get SugarCRM objects which have recently been modified or created",
+            "dynamicMetadata": true,
+            "fields" : {
+                "module" : {
+                    "label": "SugarCRM module to fetch",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": "modules",
+                    "prompt": "Select a SugarCRM module"
+                }
+            },
+            "metadata": {
+                "out": {}
+            }
         }
     },
     "actions": {
