@@ -127,13 +127,39 @@
         }
     },
     "actions": {
-        "LookupEntity" : {
+        "lookupEntity" : {
             "title": "Lookup Entity",
             "main": "./lib/actions/lookupEntity.js",
             "description": "Given an id, fetches the corresponding object.",
             "fields" : {
                 "module" : {
                     "label": "SugarCRM module to lookup",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": "modules",
+                    "prompt": "Select a SugarCRM module"
+                }
+            },
+            "metadata": {
+                "in": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "title": "id",
+                            "type": "string",
+                            "required": true
+                        }
+                    }
+                }
+            }
+        },
+        "deleteEntity" : {
+            "title": "Delete Entity",
+            "main": "./lib/actions/deleteEntity.js",
+            "description": "Given an id, deletes the corresponding object.",
+            "fields" : {
+                "module" : {
+                    "label": "SugarCRM module to delete",
                     "required": true,
                     "viewClass": "SelectView",
                     "model": "modules",

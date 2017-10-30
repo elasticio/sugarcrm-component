@@ -1,15 +1,16 @@
 'use strict';
 
 const expect = require('chai').expect;
-const getEntry = require('../lib/triggers/getEntitiesPolling');
+const getEntity = require('../lib/triggers/getEntitiesPolling');
 const SugarCrm = require('../lib/sugarcrm');
 const TestEmitter = require('./TestEmitter');
 const verifyCredentials = require('../verifyCredentials');
-const createEntry = require('../lib/actions/createEntry');
-const updateEntry = require('../lib/actions/updateEntry');
+const createEntity = require('../lib/actions/createEntry');
+const updateEntity = require('../lib/actions/updateEntry');
 const getEntitiesWebhook = require('../lib/triggers/getEntitiesWebhook');
 const getDeletedEntitiesWebhook = require('../lib/triggers/getDeletedEntitiesWebhook');
-const lookupEntry = require('../lib/actions/lookupEntity');
+const lookupEntity = require('../lib/actions/lookupEntity');
+const deleteEntity = require('../lib/actions/deleteEntity');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
@@ -62,7 +63,7 @@ describe('Integration Test', function GetEntryTest() {
 
             const initialSnapshot = undefined;
 
-            await getEntry.process.call(emitter, msg, cfg, initialSnapshot);
+            await getEntity.process.call(emitter, msg, cfg, initialSnapshot);
 
             expect(emitter.snapshot.length).to.equal(1);
             expect(emitter.data.length).to.equal(1);
@@ -71,7 +72,7 @@ describe('Integration Test', function GetEntryTest() {
             cfg.oauth = emitter.keys[0].oauth;
             delete cfg.maxNum;
 
-            await getEntry.process.call(emitter, msg, cfg, emitter.snapshot[0]);
+            await getEntity.process.call(emitter, msg, cfg, emitter.snapshot[0]);
 
             expect(emitter.data.length).to.be.above(1);
             expect(emitter.data[1]).to.be.a('object');
@@ -81,14 +82,14 @@ describe('Integration Test', function GetEntryTest() {
 
     describe('Metadata tests', function MetadataTests() {
         it('Get Modules', async function GetModules() {
-            const modules = await getEntry.modules(cfg);
+            const modules = await getEntity.modules(cfg);
 
             expect(modules.Contacts).to.equal('Contacts');
         });
 
         it('Build in schema', async function BuildInSchemaTest() {
             cfg.module = 'Contacts';
-            const schema = await createEntry.getMetaModel(cfg);
+            const schema = await createEntity.getMetaModel(cfg);
 
             expect(schema.in.properties.id.required).to.be.true;
             expect(schema.in.properties.date_modified).to.not.exist;
@@ -154,7 +155,7 @@ describe('Integration Test', function GetEntryTest() {
             };
             cfg.module = 'Contacts';
 
-            const newEntry = await createEntry.process.call(emitter, msg, cfg);
+            const newEntry = await createEntity.process.call(emitter, msg, cfg);
 
             const originalId = newEntry.id;
             expect(originalId).to.exist;
@@ -163,7 +164,7 @@ describe('Integration Test', function GetEntryTest() {
             newEntry.description = `${newEntry.description}\nUpdated at ${(new Date()).toISOString()}`;
             cfg.externalIdProperty = 'externalid_c';
 
-            const updatedEntry = await updateEntry.process.call(emitter, {
+            const updatedEntry = await updateEntity.process.call(emitter, {
                 body: newEntry
             }, cfg);
             expect(updatedEntry.id).to.exist;
@@ -182,7 +183,7 @@ describe('Integration Test', function GetEntryTest() {
             };
             cfg.module = 'Contacts';
 
-            const newEntry = await createEntry.process.call(emitter, msg, cfg);
+            const newEntry = await createEntity.process.call(emitter, msg, cfg);
 
             const originalId = newEntry.id;
             expect(originalId).to.exist;
@@ -191,7 +192,7 @@ describe('Integration Test', function GetEntryTest() {
             newEntry.description = `${newEntry.description}\nUpdated at ${(new Date()).toISOString()}`;
             cfg.externalIdProperty = 'externalid_c';
 
-            const updatedEntry = await updateEntry.process.call(emitter, {
+            const updatedEntry = await updateEntity.process.call(emitter, {
                 body: newEntry
             }, cfg);
             expect(updatedEntry.id).to.exist;
@@ -208,11 +209,28 @@ describe('Integration Test', function GetEntryTest() {
             };
             cfg.module = 'Contacts';
 
-            await lookupEntry.process.call(emitter, msg, cfg);
+            await lookupEntity.process.call(emitter, msg, cfg);
 
             expect(emitter.data.length).to.equal(1);
             expect(emitter.data[0].body.name).to.be.equal('Fred Jones');
         });
 
+        xit('Delete test', async function DeleteTest() {
+
+
+            const idToDelete = '';
+            const emitter = new TestEmitter();
+            const msg = {
+                body: {
+                    id: idToDelete
+                }
+            };
+            cfg.module = 'Contacts';
+
+            await deleteEntity.process.call(emitter, msg, cfg);
+
+            expect(emitter.data.length).to.equal(1);
+            expect(emitter.data[0].body.id).to.be.equal(idToDelete);
+        });
     });
 });
