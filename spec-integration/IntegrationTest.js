@@ -9,6 +9,7 @@ const createEntry = require('../lib/actions/createEntry');
 const updateEntry = require('../lib/actions/updateEntry');
 const getEntitiesWebhook = require('../lib/triggers/getEntitiesWebhook');
 const getDeletedEntitiesWebhook = require('../lib/triggers/getDeletedEntitiesWebhook');
+const lookupEntry = require('../lib/actions/lookupEntry');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
@@ -45,7 +46,7 @@ describe('Integration Test', function GetEntryTest() {
     describe('Webhook setup tests', function SetupWebhookTests() {
         it('Webhook Startup - Shutdown', async function StartupShutdownTest() {
             cfg.module = 'Contacts';
-            [getEntitiesWebhook, getEntitiesWebhook].forEach(async (webhook) => {
+            [getEntitiesWebhook, getDeletedEntitiesWebhook].forEach(async (webhook) => {
                 const result = await webhook.startup.call(undefined, cfg);
                 await webhook.shutdown.call(undefined, cfg, result);
             });
@@ -197,6 +198,18 @@ describe('Integration Test', function GetEntryTest() {
             }, cfg);
             expect(updatedEntry.id).to.exist;
             expect(updatedEntry.id).to.be.equal(originalId);
+        });
+
+        it('Lookup test', async function LookupTest() {
+            const idToLookup = '64cdddcc-b7fa-11e7-b68e-02e359029409';
+            const msg = {
+                body: {
+                    id: idToLookup
+                }
+            };
+            cfg.module = 'Contacts';
+            const result = await lookupEntry.process(msg, cfg);
+            expect(result.name).to.be.equal('Fred Jones');
         });
 
     });

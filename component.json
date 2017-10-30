@@ -127,6 +127,32 @@
         }
     },
     "actions": {
+        "LookupEntity" : {
+            "title": "Lookup Entity",
+            "main": "./lib/actions/lookupEntity/js",
+            "description": "Given an id, fetches the corresponding object.",
+            "fields" : {
+                "module" : {
+                    "label": "SugarCRM module to lookup",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": "modules",
+                    "prompt": "Select a SugarCRM module"
+                }
+            },
+            "metadata": {
+                "in": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "title": "id",
+                            "type": "string",
+                            "required": true
+                        }
+                    }
+                }
+            }
+        },
         "executeQueryAction": {
             "title": "Plain SugarCRM query",
             "main": "./lib/triggers/query.js",
