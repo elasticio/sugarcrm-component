@@ -57,8 +57,6 @@ describe('Integration Test', function GetEntryTest() {
         it('Get Entry', async function GetEntryTests() {
             const emitter = new TestEmitter();
             const msg = {};
-            cfg.newUpdatedOrAll = 'all';
-            cfg.returnIndividually = 'individually';
             cfg.module = 'Contacts';
             cfg.maxNum = '1';
 
@@ -202,14 +200,18 @@ describe('Integration Test', function GetEntryTest() {
 
         it('Lookup test', async function LookupTest() {
             const idToLookup = '64cdddcc-b7fa-11e7-b68e-02e359029409';
+            const emitter = new TestEmitter();
             const msg = {
                 body: {
                     id: idToLookup
                 }
             };
             cfg.module = 'Contacts';
-            const result = await lookupEntry.process(msg, cfg);
-            expect(result.name).to.be.equal('Fred Jones');
+
+            await lookupEntry.process.call(emitter, msg, cfg);
+
+            expect(emitter.data.length).to.equal(1);
+            expect(emitter.data[0].body.name).to.be.equal('Fred Jones');
         });
 
     });
