@@ -9,7 +9,7 @@ const createEntry = require('../lib/actions/createEntry');
 const updateEntry = require('../lib/actions/updateEntry');
 const getEntitiesWebhook = require('../lib/triggers/getEntitiesWebhook');
 const getDeletedEntitiesWebhook = require('../lib/triggers/getDeletedEntitiesWebhook');
-const lookupEntry = require('../lib/actions/lookupEntry');
+const lookupEntry = require('../lib/actions/lookupEntity');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
