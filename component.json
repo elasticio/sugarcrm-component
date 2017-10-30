@@ -129,7 +129,7 @@
     "actions": {
         "LookupEntity" : {
             "title": "Lookup Entity",
-            "main": "./lib/actions/lookupEntity/js",
+            "main": "./lib/actions/lookupEntity.js",
             "description": "Given an id, fetches the corresponding object.",
             "fields" : {
                 "module" : {
