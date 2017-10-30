@@ -97,6 +97,33 @@
             "metadata": {
                 "out": {}
             }
+        },
+        "getDeletedEntitiesWebhook": {
+            "main": "./lib/triggers/getDeletedEntitiesWebhook.js",
+            "type": "webhook",
+            "title": "Fetch deleted objects (getDeletedEntities - Webhook)",
+            "description": "Get SugarCRM objects which have recently been deleted",
+            "fields" : {
+                "module" : {
+                    "label": "SugarCRM module to fetch",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": "modules",
+                    "prompt": "Select a SugarCRM module"
+                }
+            },
+            "metadata": {
+                "out": {
+                    "type": "object",
+                    "property": {
+                        "id" : {
+                            "type": "string",
+                            "required": true,
+                            "title": "ID of deleted item"
+                        }
+                    }
+                }
+            }
         }
     },
     "actions": {

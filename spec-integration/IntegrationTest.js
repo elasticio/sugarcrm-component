@@ -8,6 +8,7 @@ const verifyCredentials = require('../verifyCredentials');
 const createEntry = require('../lib/actions/createEntry');
 const updateEntry = require('../lib/actions/updateEntry');
 const getEntitiesWebhook = require('../lib/triggers/getEntitiesWebhook');
+const getDeletedEntitiesWebhook = require('../lib/triggers/getDeletedEntitiesWebhook');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
@@ -41,11 +42,13 @@ describe('Integration Test', function GetEntryTest() {
         };
     });
 
-    describe('Webhook setup tests', function SetupWebhookTests(){
+    describe('Webhook setup tests', function SetupWebhookTests() {
         it('Webhook Startup - Shutdown', async function StartupShutdownTest() {
             cfg.module = 'Contacts';
-            const result = await getEntitiesWebhook.startup.call(undefined, cfg);
-            await getEntitiesWebhook.shutdown.call(undefined, cfg, result);
+            [getEntitiesWebhook, getEntitiesWebhook].forEach(async (webhook) => {
+                const result = await webhook.startup.call(undefined, cfg);
+                await webhook.shutdown.call(undefined, cfg, result);
+            });
         });
     });
 
