@@ -5,12 +5,11 @@ const getEntity = require('../lib/triggers/getEntitiesPolling');
 const SugarCrm = require('../lib/sugarcrm');
 const TestEmitter = require('./TestEmitter');
 const verifyCredentials = require('../verifyCredentials');
-const createEntity = require('../lib/actions/createEntry');
-const updateEntity = require('../lib/actions/updateEntry');
 const getEntitiesWebhook = require('../lib/triggers/getEntitiesWebhook');
 const getDeletedEntitiesWebhook = require('../lib/triggers/getDeletedEntitiesWebhook');
 const lookupEntity = require('../lib/actions/lookupEntity');
 const deleteEntity = require('../lib/actions/deleteEntity');
+const upsertEntity = require('../lib/actions/upsertEntity');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
@@ -89,13 +88,15 @@ describe('Integration Test', function GetEntryTest() {
 
         it('Build in schema', async function BuildInSchemaTest() {
             cfg.module = 'Contacts';
-            const schema = await createEntity.getMetaModel(cfg);
+            const schema = await upsertEntity.getMetaModel(cfg);
 
             expect(schema.in.properties.last_name.required).to.be.true;
             expect(schema.in.properties.date_modified).to.not.exist;
             expect(schema.in.properties.name).to.not.exist;
             expect(schema.in.properties._hash).to.not.exist;
             expect(schema.in.properties.salutation.enum).to.include.members(['Mr.']);
+
+            expect(schema.in.properties.id.required).to.be.false;
         });
 
         it('Build out schema', async function BuildOutSchemaTest() {
@@ -146,60 +147,36 @@ describe('Integration Test', function GetEntryTest() {
     });
 
     describe('Action Tests', function ActionTests() {
-        it('Create Contact and Then Update', async function CreateAndThenContact() {
-            const id = Math.random();
+        it('Create Contact, Then Update and then Delete', async function CreateUpdateDeleteContact() {
             const emitter = new TestEmitter();
             const msg = {
                 body: {
-                    name: 'CreateIntegrationTestContact',
-                    description: `Created at ${(new Date()).toISOString()}`,
-                    externalid_c: id
+                    first_name: 'CreateIntegration',
+                    last_name: 'TestContact',
+                    description: `Created at ${(new Date()).toISOString()} through automated integration tests`
                 }
             };
             cfg.module = 'Contacts';
 
-            const newEntry = await createEntity.process.call(emitter, msg, cfg);
+            const newEntry = await upsertEntity.process.call(emitter, msg, cfg);
 
             const originalId = newEntry.id;
             expect(originalId).to.exist;
 
-            newEntry.id = id;
             newEntry.description = `${newEntry.description}\nUpdated at ${(new Date()).toISOString()}`;
-            cfg.externalIdProperty = 'externalid_c';
 
-            const updatedEntry = await updateEntity.process.call(emitter, {
+            const updatedEntry = await upsertEntity.process.call(emitter, {
                 body: newEntry
             }, cfg);
             expect(updatedEntry.id).to.exist;
             expect(updatedEntry.id).to.be.equal(originalId);
-        });
 
-        it('Upsert test', async function UpsertTest() {
-            const id = Math.random();
-            const emitter = new TestEmitter();
-            const msg = {
-                body: {
-                    name: 'UpsertIntegrationTestContact',
-                    description: `Created at ${(new Date()).toISOString()}`,
-                    externalid_c: id
-                }
-            };
-            cfg.module = 'Contacts';
-
-            const newEntry = await createEntity.process.call(emitter, msg, cfg);
-
-            const originalId = newEntry.id;
-            expect(originalId).to.exist;
-
-            newEntry.id = id;
-            newEntry.description = `${newEntry.description}\nUpdated at ${(new Date()).toISOString()}`;
-            cfg.externalIdProperty = 'externalid_c';
-
-            const updatedEntry = await updateEntity.process.call(emitter, {
-                body: newEntry
+            await deleteEntity.process.call(emitter, {
+                body: updatedEntry
             }, cfg);
-            expect(updatedEntry.id).to.exist;
-            expect(updatedEntry.id).to.be.equal(originalId);
+
+            expect(emitter.data.length).to.equal(1);
+            expect(emitter.data[0].body.id).to.be.equal(originalId);
         });
 
         it('Lookup test', async function LookupTest() {
@@ -216,24 +193,6 @@ describe('Integration Test', function GetEntryTest() {
 
             expect(emitter.data.length).to.equal(1);
             expect(emitter.data[0].body.name).to.be.equal('Fred Jones');
-        });
-
-        xit('Delete test', async function DeleteTest() {
-
-
-            const idToDelete = '';
-            const emitter = new TestEmitter();
-            const msg = {
-                body: {
-                    id: idToDelete
-                }
-            };
-            cfg.module = 'Contacts';
-
-            await deleteEntity.process.call(emitter, msg, cfg);
-
-            expect(emitter.data.length).to.equal(1);
-            expect(emitter.data[0].body.id).to.be.equal(idToDelete);
         });
     });
 });
