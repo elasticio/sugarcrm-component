@@ -91,8 +91,11 @@ describe('Integration Test', function GetEntryTest() {
             cfg.module = 'Contacts';
             const schema = await createEntity.getMetaModel(cfg);
 
-            expect(schema.in.properties.id.required).to.be.true;
+            expect(schema.in.properties.last_name.required).to.be.true;
             expect(schema.in.properties.date_modified).to.not.exist;
+            expect(schema.in.properties.name).to.not.exist;
+            expect(schema.in.properties._hash).to.not.exist;
+            expect(schema.in.properties.salutation.enum).to.include.members(['Mr.']);
         });
 
         it('Build out schema', async function BuildOutSchemaTest() {
