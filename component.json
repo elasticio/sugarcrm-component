@@ -179,30 +179,6 @@
                 }
             }
         },
-        "executeQueryAction": {
-            "title": "Plain SugarCRM query",
-            "main": "./lib/triggers/query.js",
-            "metadata": {
-                "out": {},
-                "in": {
-                     "type": "object",
-                     "properties": {
-                         "query": {
-                             "maxLength": 20000,
-                             "title": "Query",
-                             "type": "string",
-                             "required": true
-                         },
-                         "module": {
-                             "maxLength": 100,
-                             "title": "Module",
-                             "type": "string",
-                             "required": true
-                         }
-                     }
-                }
-            }
-        },
         "createEntry" :{
             "main": "./lib/actions/createEntry.js",
             "title": "Create a new entry",
