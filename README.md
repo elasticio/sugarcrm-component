@@ -4,63 +4,26 @@
 [![DependencyStatus][daviddm-image]][daviddm-url]
 [![Circle CI Build Status][circle-image]][circle-url]
 
-
-
-> Sugar CRM component template for the [elastic.io
-platform](https://www.elastic.io "elastic.io platform")
+[SugarCRM](https://www.sugarcrm.com) is a CRM system with a  a simple user
+interface, industry-leading customer experience, and an intuitive customization
+platform.
 
 This is an open source component template for [Sugar
 CRM](https://www.sugarcrm.com) which is developed specifically to run on
 [elastic.io platform](https://www.elastic.io "elastic.io platform"). You can
-clone it and change it as you wish. However, **if you plan to deploy it into
-[elastic.io platform](https://www.elastic.io "elastic.io platform") you must
-follow sets of instructions to succeed**.
+clone it and change it as you wish.
 
-## Before you Begin
-
-Before you can deploy any code into our system **you must be a registered
-elastic.io platform user**. Please see our home page at
-[http://www.elastic.io](http://www.elastic.io) to learn how.
-
-> Any attempt to deploy a code into our platform without a registration would be
-rejected.
-
-After the registration and opening of the account you must **[upload your SSH
-Key](http://go2.elastic.io/manage-ssh-keys)** into our platform.
-
-> If you fail to upload you SSH Key you will get **permission denied** error
-during the deployment.
-
-## Getting Started
-
-After registration and uploading of your SSH Key you can proceed to deploy it
-into our system. At this stage we suggest you to:
-* [Create a team](http://go2.elastic.io/manage-teams) to work on your new
-* component (**required**).
-* [Create a repository](http://go2.elastic.io/manage-repositories) where your
-* new component is going to *reside* inside the team that you have just created.
-* For a simplicity you can name your repository **sugarcrm-component** or
-* **sugarcrm**.
-
-```bash
-$ git clone https://github.com/elasticio/sugarcrm-component.git sugarcrm-component
-
-$ cd sugarcrm-component
-```
-Now you can edit your version of **sugarcrm-component** and build your desired
-component. Or you can just ``PUSH``it into our system to see the process in
-action:
-
-```bash
-$ git remote add elasticio your-team@git.elastic.io:sugarcrm-component.git
-
-$ git push elasticio master
-```
-Please follow the instruction provided in the [Create a
-team](http://go2.elastic.io/manage-teams) and [Create a
-repository](http://go2.elastic.io/manage-repositories) for a success.
+# Authentication
 
 ## Creating an app on a SugarCRM instance
+In order the platform to connect to your SugarCRM instance, an app needs to be
+created on that instance.  Below are the steps to do so.  Once that is done, you
+will provide a valid username and password to the elastic.io platform.  The
+platform will exchange that username and password for a token.  After this
+exchange happens, you may safely change the password without breaking the
+integration.  In a production system, the best practice is to create a dedicated
+user for the elastic.io platform.  This user should have the minimum required
+permissions.
 
 1. As an admin on your SugarCRM instance, go to the Administration panel
 
@@ -81,7 +44,7 @@ repository](http://go2.elastic.io/manage-repositories) for a success.
    information
    1. **OAuth Version**: OAuth 2.0
    1. **Client Type**: Sugar User
-   1. **Description**: Optional value for your conveience
+   1. **Description**: Optional value for your convenience
 
    ![screenshot from 2017-09-21 10-18-21](https://user-images.githubusercontent.com/5710732/30685817-76c6c1d6-9eb6-11e7-991f-37830f1c35ac.png)
 1. Click **Save**
@@ -97,6 +60,8 @@ Fill in the following for your account:
 * **Your password**: Password used to login to SugarCRM instance
 * **Your OAuth 2.0 Consumer Key**: Value created in step 5ii.
 * **Your OAuth 2.0 Consumer Secret**: Value created in step 5iii.
+
+# Triggers
 
 ## Fetching New and Updated Objects from SugarCRM
 
@@ -131,6 +96,14 @@ both SugarCRM and in the incoming message) which will contain the unique ID to
 match.
 
 ![screenshot from 2017-09-21 11-51-05](https://user-images.githubusercontent.com/5710732/30690045-3253e33c-9ec3-11e7-860d-af6e5f55eac8.png)
+
+# Configuration Info
+## Required environment variables
+No environment variables need to be configured.
+
+## Version and compatibility information
+This component interacts with version 10 of the SugarCRM REST API.  It has been
+tested with ``SugarCRM Enterprise, Version 7.9.0.1 (Build 33)``
 
 [npm-image]: https://badge.fury.io/js/sugarcrm-component.svg
 [npm-url]: https://npmjs.org/package/sugarcrm-component

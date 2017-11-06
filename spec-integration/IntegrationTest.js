@@ -80,11 +80,20 @@ describe('Integration Test', function GetEntryTest() {
     });
 
     describe('Metadata tests', function MetadataTests() {
-        it('Get Modules', async function GetModules() {
-            const modules = await getEntity.modules(cfg);
+        it('Get Readable Modules', async function GetReadableModules() {
+            const instance = new SugarCrm(cfg, this);
+            const modules = await instance.getModules(true);
 
-            expect(modules.Contacts).to.equal('Contacts');
-            expect(modules).to.not.have.keys('_hash');
+            expect(modules).to.include.keys({Contacts:'Contacts', Audit: 'Audit'});
+            expect(modules).to.not.have.any.keys('_hash', 'MergeRecords');
+        });
+
+        it('Get Writable Modules', async function GetWritableModules() {
+            const instance = new SugarCrm(cfg, this);
+            const modules = await instance.getModules(false);
+
+            expect(modules).to.include.keys({Contacts:'Contacts'});
+            expect(modules).to.not.have.any.keys('_hash', 'MergeRecords', 'Audit');
         });
 
         it('Build in schema', async function BuildInSchemaTest() {

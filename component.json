@@ -7,12 +7,15 @@
             "baseUrl": {
                 "label": "Your SugarCRM domain",
                 "required": true,
-                "viewClass": "TextFieldView"
+                "viewClass": "TextFieldView",
+                "note": "The DNS location of your SugarCRM instance",
+                "placeholder": "example.demo.sugarcrm.eu"
             },
             "userName": {
                 "label": "Your login",
                 "required": true,
-                "viewClass": "TextFieldView"
+                "viewClass": "TextFieldView",
+                "placeholder": "admin"
             },
             "password": {
                 "label": "Your password",
@@ -22,39 +25,18 @@
             "clientID": {
                 "label": "Your OAuth 2.0 Consumer Key",
                 "required": true,
-                "viewClass": "TextFieldView"
+                "viewClass": "TextFieldView",
+                "note": "See the 'Creating an app on a SugarCRM instance' section of the documentation at https://github.com/elasticio/sugarcrm-component for more details."
             },
             "clientSecret" : {
                 "label": "Your OAuth 2.0 Consumer Secret",
                 "required" : true,
-                "viewClass": "PasswordFieldView"
+                "viewClass": "PasswordFieldView",
+                "note": "See the 'Creating an app on a SugarCRM instance' section of the documentation at https://github.com/elasticio/sugarcrm-component for more details."
             }
         }
     },
     "triggers": {
-        "executeQueryTrigger": {
-            "title": "Plain SugarCRM query",
-            "main": "./lib/triggers/query.js",
-            "type": "polling",
-            "metadata": {
-                "out": {}
-            },
-            "fields": {
-                "query": {
-                    "label": "Query",
-                    "required": true,
-                    "viewClass": "TextAreaWithNoteView",
-                    "placeholder": "{\n  \"filter\":[\n    {\"name\":\"Nelson Inc\"}\n  ]\n}",
-                    "note": "Complete list of query params you can get <a href='http://support.sugarcrm.com/Documentation/Sugar_Developer/Sugar_Developer_Guide_7.7/Integration/Web_Services/v10/Endpoints/modulefilter_POST/' target='_blank'>here</a>"
-
-                },
-                "module": {
-                    "label": "Module",
-                    "required": true,
-                    "viewClass": "TextFieldView"
-                }
-            }
-        },
         "getEntitiesPolling": {
             "main": "./lib/triggers/getEntitiesPolling.js",
             "type": "polling",
@@ -182,7 +164,7 @@
         "upsertEntity" :{
             "main": "./lib/actions/upsertEntity.js",
             "title": "Upsert Entry",
-            "description": "Update an existing entry if it exists or otherwise create it",
+            "description": "Update an existing entry if the id provided.  Otherwise create a new entry.",
             "dynamicMetadata": true,
             "fields" : {
                 "module" : {
