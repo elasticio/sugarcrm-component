@@ -84,6 +84,7 @@ describe('Integration Test', function GetEntryTest() {
             const modules = await getEntity.modules(cfg);
 
             expect(modules.Contacts).to.equal('Contacts');
+            expect(modules).to.not.have.keys('_hash');
         });
 
         it('Build in schema', async function BuildInSchemaTest() {
