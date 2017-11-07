@@ -37,10 +37,10 @@
         }
     },
     "triggers": {
-        "getEntitiesPolling": {
-            "main": "./lib/triggers/getEntitiesPolling.js",
+        "getObjectsPolling": {
+            "main": "./lib/triggers/getObjectsPolling.js",
             "type": "polling",
-            "title": "Fetch new and updated objects (getEntities - Polling)",
+            "title": "Fetch new and updated objects (getObjects - Polling)",
             "description": "Get SugarCRM objects which have recently been modified or created",
             "fields" : {
                 "module" : {
@@ -61,10 +61,10 @@
                 "out": {}
             }
         },
-        "getEntitiesWebhook": {
-            "main": "./lib/triggers/getEntitiesWebhook.js",
+        "getObjectsWebhook": {
+            "main": "./lib/triggers/getObjectsWebhook.js",
             "type": "webhook",
-            "title": "Fetch new and updated objects (getEntities - Webhook)",
+            "title": "Fetch new and updated objects (getObjects - Webhook)",
             "description": "Get SugarCRM objects which have recently been modified or created",
             "dynamicMetadata": true,
             "fields" : {
@@ -80,10 +80,10 @@
                 "out": {}
             }
         },
-        "getDeletedEntitiesWebhook": {
-            "main": "./lib/triggers/getDeletedEntitiesWebhook.js",
+        "getDeletedObjectsWebhook": {
+            "main": "./lib/triggers/getDeletedObjectsWebhook.js",
             "type": "webhook",
-            "title": "Fetch deleted objects (getDeletedEntities - Webhook)",
+            "title": "Fetch deleted objects (getDeletedObjects - Webhook)",
             "description": "Get SugarCRM objects which have recently been deleted",
             "fields" : {
                 "module" : {
@@ -109,9 +109,9 @@
         }
     },
     "actions": {
-        "lookupEntity" : {
-            "title": "Lookup Entity",
-            "main": "./lib/actions/lookupEntity.js",
+        "lookupObject" : {
+            "title": "Lookup Object",
+            "main": "./lib/actions/lookupObject.js",
             "description": "Given an id, fetches the corresponding object.",
             "fields" : {
                 "module" : {
@@ -135,9 +135,9 @@
                 }
             }
         },
-        "deleteEntity" : {
-            "title": "Delete Entity",
-            "main": "./lib/actions/deleteEntity.js",
+        "deleteObject" : {
+            "title": "Delete Object",
+            "main": "./lib/actions/deleteObject.js",
             "description": "Given an id, deletes the corresponding object.",
             "fields" : {
                 "module" : {
@@ -161,8 +161,8 @@
                 }
             }
         },
-        "upsertEntity" :{
-            "main": "./lib/actions/upsertEntity.js",
+        "upsertObject" :{
+            "main": "./lib/actions/upsertObject.js",
             "title": "Upsert Entry",
             "description": "Update an existing entry if the id provided.  Otherwise create a new entry.",
             "dynamicMetadata": true,

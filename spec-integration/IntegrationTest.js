@@ -1,15 +1,15 @@
 'use strict';
 
 const expect = require('chai').expect;
-const getEntity = require('../lib/triggers/getEntitiesPolling');
+const getObjectsPolling = require('../lib/triggers/getObjectsPolling');
 const SugarCrm = require('../lib/sugarcrm');
 const TestEmitter = require('./TestEmitter');
 const verifyCredentials = require('../verifyCredentials');
-const getEntitiesWebhook = require('../lib/triggers/getEntitiesWebhook');
-const getDeletedEntitiesWebhook = require('../lib/triggers/getDeletedEntitiesWebhook');
-const lookupEntity = require('../lib/actions/lookupEntity');
-const deleteEntity = require('../lib/actions/deleteEntity');
-const upsertEntity = require('../lib/actions/upsertEntity');
+const getObjectsWebhook = require('../lib/triggers/getObjectsWebhook');
+const getDeletedObjectsWebhook = require('../lib/triggers/getDeletedObjectsWebhook');
+const lookupObject = require('../lib/actions/lookupObject');
+const deleteObject = require('../lib/actions/deleteObject');
+const upsertObject = require('../lib/actions/upsertObject');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
@@ -46,7 +46,7 @@ describe('Integration Test', function GetEntryTest() {
     describe('Webhook setup tests', function SetupWebhookTests() {
         it('Webhook Startup - Shutdown', async function StartupShutdownTest() {
             cfg.module = 'Contacts';
-            [getEntitiesWebhook, getDeletedEntitiesWebhook].forEach(async (webhook) => {
+            [getObjectsWebhook, getDeletedObjectsWebhook].forEach(async (webhook) => {
                 const result = await webhook.startup.call(undefined, cfg);
                 await webhook.shutdown.call(undefined, cfg, result);
             });
@@ -62,7 +62,7 @@ describe('Integration Test', function GetEntryTest() {
 
             const initialSnapshot = undefined;
 
-            await getEntity.process.call(emitter, msg, cfg, initialSnapshot);
+            await getObjectsPolling.process.call(emitter, msg, cfg, initialSnapshot);
 
             expect(emitter.snapshot.length).to.equal(1);
             expect(emitter.data.length).to.equal(1);
@@ -71,7 +71,7 @@ describe('Integration Test', function GetEntryTest() {
             cfg.oauth = emitter.keys[0].oauth;
             delete cfg.maxNum;
 
-            await getEntity.process.call(emitter, msg, cfg, emitter.snapshot[0]);
+            await getObjectsPolling.process.call(emitter, msg, cfg, emitter.snapshot[0]);
 
             expect(emitter.data.length).to.be.above(1);
             expect(emitter.data[1]).to.be.a('object');
@@ -98,7 +98,7 @@ describe('Integration Test', function GetEntryTest() {
 
         it('Build in schema', async function BuildInSchemaTest() {
             cfg.module = 'Contacts';
-            const schema = await upsertEntity.getMetaModel(cfg);
+            const schema = await upsertObject.getMetaModel(cfg);
 
             expect(schema.in.properties.last_name.required).to.be.true;
             expect(schema.in.properties.date_modified).to.not.exist;
@@ -111,7 +111,7 @@ describe('Integration Test', function GetEntryTest() {
 
         it('Build out schema', async function BuildOutSchemaTest() {
             cfg.module = 'Contacts';
-            const schema = await getEntitiesWebhook.getMetaModel(cfg);
+            const schema = await getObjectsWebhook.getMetaModel(cfg);
 
             expect(schema.out.properties.id.required).to.be.true;
             expect(schema.out.properties.date_modified).to.exist;
@@ -168,20 +168,20 @@ describe('Integration Test', function GetEntryTest() {
             };
             cfg.module = 'Contacts';
 
-            const newEntry = await upsertEntity.process.call(emitter, msg, cfg);
+            const newEntry = await upsertObject.process.call(emitter, msg, cfg);
 
             const originalId = newEntry.id;
             expect(originalId).to.exist;
 
             newEntry.description = `${newEntry.description}\nUpdated at ${(new Date()).toISOString()}`;
 
-            const updatedEntry = await upsertEntity.process.call(emitter, {
+            const updatedEntry = await upsertObject.process.call(emitter, {
                 body: newEntry
             }, cfg);
             expect(updatedEntry.id).to.exist;
             expect(updatedEntry.id).to.be.equal(originalId);
 
-            await deleteEntity.process.call(emitter, {
+            await deleteObject.process.call(emitter, {
                 body: updatedEntry
             }, cfg);
 
@@ -199,7 +199,7 @@ describe('Integration Test', function GetEntryTest() {
             };
             cfg.module = 'Contacts';
 
-            await lookupEntity.process.call(emitter, msg, cfg);
+            await lookupObject.process.call(emitter, msg, cfg);
 
             expect(emitter.data.length).to.equal(1);
             expect(emitter.data[0].body.name).to.be.equal('Fred Jones');
