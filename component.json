@@ -7,12 +7,15 @@
             "baseUrl": {
                 "label": "Your SugarCRM domain",
                 "required": true,
-                "viewClass": "TextFieldView"
+                "viewClass": "TextFieldView",
+                "note": "The DNS location of your SugarCRM instance",
+                "placeholder": "example.demo.sugarcrm.eu"
             },
             "userName": {
                 "label": "Your login",
                 "required": true,
-                "viewClass": "TextFieldView"
+                "viewClass": "TextFieldView",
+                "placeholder": "admin"
             },
             "password": {
                 "label": "Your password",
@@ -22,43 +25,46 @@
             "clientID": {
                 "label": "Your OAuth 2.0 Consumer Key",
                 "required": true,
-                "viewClass": "TextFieldView"
+                "viewClass": "TextFieldView",
+                "note": "See the 'Creating an app on a SugarCRM instance' section of the documentation at https://github.com/elasticio/sugarcrm-component for more details."
             },
             "clientSecret" : {
                 "label": "Your OAuth 2.0 Consumer Secret",
                 "required" : true,
-                "viewClass": "PasswordFieldView"
+                "viewClass": "PasswordFieldView",
+                "note": "See the 'Creating an app on a SugarCRM instance' section of the documentation at https://github.com/elasticio/sugarcrm-component for more details."
             }
         }
     },
     "triggers": {
-        "executeQueryTrigger": {
-            "title": "Plain SugarCRM query",
-            "main": "./lib/triggers/query.js",
+        "getObjectsPolling": {
+            "main": "./lib/triggers/getObjectsPolling.js",
             "type": "polling",
+            "title": "Fetch new and updated objects (getObjects - Polling)",
+            "description": "Get SugarCRM objects which have recently been modified or created",
+            "fields" : {
+                "module" : {
+                    "label": "SugarCRM module to fetch",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": "modules",
+                    "prompt": "Select a SugarCRM module"
+                },
+                "maxNum": {
+                    "label": "Number of records to fetch",
+                    "viewClass": "TextFieldView",
+                    "prompt": "20",
+                    "note": "Defaults to 20"
+                }
+            },
             "metadata": {
                 "out": {}
-            },
-            "fields": {
-                "query": {
-                    "label": "Query",
-                    "required": true,
-                    "viewClass": "TextAreaWithNoteView",
-                    "placeholder": "{\n  \"filter\":[\n    {\"name\":\"Nelson Inc\"}\n  ]\n}",
-                    "note": "Complete list of query params you can get <a href='http://support.sugarcrm.com/Documentation/Sugar_Developer/Sugar_Developer_Guide_7.7/Integration/Web_Services/v10/Endpoints/modulefilter_POST/' target='_blank'>here</a>"
-
-                },
-                "module": {
-                    "label": "Module",
-                    "required": true,
-                    "viewClass": "TextFieldView"
-                }
             }
         },
-        "getEntry": {
-            "main": "./lib/triggers/getEntry.js",
-            "type": "polling",
-            "title": "Fetch new and updated objects",
+        "getObjectsWebhook": {
+            "main": "./lib/triggers/getObjectsWebhook.js",
+            "type": "webhook",
+            "title": "Fetch new and updated objects (getObjects - Webhook)",
             "description": "Get SugarCRM objects which have recently been modified or created",
             "dynamicMetadata": true,
             "fields" : {
@@ -68,105 +74,97 @@
                     "viewClass": "SelectView",
                     "model": "modules",
                     "prompt": "Select a SugarCRM module"
-                },
-                "newUpdatedOrAll" : {
-                    "label": "Entries to fetch",
-                    "required": true,
-                    "viewClass": "SelectView",
-                    "model": {
-                        "new": "Only fetch new objects",
-                        "updated": "Only fetch objects after an update",
-                        "all": "Fetch both new and updated objects"
-                    },
-                    "prompt": "Choose an option"
-                },
-                "returnIndividually" : {
-                    "label": "Return results individually",
-                    "viewClass": "SelectView",
-                    "required": true,
-                    "model" : {
-                        "individually": "Return results one at a time",
-                        "array": "Return results as an array"
-                    },
-                    "prompt": "Choose an option"
-                },
-                "maxNum": {
-                    "label": "Number of records to fetch",
-                    "viewClass": "TextFieldView",
-                    "prompt": "20"
                 }
             },
             "metadata": {
                 "out": {}
             }
+        },
+        "getDeletedObjectsWebhook": {
+            "main": "./lib/triggers/getDeletedObjectsWebhook.js",
+            "type": "webhook",
+            "title": "Fetch deleted objects (getDeletedObjects - Webhook)",
+            "description": "Get SugarCRM objects which have recently been deleted",
+            "fields" : {
+                "module" : {
+                    "label": "SugarCRM module to fetch",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": "modules",
+                    "prompt": "Select a SugarCRM module"
+                }
+            },
+            "metadata": {
+                "out": {
+                    "type": "object",
+                    "property": {
+                        "id" : {
+                            "type": "string",
+                            "required": true,
+                            "title": "ID of deleted item"
+                        }
+                    }
+                }
+            }
         }
     },
     "actions": {
-        "executeQueryAction": {
-            "title": "Plain SugarCRM query",
-            "main": "./lib/triggers/query.js",
+        "lookupObject" : {
+            "title": "Lookup Object",
+            "main": "./lib/actions/lookupObject.js",
+            "description": "Given an id, fetches the corresponding object.",
+            "fields" : {
+                "module" : {
+                    "label": "SugarCRM module to lookup",
+                    "required": true,
+                    "viewClass": "SelectView",
+                    "model": "modules",
+                    "prompt": "Select a SugarCRM module"
+                }
+            },
             "metadata": {
-                "out": {},
                 "in": {
-                     "type": "object",
-                     "properties": {
-                         "query": {
-                             "maxLength": 20000,
-                             "title": "Query",
-                             "type": "string",
-                             "required": true
-                         },
-                         "module": {
-                             "maxLength": 100,
-                             "title": "Module",
-                             "type": "string",
-                             "required": true
-                         }
-                     }
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "title": "id",
+                            "type": "string",
+                            "required": true
+                        }
+                    }
                 }
             }
         },
-        "createEntry" :{
-            "main": "./lib/actions/createEntry.js",
-            "title": "Create a new entry",
-            "description": "Create a new entry",
-            "dynamicMetadata": true,
+        "deleteObject" : {
+            "title": "Delete Object",
+            "main": "./lib/actions/deleteObject.js",
+            "description": "Given an id, deletes the corresponding object.",
             "fields" : {
                 "module" : {
-                    "label": "SugarCRM module to create",
+                    "label": "SugarCRM module to delete",
                     "required": true,
                     "viewClass": "SelectView",
                     "model": "modules",
                     "prompt": "Select a SugarCRM module"
                 }
-            }
-        },
-        "updateEntry" :{
-            "main": "./lib/actions/updateEntry.js",
-            "title": "Update an existing entry",
-            "description": "Update an existing entry",
-            "dynamicMetadata": true,
-            "fields" : {
-                "module" : {
-                    "label": "SugarCRM module to update",
-                    "required": true,
-                    "viewClass": "SelectView",
-                    "model": "modules",
-                    "prompt": "Select a SugarCRM module"
-                },
-                "externalIdProperty" : {
-                    "viewClass":"TextFieldView",
-                    "label":"Property to match",
-                    "required":true,
-                    "note": "This is the property to match.  This component will find a single object which has this value and update it.",
-                    "placeholder": ""
+            },
+            "metadata": {
+                "in": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "title": "id",
+                            "type": "string",
+                            "required": true
+                        }
+                    }
                 }
             }
         },
-        "upsertEntry" :{
-            "main": "./lib/actions/upsertEntry.js",
+        "upsertObject" :{
+            "main": "./lib/actions/upsertObject.js",
             "title": "Upsert Entry",
-            "description": "Update an existing entry if it exists or otherwise create it",
+            "description": "Update an existing entry if the id provided.  Otherwise create a new entry.",
             "dynamicMetadata": true,
             "fields" : {
                 "module" : {
@@ -175,13 +173,6 @@
                     "viewClass": "SelectView",
                     "model": "modules",
                     "prompt": "Select a SugarCRM module"
-                },
-                "externalIdProperty" : {
-                    "viewClass":"TextFieldView",
-                    "label":"Property to match",
-                    "required":true,
-                    "note": "This is the property to match.  This component will find a single object which has this value and update it.  If this object does not exist, we will create it.",
-                    "placeholder": ""
                 }
             }
         }

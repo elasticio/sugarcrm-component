@@ -7,7 +7,7 @@
     "node": "8.1.0"
   },
   "scripts": {
-    "pretest": "eslint --ignore-pattern '*uery.js' verifyCredentials.js lib spec spec-integration --fix",
+    "pretest": "eslint verifyCredentials.js lib spec spec-integration --fix",
     "test": "mocha spec",
     "integration-test": "mocha spec-integration"
   },
