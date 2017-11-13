@@ -21,7 +21,7 @@
     "REST"
   ],
   "author": "elastic.io GmbH",
-  "license": "Proprietary",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/elasticio/sugarcrm-component/issues"
   },
