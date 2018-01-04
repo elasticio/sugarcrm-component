@@ -100,6 +100,7 @@ match.
 # Configuration Info
 ## Required environment variables
 No environment variables need to be configured.
+Parameter `platform` should be set to 'custom' in order to avoid any potential login conflicts.
 
 ## Version and compatibility information
 This component interacts with version 10 of the SugarCRM REST API.  It has been
