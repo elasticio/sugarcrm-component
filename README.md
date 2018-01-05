@@ -102,7 +102,7 @@ match.
 
 # Configuration Info
 ## Required environment variables
-No environment variables need to be configured.
+For the local testing (e.g. spec-integration) `ELASTICIO_TASK_ID` and `ELASTICIO_STEP_ID` envs should be provided.
 
 ## Version and compatibility information
 This component interacts with version 10 of the SugarCRM REST API.  It has been

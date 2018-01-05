@@ -84,7 +84,10 @@ describe('Integration Test', function GetEntryTest() {
             const instance = new SugarCrm(cfg, this);
             const modules = await instance.getModules(true);
 
-            expect(modules).to.include.keys({Contacts:'Contacts', Audit: 'Audit'});
+            expect(modules).to.include.keys({
+                Contacts: 'Contacts',
+                Audit: 'Audit'
+            });
             expect(modules).to.not.have.any.keys('_hash', 'MergeRecords');
         });
 
@@ -92,7 +95,9 @@ describe('Integration Test', function GetEntryTest() {
             const instance = new SugarCrm(cfg, this);
             const modules = await instance.getModules(false);
 
-            expect(modules).to.include.keys({Contacts:'Contacts'});
+            expect(modules).to.include.keys({
+                Contacts: 'Contacts'
+            });
             expect(modules).to.not.have.any.keys('_hash', 'MergeRecords', 'Audit');
         });
 
