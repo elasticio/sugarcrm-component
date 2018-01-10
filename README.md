@@ -61,6 +61,11 @@ Fill in the following for your account:
 * **Your OAuth 2.0 Consumer Key**: Value created in step 5ii.
 * **Your OAuth 2.0 Consumer Secret**: Value created in step 5iii.
 
+For real-time tasks please use separate oauth keys to avoid login conflicts.
+
+Parameter `platform` should be set to some custom string but should be unique per sugar component in order to avoid any potential login conflicts.
+So now `platform` is "`$TASK_ID:$STEP_ID`".
+
 # Triggers
 
 ## Fetching New and Updated Objects from SugarCRM
@@ -99,7 +104,7 @@ match.
 
 # Configuration Info
 ## Required environment variables
-No environment variables need to be configured.
+For the local testing (e.g. spec-integration) `ELASTICIO_TASK_ID` and `ELASTICIO_STEP_ID` envs should be provided.
 
 ## Version and compatibility information
 This component interacts with version 10 of the SugarCRM REST API.  It has been
