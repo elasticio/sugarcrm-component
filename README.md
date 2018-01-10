@@ -61,6 +61,8 @@ Fill in the following for your account:
 * **Your OAuth 2.0 Consumer Key**: Value created in step 5ii.
 * **Your OAuth 2.0 Consumer Secret**: Value created in step 5iii.
 
+For real-time tasks please use separate oauth keys to avoid login conflicts.
+
 Parameter `platform` should be set to some custom string but should be unique per sugar component in order to avoid any potential login conflicts.
 So now `platform` is "`$TASK_ID:$STEP_ID`".
 
