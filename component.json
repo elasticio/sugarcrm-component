@@ -33,6 +33,13 @@
                 "required" : true,
                 "viewClass": "PasswordFieldView",
                 "note": "See the 'Creating an app on a SugarCRM instance' section of the documentation at https://github.com/elasticio/sugarcrm-component for more details."
+            },
+            "platform": {
+                "label": "Custom Platform Value",
+                "required": true,
+                "viewClass": "TextFieldView",
+                "note": "See https://community.sugarcrm.com/docs/DOC-5875-tutorial-how-to-register-custom-platforms-in-sugar-instances for more instructions.",
+                "placeholder": "myPlatformValue"
             }
         }
     },

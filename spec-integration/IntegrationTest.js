@@ -10,6 +10,7 @@ const getDeletedObjectsWebhook = require('../lib/triggers/getDeletedObjectsWebho
 const lookupObject = require('../lib/actions/lookupObject');
 const deleteObject = require('../lib/actions/deleteObject');
 const upsertObject = require('../lib/actions/upsertObject');
+const fs = require('fs');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
@@ -17,12 +18,13 @@ describe('Integration Test', function GetEntryTest() {
     let appId;
     let appSecret;
     let sugarDoman;
+    let platform;
     let cfg;
 
     this.timeout(10000);
 
     before(function Setup() {
-        if (process.env.NODE_ENV === 'local') {
+        if (fs.existsSync('.env')) {
             require('dotenv').config();
         }
 
@@ -31,6 +33,7 @@ describe('Integration Test', function GetEntryTest() {
         appId = process.env.OAUTH_APPLICATION_ID;
         appSecret = process.env.OAUTH_APPLICATION_SECRET;
         sugarDoman = process.env.SUGAR_URL;
+        platform = process.env.PLATFORM;
     });
 
     beforeEach(function BeforeEach() {
@@ -39,7 +42,8 @@ describe('Integration Test', function GetEntryTest() {
             clientSecret: appSecret,
             userName: username,
             password: password,
-            baseUrl: sugarDoman
+            baseUrl: sugarDoman,
+            platform
         };
     });
 
@@ -134,17 +138,6 @@ describe('Integration Test', function GetEntryTest() {
             expect(emitter.keys.length).to.equal(1);
             const accessToken1 = emitter.keys[0].oauth.access_token;
             expect(accessToken1).to.exist;
-
-            // Then check token -> token exchange
-            cfg.password = 'wrongPassword';
-            cfg.oauth = emitter.keys[0].oauth;
-            cfg.oauth.access_token_expiry = (new Date(0)).toISOString();
-            const instance2 = new SugarCrm(cfg, emitter);
-            await instance2.makeRequest('ping', 'GET');
-            expect(emitter.keys.length).to.equal(2);
-            const accessToken2 = emitter.keys[1].oauth.access_token;
-            expect(accessToken2).to.exist;
-            expect(accessToken1).to.not.equal(accessToken2);
         });
     });
 
@@ -173,16 +166,19 @@ describe('Integration Test', function GetEntryTest() {
             };
             cfg.module = 'Contacts';
 
-            const newEntry = await upsertObject.process.call(emitter, msg, cfg);
+            await upsertObject.process.call(emitter, msg, cfg);
 
+            const newEntry = emitter.data[0].body;
             const originalId = newEntry.id;
             expect(originalId).to.exist;
 
             newEntry.description = `${newEntry.description}\nUpdated at ${(new Date()).toISOString()}`;
 
-            const updatedEntry = await upsertObject.process.call(emitter, {
+            await upsertObject.process.call(emitter, {
                 body: newEntry
             }, cfg);
+            const updatedEntry = emitter.data[1].body;
+
             expect(updatedEntry.id).to.exist;
             expect(updatedEntry.id).to.be.equal(originalId);
 
@@ -190,8 +186,8 @@ describe('Integration Test', function GetEntryTest() {
                 body: updatedEntry
             }, cfg);
 
-            expect(emitter.data.length).to.equal(1);
-            expect(emitter.data[0].body.id).to.be.equal(originalId);
+            expect(emitter.data.length).to.equal(3);
+            expect(emitter.data[2].body.id).to.be.equal(originalId);
         });
 
         it('Lookup test', async function LookupTest() {
