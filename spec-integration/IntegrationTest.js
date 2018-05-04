@@ -21,7 +21,6 @@ describe('Integration Test', function GetEntryTest() {
     let sugarDomain7;
     let sugarDomain8;
     let platform;
-    let cfg;
 
     this.timeout(10000);
 
