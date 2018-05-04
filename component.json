@@ -36,7 +36,7 @@
             },
             "platform": {
                 "label": "Custom Platform Value",
-                "required": true,
+                "required": false,
                 "viewClass": "TextFieldView",
                 "note": "See https://community.sugarcrm.com/docs/DOC-5875-tutorial-how-to-register-custom-platforms-in-sugar-instances for more instructions.",
                 "placeholder": "myPlatformValue"
