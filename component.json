@@ -1,5 +1,5 @@
 {
-    "title": "SugarCRM 7",
+    "title": "SugarCRM",
     "description": "SugarCRM REST API",
     "docsUrl": "https://github.com/elasticio/sugarcrm-component",
     "credentials": {
@@ -36,9 +36,9 @@
             },
             "platform": {
                 "label": "Custom Platform Value",
-                "required": true,
+                "required": false,
                 "viewClass": "TextFieldView",
-                "note": "See https://community.sugarcrm.com/docs/DOC-5875-tutorial-how-to-register-custom-platforms-in-sugar-instances for more instructions.",
+                "note": "See https://github.com/elasticio/sugarcrm-component for more instructions.  Required for SugarCRM releases after Winter '18.",
                 "placeholder": "myPlatformValue"
             }
         }

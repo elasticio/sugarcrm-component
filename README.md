@@ -14,28 +14,39 @@ CRM](https://www.sugarcrm.com) which is developed specifically to run on
 clone it and change it as you wish.
 
 # Authentication
+In order for the elastic.io platform to authenticate with SugarCRM, the
+following tasks need to be completed:
+* An admin must manually create an OAuth App on the SugarCRM instance through SugarCRM's UI *(step by step instructions below)*
+* [If using a version of SugarCRM that was released after Winter '18, you must
+register a platform on your SugarCRM
+instance](https://community.sugarcrm.com/community/developer/blog/2017/11/20/unknown-platforms-to-be-restricted-in-winter-18-release)
+  * With Sugar 8, this can [be done through the
+  UI](http://support.sugarcrm.com/Documentation/Sugar_Versions/8.0/Ent/Administration_Guide/Developer_Tools/index.html#Configure_API_Platforms)
+  *(step by step instructions below)*
+  * It is also possible to load new platform values by [creating and installing
+   a
+   module](https://community.sugarcrm.com/docs/DOC-5875-tutorial-how-to-register-custom-platforms-in-sugar-instances)
+* Finally, authentication information for your Sugar instance must be entered into the elastic.io UI *(step by step instructions below)*
 
 ## Creating an app on a SugarCRM instance
 In order the platform to connect to your SugarCRM instance, an app needs to be
 created on that instance.  Below are the steps to do so.  Once that is done, you
 will provide a valid username and password to the elastic.io platform.  The
-platform will exchange that username and password for a token.  After this
-exchange happens, you may safely change the password without breaking the
-integration.  In a production system, the best practice is to create a dedicated
-user for the elastic.io platform.  This user should have the minimum required
-permissions.
+platform will exchange that username and password for a token.  In a production
+system, the best practice is to create a dedicated user for the elastic.io
+platform.  This user should have the minimum required permissions.
 
 1. As an admin on your SugarCRM instance, go to the Administration panel
 
    ![screenshot from 2017-09-21 10-16-21](https://user-images.githubusercontent.com/5710732/30685820-76e92b22-9eb6-11e7-8efc-2715b9102f26.png)
-1. Select **OAuth Keys**
+2. Select **OAuth Keys**
 
    ![screenshot from 2017-09-21 10-17-08](https://user-images.githubusercontent.com/5710732/30685819-76e71f8a-9eb6-11e7-8f79-505111d2c0df.png)
-1. In the top bar, select the dropdown for the now visible **OAuth Keys** option
+3. In the top bar, select the dropdown for the now visible **OAuth Keys** option
 
    ![screenshot from 2017-09-21 10-17-45](https://user-images.githubusercontent.com/5710732/30685818-76dea1ca-9eb6-11e7-85ae-0dc7fc15e987.png)
-1. Select **Create OAuth Key**
-1. Fill in the following values:
+4. Select **Create OAuth Key**
+5. Fill in the following values:
    1. **Consumer Key Name**: Pick a name that is convenient to remember
    1. **Consumer Key**: Pick a strongly random string.  You will need to provide
    this information as part of the SugarCRM component account information
@@ -47,11 +58,22 @@ permissions.
    1. **Description**: Optional value for your convenience
 
    ![screenshot from 2017-09-21 10-18-21](https://user-images.githubusercontent.com/5710732/30685817-76c6c1d6-9eb6-11e7-991f-37830f1c35ac.png)
-1. Click **Save**
+6. Click **Save**
+
+## Registering a New SugarCRM Platform Value through the UI
+1. As an admin on your SugarCRM instance, go to the Administration panel
+
+   ![screenshot from 2017-09-21 10-16-21](https://user-images.githubusercontent.com/5710732/30685820-76e92b22-9eb6-11e7-8efc-2715b9102f26.png)
+2. Select **Configure API Platforms**
+
+   ![screenshot from 2018-05-04 11-58-04](https://user-images.githubusercontent.com/5710732/39622436-7baf1e36-4f92-11e8-97e5-8d09b7bbea32.png)
+3. Enter a value of your choosing for the new platform and click **Add** and then **Save**.
+
+   ![screenshot from 2018-05-04 12-03-31](https://user-images.githubusercontent.com/5710732/39622613-35964b26-4f93-11e8-82e6-fed4b70fce56.png)
 
 ## Authentication on elastic.io
 
-![screenshot from 2017-09-21 10-29-00](https://user-images.githubusercontent.com/5710732/30686190-c23edfd0-9eb7-11e7-9dd8-ca29592bbb38.png)
+![screenshot from 2018-05-04 13-45-46](https://user-images.githubusercontent.com/5710732/39626260-7a34e34c-4fa1-11e8-8cb2-de57183cd403.png)
 
 Fill in the following for your account:
 * **Name Your Account**: Name to identify this account on elastic.io
@@ -60,6 +82,7 @@ Fill in the following for your account:
 * **Your password**: Password used to login to SugarCRM instance
 * **Your OAuth 2.0 Consumer Key**: Value created in step 5ii.
 * **Your OAuth 2.0 Consumer Secret**: Value created in step 5iii.
+* **Custom Platform Value**: Platform value registered above.
 
 For real-time tasks please use separate oauth keys to avoid login conflicts.
 
@@ -108,7 +131,8 @@ For the local testing (e.g. spec-integration) `ELASTICIO_TASK_ID` and `ELASTICIO
 
 ## Version and compatibility information
 This component interacts with version 10 of the SugarCRM REST API.  It has been
-tested with ``SugarCRM Enterprise, Version 7.9.0.1 (Build 33)``
+tested with ``SugarCRM Enterprise, Version 7.9.0.1 (Build 33)`` and ``SugarCRM
+Enterprise, Version 8.0.0 (Build 211) (Spring '18)``.
 
 [npm-image]: https://badge.fury.io/js/sugarcrm-component.svg
 [npm-url]: https://npmjs.org/package/sugarcrm-component
