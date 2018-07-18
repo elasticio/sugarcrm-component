@@ -90,8 +90,7 @@ Parameter `platform` should be set to some custom string but should be unique pe
 So now `platform` is "`$TASK_ID:$STEP_ID`".
 
 # Triggers
-
-## Fetching New and Updated Objects from SugarCRM
+## Fetching New and Updated Objects from SugarCRM - Polling
 
 It is possible to fetch any type newly created and/or updated object in your
 SugarCRM instance.  Select the trigger **Fetch new and updated objects** and
@@ -100,30 +99,40 @@ then configure the following:
 ![screenshot from 2017-09-21 11-20-40](https://user-images.githubusercontent.com/5710732/30688610-f825e81c-9ebe-11e7-8736-3c522f92c65c.png)
 
 * **SugarCRM module to fetch**: Type of object to fetch
-* **Entries to fetch**: Select new, updated or both
-* **Return results individually**: Return new results individually or as an
- array.
 * **Number of records to fetch**: Maximum number of records to fetch per call.
  If left blank then the default set on your SugarCRM instance.
 
- ## Creating and Updating Objects in SugarCRM
+## Fetching New and Updated Objects from SugarCRM - Webhook
 
- It is possible to create and or update any type of object in your SugarCRM instance.  The following actions are possible:
- * Create a new entry
- * Update an existing entry
- * Upsert Entry (If the entry already exists, update it, otherwise create it.)
+It is possible to have new and updated objects be pushed to the elastic.io
+platform via webhooks.  In order to do so, select **Fetch new and updated
+objects (getObjects - Webhook)**.  When a flow with this trigger is started, the
+elastic.io platform will register webhooks on the SugarCRM instance.  When the
+flow is stopped, this webhook will be destroyed by the platform.
 
-In order for update and upsert operations to work, the objects being
-updated/usperted must have a property that must uniquely identify that object.
-This could be the SugarCRM id but it could also be a separate external ID.
-Furthermore, the message coming into this component must have this ID as well.
+## Fetch Deleted Objects from SugarCRM - Webhook
 
-Once a SugarCRM module is selected (object type), all writable fields on that
-object can be set.  The **Property to match** is the property on the object (in
-both SugarCRM and in the incoming message) which will contain the unique ID to
-match.
+It is possible to have the ids of deleted objects be pushed to the elastic.io
+platform via webhooks.  In order to do so, select **Fetch deleted objects
+(getDeletedObjects - Webhook)**.  When a flow with this trigger is started, the
+elastic.io platform will register webhooks on the SugarCRM instance.  When the
+flow is stopped, this webhook will be destroyed by the platform.
 
-![screenshot from 2017-09-21 11-51-05](https://user-images.githubusercontent.com/5710732/30690045-3253e33c-9ec3-11e7-860d-af6e5f55eac8.png)
+# Actions
+## Lookup Object By ID
+
+Given an object, looks up the object with that ID.  You must select the type of
+object to lookup.
+
+## Delete Object By ID
+
+Given an object, deletes the object with that ID.  You must select the type of
+object to lookup.
+
+## Upsert Object By ID
+
+Update an existing entry if the id provided.  Otherwise create a new entry.  You
+must select the type of object to lookup.
 
 # Configuration Info
 ## Required environment variables
@@ -131,7 +140,7 @@ For the local testing (e.g. spec-integration) `ELASTICIO_TASK_ID` and `ELASTICIO
 
 ## Version and compatibility information
 This component interacts with version 10 of the SugarCRM REST API.  It has been
-tested with ``SugarCRM Enterprise, Version 7.9.0.1 (Build 33)`` and ``SugarCRM
+tested with ``SugarCRM Enterprise, Version 7.9.1.0 (Build 1074)`` and ``SugarCRM
 Enterprise, Version 8.0.0 (Build 211) (Spring '18)``.
 
 [npm-image]: https://badge.fury.io/js/sugarcrm-component.svg
