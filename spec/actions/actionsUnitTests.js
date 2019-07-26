@@ -7,14 +7,6 @@ const lookupObject = require('../../lib/actions/lookupObject');
 const upsertObject = require('../../lib/actions/upsertObject');
 
 describe('Actions Unit Test', async () => {
-    const authTokenResponse = {
-        expires_in: 100,
-        refresh_expires_in: 100,
-        access_token: 'access token'
-    };
-    nock('https://baseurl.com')
-        .post('/rest/v10/oauth2/token')
-        .reply(200, authTokenResponse);
     it('should return deleted object message', async () => {
         const cfg = {
             password: 'password',
@@ -37,6 +29,14 @@ describe('Actions Unit Test', async () => {
         const emitter = {
             emit: sinon.spy()
         };
+        const authTokenResponse = {
+            expires_in: 100,
+            refresh_expires_in: 100,
+            access_token: 'access token'
+        };
+        nock('https://baseurl.com')
+            .post('/rest/v10/oauth2/token')
+            .reply(200, authTokenResponse);
         nock('https://baseUrl.com')
             .delete('/rest/v10/Contacts/testid')
             .reply(200, {
@@ -70,6 +70,14 @@ describe('Actions Unit Test', async () => {
         const emitter = {
             emit: sinon.spy()
         };
+        const authTokenResponse = {
+            expires_in: 100,
+            refresh_expires_in: 100,
+            access_token: 'access token'
+        };
+        nock('https://baseurl.com')
+            .post('/rest/v10/oauth2/token')
+            .reply(200, authTokenResponse);
         nock('https://baseUrl.com')
             .get('/rest/v10/Contacts/testid')
             .reply(200, {
@@ -106,6 +114,14 @@ describe('Actions Unit Test', async () => {
         const emitter = {
             emit: sinon.spy()
         };
+        const authTokenResponse = {
+            expires_in: 100,
+            refresh_expires_in: 100,
+            access_token: 'access token'
+        };
+        nock('https://baseurl.com')
+            .post('/rest/v10/oauth2/token')
+            .reply(200, authTokenResponse);
         nock('https://baseUrl.com')
             .put('/rest/v10/Contacts/testid')
             .reply(200, {
