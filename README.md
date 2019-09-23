@@ -143,6 +143,10 @@ This component interacts with version 10 of the SugarCRM REST API.  It has been
 tested with ``SugarCRM Enterprise, Version 7.9.1.0 (Build 1074)`` and ``SugarCRM
 Enterprise, Version 8.0.0 (Build 211) (Spring '18)``.
 
+## License
+
+Apache-2.0 © [elastic.io GmbH](http://elastic.io)
+
 [npm-image]: https://badge.fury.io/js/sugarcrm-component.svg
 [npm-url]: https://npmjs.org/package/sugarcrm-component
 [travis-image]: https://travis-ci.org/elasticio/sugarcrm-component.svg?branch=master
