@@ -182,6 +182,44 @@
                     "prompt": "Select a SugarCRM module"
                 }
             }
+        },
+        "queryObjects": {
+          "title": "Query",
+          "main": "./lib/actions/queryObjects.js",
+          "description": "Get a set of records filtered by an expression.",
+          "fields": {
+            "module": {
+              "label": "SugarCRM module",
+              "required": true,
+              "viewClass": "SelectView",
+              "model": "modules",
+              "prompt": "Select a SugarCRM module"
+            },
+            "outputMethod": {
+              "viewClass": "SelectView",
+              "label": "Output method",
+              "required": true,
+              "model": {
+                "emitAll": "Emit all",
+                "emitIndividually": "Emit individually"
+              },
+              "prompt": "Select an output method"
+            }
+          },
+          "metadata": {
+            "in": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "maxLength": 20000,
+                  "title": "SugarCRM filter (use Developer mode to set query options)",
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "out": {}
+          }
         }
     }
 }
