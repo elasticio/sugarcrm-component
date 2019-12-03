@@ -8,7 +8,7 @@
   },
   "scripts": {
     "pretest": "eslint verifyCredentials.js lib --fix",
-    "test": "mocha spec",
+    "test": "mocha spec --recursive --timeout 50000",
     "integration-test": "mocha spec-integration"
   },
   "repository": {
