@@ -1,3 +1,7 @@
-# Change Log
+## 1.1.0 (November 5, 2019)
 
-* 1.0.0 - Nov 3, 2016 - Initial release of guideline compliant component
+* Add support for `Bulk operations` (Create/Update/Delete)
+
+## 1.0.0 (November 3, 2016)
+
+* Initial release of guideline compliant component
