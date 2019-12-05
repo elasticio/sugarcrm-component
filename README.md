@@ -135,15 +135,24 @@ Update an existing entry if the id provided.  Otherwise create a new entry.  You
 must select the type of object to lookup.
 
 ## Bulk Create Objects
+Provides a simple interface for quickly creating large amounts of objects.
+
 #### Input field description
 * **Module** - dropdown list where you should choose the object type to perform bulk create operation. E.g. `Cases`.
+
+#### Metadata description
 * **Objects** - an array of the objects that will be created. Example of format [SugarCRM objects](https://support.sugarcrm.com/Documentation/Sugar_Developer/Sugar_Developer_Guide_9.2/Integration/Web_Services/REST_API/Endpoints/module_POST/)
 
 Result is an object with a property **result**: `array`. It contains the list of newly created objects.
 
 ## Bulk Update Objects
+
+Provides a simple interface for quickly updating large amounts of objects.
+
 #### Input field description
 * **Module** - dropdown list where you should choose the object type to perform bulk update operation. E.g. `Cases`.
+
+#### Metadata description
 * **Massupdate_params** - an object contains `array` of uid's and new values for updated objects. Action allows not only update primitive fields but also add or replace values in the lists. Please, take a look [SugarCRM Mass Update](https://support.sugarcrm.com/Documentation/Sugar_Developer/Sugar_Developer_Guide_9.2/Integration/Web_Services/REST_API/Endpoints/moduleMassUpdate_PUT/) documentation for examples.
 
 Result is an object with the 2 properties:
@@ -151,8 +160,13 @@ Result is an object with the 2 properties:
 * **status** - `string`, if operation were successful `status="done"`. Operation could consider successful even if `failed > 0`
 
 ## Bulk Delete Objects
+
+Provides a simple interface for quickly deleting large amounts of objects.
+
 #### Input field description
 * **Module** - dropdown list where you should choose the object type to perform bulk delete operation. E.g. `Cases`.
+
+#### Metadata description
 * **Massupdate_params** - an object contains `array` of uid's for deleted objects. Please, take a look [SugarCRM Mass Update](https://support.sugarcrm.com/Documentation/Sugar_Developer/Sugar_Developer_Guide_9.2/Integration/Web_Services/REST_API/Endpoints/moduleMassUpdate_DELETE/) documentation for examples.
 
 Result is an object with the 2 properties:

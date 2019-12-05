@@ -305,7 +305,7 @@
     "bulkCreateObjects": {
       "title": "Bulk Create Objects",
       "main": "./lib/actions/bulkCreateObjects.js",
-      "description": "Given the ids, creates the corresponding objects.",
+      "description": "Creates new objects.",
       "fields": {
         "module": {
           "label": "SugarCRM module to create",
