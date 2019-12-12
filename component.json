@@ -143,6 +143,39 @@
         }
       }
     },
+    "lookupObjects": {
+      "title": "Lookup Objects",
+      "main": "./lib/actions/lookupObjects.js",
+      "description": "Look for objects satisfying specified criteria",
+      "dynamicMetadata": true,
+      "fields": {
+        "module": {
+          "viewClass": "SelectView",
+          "label": "Object",
+          "required": true,
+          "model": "getModules",
+          "prompt": "Select a SugarCRM module"
+        },
+        "outputMethod": {
+          "viewClass": "SelectView",
+          "label": "Output method",
+          "required": true,
+          "model": {
+            "emitAll": "Emit all",
+            "emitPage": "Emit page",
+            "emitIndividually": "Emit individually"
+          },
+          "prompt": "Please select an output method"
+        },
+        "termNumber": {
+          "viewClass": "TextFieldView",
+          "label": "Number of search terms",
+          "required": true,
+          "placeholder": "Please specify a number of search terms",
+          "note": "Enter a positive integer number [1-99] or 0 to lookup all entities of chosen type"
+        }
+      }
+    },
     "deleteObject": {
       "title": "Delete Object",
       "main": "./lib/actions/deleteObject.js",
