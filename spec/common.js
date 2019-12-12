@@ -68,4 +68,5 @@ module.exports = {
   },
   emitCallback: null,
   EXT_FILE_STORAGE,
+  TEST_INSTANCE_URL: 'https://magicsoft.sugaropencloud.eu/rest/v10',
 };
