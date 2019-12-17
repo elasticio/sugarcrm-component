@@ -94,7 +94,7 @@ describe('Lookup Objects module: getMetaModel', () => {
       expectedResult.in.properties.pageSize = {
         title: 'Page size',
         type: 'number',
-        required: false,
+        required: true,
       };
       expectedResult.in.properties.pageNumber = {
         title: 'Page number',
