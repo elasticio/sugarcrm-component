@@ -9,6 +9,11 @@ const lookupObjects = require('../../lib/actions/lookupObjects.js');
 // Disable real HTTP requests
 nock.disableNetConnect();
 
+nock(testCommon.refresh_token.url)
+      .persist()
+      .post('')
+      .reply(200, testCommon.refresh_token.response);
+
 const LOGICAL_OPERATORS = {
   AND: '$and',
   OR: '$or',
@@ -38,10 +43,6 @@ function fieldNameBeautify(fieldName) {
 
 describe('Lookup Objects module: getModules', () => {
   it('Retrieves the list of sugar modules', async () => {
-    nock(testCommon.refresh_token.url)
-      .post('')
-      .reply(200, testCommon.refresh_token.response);
-
     const scope = nock(testCommon.TEST_INSTANCE_URL)
       .get('/metadata?type_filter=full_module_list,modules')
       .reply(200, sugarModulesReply);
@@ -71,10 +72,6 @@ describe('Lookup Objects module: getMetaModel', () => {
     const sugarScope = nock(testCommon.TEST_INSTANCE_URL)
       .get(`/metadata?type_filter=modules&module_filter=${configuration.module}`)
       .reply(200, sugarModulesReply);
-
-    nock(testCommon.refresh_token.url)
-      .post('')
-      .reply(200, testCommon.refresh_token.response);
 
     const expectedResult = {
       in: {
@@ -196,31 +193,32 @@ describe('Lookup Objects module: getMetaModel', () => {
 });
 
 describe("Lookup Objects module: processAction", () => {
-  beforeEach(async () => {
-    nock(testCommon.refresh_token.url)
-      .post('')
-      .reply(200, testCommon.refresh_token.response);
-  });
 
-  it(`Gets Accounts objects: 2 string search terms, emitAll, limit`, () => {
+  it(`Gets Accounts objects: 3 string search terms, unary cmp operators, emitAll, limit`, () => {
 
     testCommon.configuration.module = "Accounts";
     testCommon.configuration.outputMethod = "emitAll";
-    testCommon.configuration.termNumber = "2";
+    testCommon.configuration.termNumber = "3";
 
     const message = {
       body: {
         limit: 30,
         sTerm_1: {
-          fieldName: "Document name",
+          fieldName: "Name",
           fieldValue: "NotVeryImportantDoc",
           condition: "="
         },
         link_1_2: "AND",
         sTerm_2: {
-          fieldName: "Folder id",
+          fieldName: "Id",
           fieldValue: "Some folder ID",
-          condition: "="
+          condition: "IS NULL"
+        },
+        link_2_3: "AND",
+        sTerm_3: {
+          fieldName: "Id",
+          fieldValue: "Some folder ID",
+          condition: "NOT NULL"
         }
       }
     };
@@ -230,10 +228,13 @@ describe("Lookup Objects module: processAction", () => {
         {
           $and: [
             {
-              document_name: { $equals: "NotVeryImportantDoc" }
+              name: { $equals: "NotVeryImportantDoc" }
             },
             {
-              folder_id: { $equals: "Some folder ID" }
+              id: { $is_null: "" }
+            },
+            {
+              id: { $not_null: "" }
             }
           ]
         }
@@ -263,6 +264,10 @@ describe("Lookup Objects module: processAction", () => {
         "parent_name": "",
       }
     ]};
+
+    nock(testCommon.TEST_INSTANCE_URL)
+      .get(`/metadata?type_filter=modules&module_filter=${testCommon.configuration.module}`)
+      .reply(200, sugarModulesReply);
 
     const scope = nock(testCommon.TEST_INSTANCE_URL)
       .post(`/Accounts/filter`, expectedRequestBody)
@@ -290,13 +295,13 @@ describe("Lookup Objects module: processAction", () => {
       body: {
         limit: 30,
         sTerm_1: {
-          fieldName: "Document name",
+          fieldName: "name",
           fieldValue: "NotVeryImportantDoc,Value_1,Value_2",
           condition: "IN"
         },
         link_1_2: "AND",
         sTerm_2: {
-          fieldName: "Folder id",
+          fieldName: "id",
           fieldValue: "Some folder ID",
           condition: "="
         }
@@ -308,10 +313,10 @@ describe("Lookup Objects module: processAction", () => {
         {
           $and: [
             {
-              document_name: { $in: ["NotVeryImportantDoc","Value_1","Value_2"] }
+              name: { $in: ["NotVeryImportantDoc","Value_1","Value_2"] }
             },
             {
-              folder_id: { $equals: "Some folder ID" }
+              id: { $equals: "Some folder ID" }
             }
           ]
         }
@@ -342,8 +347,394 @@ describe("Lookup Objects module: processAction", () => {
       }
     ]};
 
+    nock(testCommon.TEST_INSTANCE_URL)
+      .get(`/metadata?type_filter=modules&module_filter=${testCommon.configuration.module}`)
+      .reply(200, sugarModulesReply);
+
     const scope = nock(testCommon.TEST_INSTANCE_URL)
       .post(`/Accounts/filter`, expectedRequestBody)
+      .reply(200, testReply);
+
+    lookupObjects.process.call(testCommon, message, testCommon.configuration);
+    return new Promise(resolve => {
+      testCommon.emitCallback = function(what, msg) {
+        if (what === 'data') {
+          chai.expect(msg.body).to.deep.equal(testReply.records);
+          scope.done();
+          resolve();
+        }
+      };
+    });
+  });
+
+  it(`Gets Accounts objects: 3 search terms (string, bool, num), NOT IN operator, emitAll, limit`, () => {
+
+    testCommon.configuration.module = "Accounts";
+    testCommon.configuration.outputMethod = "emitAll";
+    testCommon.configuration.termNumber = "3";
+
+    const message = {
+      body: {
+        limit: 40,
+        sTerm_1: {
+          fieldName: "Acc float c",
+          fieldValue: "32,12,234",
+          condition: "NOT IN"
+        },
+        link_1_2: "AND",
+        sTerm_2: {
+          fieldName: "id",
+          fieldValue: "Some folder ID",
+          condition: "="
+        },
+        link_2_3: "OR",
+        sTerm_3: {
+          fieldName: "Acccheck c",
+          fieldValue: "true",
+          condition: "!="
+        }
+      }
+    };
+
+    const expectedRequestBody = {
+      max_num: 40,
+      offset: 0,
+      filter: [
+        {
+          $or: [
+            {
+              $and: [
+                {
+                  acc_float_c: { $not_in: [32,12,234] }
+                },
+                {
+                  id: { $equals: "Some folder ID" }
+                }
+              ]
+            },
+            {
+              acccheck_c: { $not_equals: true }
+            }
+          ]
+        }
+      ],
+    };
+
+    const testReply = {
+      next_offset: -1,
+      records: [{
+        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
+        "name": "Test_Account_52",
+        "date_modified": "2019-12-04T16:02:57+00:00",
+        "modified_by_name": "Mr Black",
+        "billing_address_country": "Butan",
+        "phone_office": "02021024103",
+        "parent_name": "",
+      },
+      {
+        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
+        "name": "Test_Account_52",
+        "date_modified": "2019-12-04T16:02:57+00:00",
+        "modified_by_name": "Mr White",
+        "billing_address_country": "France",
+        "phone_office": "02021024103",
+        "parent_name": "",
+      }
+    ]};
+
+    nock(testCommon.TEST_INSTANCE_URL)
+      .get(`/metadata?type_filter=modules&module_filter=${testCommon.configuration.module}`)
+      .reply(200, sugarModulesReply);
+
+    const scope = nock(testCommon.TEST_INSTANCE_URL)
+      .post(`/Accounts/filter`, JSON.stringify(expectedRequestBody))
+      .reply(200, testReply);
+
+    lookupObjects.process.call(testCommon, message, testCommon.configuration);
+    return new Promise(resolve => {
+      testCommon.emitCallback = function(what, msg) {
+        if (what === 'data') {
+          chai.expect(msg.body).to.deep.equal(testReply.records);
+          scope.done();
+          resolve();
+        }
+      };
+    });
+  });
+
+  it(`Gets Accounts objects: 3 search terms (string, bool, num), NOT IN operator, emitIndividually, limit=2`, async () => {
+
+    testCommon.configuration.module = "Accounts";
+    testCommon.configuration.outputMethod = "emitIndividually";
+    testCommon.configuration.termNumber = "3";
+
+    const message = {
+      body: {
+        limit: 2,
+        sTerm_1: {
+          fieldName: "Acc float c",
+          fieldValue: "32,12,234",
+          condition: "NOT IN"
+        },
+        link_1_2: "AND",
+        sTerm_2: {
+          fieldName: "id",
+          fieldValue: "Some folder ID",
+          condition: "="
+        },
+        link_2_3: "OR",
+        sTerm_3: {
+          fieldName: "Acccheck c",
+          fieldValue: "true",
+          condition: "!="
+        }
+      }
+    };
+
+    const expectedRequestBody = {
+      max_num: 2,
+      offset: 0,
+      filter: [
+        {
+          $or: [
+            {
+              $and: [
+                {
+                  acc_float_c: { $not_in: [32,12,234] }
+                },
+                {
+                  id: { $equals: "Some folder ID" }
+                }
+              ]
+            },
+            {
+              acccheck_c: { $not_equals: true }
+            }
+          ]
+        }
+      ],
+    };
+
+    const testReply = {
+      next_offset: -1,
+      records: [{
+        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
+        "name": "Test_Account_52",
+        "date_modified": "2019-12-04T16:02:57+00:00",
+        "modified_by_name": "Mr Black",
+        "billing_address_country": "Butan",
+        "phone_office": "02021024103",
+        "parent_name": "",
+      },
+      {
+        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
+        "name": "Test_Account_52",
+        "date_modified": "2019-12-04T16:02:57+00:00",
+        "modified_by_name": "Mr White",
+        "billing_address_country": "France",
+        "phone_office": "02021024103",
+        "parent_name": "",
+      }
+    ]};
+
+    nock(testCommon.TEST_INSTANCE_URL)
+      .get(`/metadata?type_filter=modules&module_filter=${testCommon.configuration.module}`)
+      .reply(200, sugarModulesReply);
+
+    const scope = nock(testCommon.TEST_INSTANCE_URL)
+      .post(`/Accounts/filter`, JSON.stringify(expectedRequestBody))
+      .reply(200, testReply);
+
+    const observedResult = [];
+    testCommon.emitCallback = function(what, msg) {
+      if (what === 'data') {
+        observedResult.push(msg.body);
+      }
+    };
+
+    await lookupObjects.process.call(testCommon, message, testCommon.configuration);
+    chai.expect(observedResult).to.deep.equal(testReply.records);
+    scope.done();
+  });
+
+  it(`Gets Accounts objects: 3 search terms (string, bool, num), NOT IN operator, emitPage, pageNumber = 0, pageSize = 2`, async () => {
+
+    testCommon.configuration.module = "Accounts";
+    testCommon.configuration.outputMethod = "emitPage";
+    testCommon.configuration.termNumber = "3";
+
+    const message = {
+      body: {
+        pageNumber: 0,
+        pageSize: 2,
+        sTerm_1: {
+          fieldName: "Acc float c",
+          fieldValue: "32,12,234",
+          condition: "NOT IN"
+        },
+        link_1_2: "AND",
+        sTerm_2: {
+          fieldName: "id",
+          fieldValue: "Some folder ID",
+          condition: "="
+        },
+        link_2_3: "OR",
+        sTerm_3: {
+          fieldName: "Acccheck c",
+          fieldValue: "true",
+          condition: "!="
+        }
+      }
+    };
+
+    const expectedRequestBody = {
+      max_num: 2,
+      offset: 0,
+      filter: [
+        {
+          $or: [
+            {
+              $and: [
+                {
+                  acc_float_c: { $not_in: [32,12,234] }
+                },
+                {
+                  id: { $equals: "Some folder ID" }
+                }
+              ]
+            },
+            {
+              acccheck_c: { $not_equals: true }
+            }
+          ]
+        }
+      ],
+    };
+
+    const testReply = {
+      next_offset: -1,
+      records: [{
+        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
+        "name": "Test_Account_52",
+        "date_modified": "2019-12-04T16:02:57+00:00",
+        "modified_by_name": "Mr Black",
+        "billing_address_country": "Butan",
+        "phone_office": "02021024103",
+        "parent_name": "",
+      },
+      {
+        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
+        "name": "Test_Account_52",
+        "date_modified": "2019-12-04T16:02:57+00:00",
+        "modified_by_name": "Mr White",
+        "billing_address_country": "France",
+        "phone_office": "02021024103",
+        "parent_name": "",
+      }
+    ]};
+
+    nock(testCommon.TEST_INSTANCE_URL)
+      .get(`/metadata?type_filter=modules&module_filter=${testCommon.configuration.module}`)
+      .reply(200, sugarModulesReply);
+
+    const scope = nock(testCommon.TEST_INSTANCE_URL)
+      .post(`/Accounts/filter`, JSON.stringify(expectedRequestBody))
+      .reply(200, testReply);
+
+    lookupObjects.process.call(testCommon, message, testCommon.configuration);
+    return new Promise(resolve => {
+      testCommon.emitCallback = function(what, msg) {
+        if (what === 'data') {
+          chai.expect(msg.body).to.deep.equal(testReply.records);
+          scope.done();
+          resolve();
+        }
+      };
+    });
+  });
+
+  it(`Gets Accounts objects: 3 search terms (string, bool, num), NOT IN operator, emitPage, pageNumber = 1, pageSize = 2`, async () => {
+
+    testCommon.configuration.module = "Accounts";
+    testCommon.configuration.outputMethod = "emitPage";
+    testCommon.configuration.termNumber = "3";
+
+    const message = {
+      body: {
+        pageNumber: 1,
+        pageSize: 2,
+        sTerm_1: {
+          fieldName: "Acc float c",
+          fieldValue: "32,12,234",
+          condition: "NOT IN"
+        },
+        link_1_2: "AND",
+        sTerm_2: {
+          fieldName: "id",
+          fieldValue: "Some folder ID",
+          condition: "="
+        },
+        link_2_3: "OR",
+        sTerm_3: {
+          fieldName: "Acccheck c",
+          fieldValue: "true",
+          condition: "!="
+        }
+      }
+    };
+
+    const expectedRequestBody = {
+      max_num: 2,
+      offset: 2,
+      filter: [
+        {
+          $or: [
+            {
+              $and: [
+                {
+                  acc_float_c: { $not_in: [32,12,234] }
+                },
+                {
+                  id: { $equals: "Some folder ID" }
+                }
+              ]
+            },
+            {
+              acccheck_c: { $not_equals: true }
+            }
+          ]
+        }
+      ],
+    };
+
+    const testReply = {
+      next_offset: -1,
+      records: [{
+        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
+        "name": "Test_Account_52",
+        "date_modified": "2019-12-04T16:02:57+00:00",
+        "modified_by_name": "Mr Black",
+        "billing_address_country": "Butan",
+        "phone_office": "02021024103",
+        "parent_name": "",
+      },
+      {
+        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
+        "name": "Test_Account_52",
+        "date_modified": "2019-12-04T16:02:57+00:00",
+        "modified_by_name": "Mr White",
+        "billing_address_country": "France",
+        "phone_office": "02021024103",
+        "parent_name": "",
+      }
+    ]};
+
+    nock(testCommon.TEST_INSTANCE_URL)
+      .get(`/metadata?type_filter=modules&module_filter=${testCommon.configuration.module}`)
+      .reply(200, sugarModulesReply);
+
+    const scope = nock(testCommon.TEST_INSTANCE_URL)
+      .post(`/Accounts/filter`, JSON.stringify(expectedRequestBody))
       .reply(200, testReply);
 
     lookupObjects.process.call(testCommon, message, testCommon.configuration);
