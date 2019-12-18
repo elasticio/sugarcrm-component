@@ -151,7 +151,7 @@
       "fields": {
         "module": {
           "viewClass": "SelectView",
-          "label": "Object",
+          "label": "SugarCRM module to lookup",
           "required": true,
           "model": "getModules",
           "prompt": "Select a SugarCRM module"
