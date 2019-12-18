@@ -226,7 +226,7 @@
           "label": "SugarCRM module",
           "required": true,
           "viewClass": "SelectView",
-          "model": "modules",
+          "model": "getModules",
           "prompt": "Select a SugarCRM module"
         },
         "outputMethod": {
@@ -244,11 +244,27 @@
         "in": {
           "type": "object",
           "properties": {
-            "query": {
+            "filter": {
               "maxLength": 20000,
-              "title": "SugarCRM filter (use Developer mode to set query options)",
+              "title": "Filter expression",
               "type": "string",
-              "required": true
+              "required": false
+            },
+            "max_num": {
+              "title": "Maximum number of records",
+              "type": "number",
+              "required": false
+            },
+            "offset": {
+              "title": "The number of records to skip",
+              "type": "number",
+              "required": false
+            },
+            "order_by": {
+              "maxLength": 20000,
+              "title": "How to sort the returned records",
+              "type": "string",
+              "required": false
             }
           }
         },
