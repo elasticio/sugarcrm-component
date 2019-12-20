@@ -128,6 +128,10 @@
           "viewClass": "SelectView",
           "model": "modules",
           "prompt": "Select a SugarCRM module"
+        },
+        "passBinaryData": {
+          "viewClass": "CheckBoxView",
+          "label": "Pass binary data to the next component (if found object has it)"
         }
       },
       "metadata": {
@@ -181,6 +185,10 @@
           "viewClass": "SelectView",
           "model": "modules",
           "prompt": "Select a SugarCRM module"
+        },
+        "utilizeAttachment": {
+          "viewClass": "CheckBoxView",
+          "label": "Utilize data attachment from previous step (for objects with a binary field)"
         }
       }
     },
