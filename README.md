@@ -124,6 +124,43 @@ flow is stopped, this webhook will be destroyed by the platform.
 Given an object, looks up the object with that ID.  You must select the type of
 object to lookup.
 
+## Lookup Objects
+Lookup a list of objects satisfying specified criteria.
+
+### Input field description
+* **SugarCRM module to lookup** - dropdown list where you should choose the module, which you want to lookup. E.g. `Accounts`.
+* **Output method** - dropdown list with following values: "Emit all", "Emit page", "Emit individually".
+* **Number of search terms** - text field where you can specify a number of search terms (not less than 0 and not greater than 99). Default value is 0 (if provided value is not allowed).
+
+### Metadata description
+
+Depending on the configuration field *Output method* the input metadata can contain different fields:
+*Output method* - "Emit page":
+Field "Page size" - required positive integer that defaults to 1000;
+Field "Page number" - required non-negative integer (starts with 0, default value 0);
+
+*Output method* - "Emit all":
+Field "Maximum number of records" - optional positive integer (default value 1000);
+
+*Output method* - "Emit individually":
+Field "Maximum number of records" - optional positive integer (default value 10000);
+
+Note that the number of records the component emits may affect the performance of the platform/component.
+
+Groups of fields for each search term go next:
+
+Field "Field name" - string represents module's field (a list of allowed values is available);
+Field "Field value" - string represents value for selected field;
+Field "Condition" - one of the following: "=", "!=", "<", "<=", ">", ">=", "STARTS WITH", "ENDS WITH", "CONTAINS", "IS NULL", "NOT NULL", "IN", "NOT IN";
+
+Between each two term's group of fields:
+
+Field "Logical operator" - one of the following: "AND", "OR";
+
+Output data depends on the configuration field *Output method*:
+"Emit page", "Emit all" - an array of records;
+"Emit individually" - a record;
+
 ## Delete Object By ID
 
 Given an object, deletes the object with that ID.  You must select the type of
