@@ -1,0 +1,86 @@
+{
+  "upsertObjects": {
+    "message": {
+      "attachments": {
+        "attachment.png": {
+          "url": "http://file.storage.server/attachment.png"
+        }
+      },
+      "body": {
+        "id": "f93ca73e-1db7-11ea-b801-02af4f4486a2",
+        "name": "Note1"
+      },
+      "id": "f4e0d892-2bd0-490f-a8c2-281ac0383ad8"
+    },
+    "configuration": {
+      "utilizeAttachment": true,
+      "module": "Notes"
+    },
+    "responses": {
+      "https://magicsoft.sugaropencloud.eu:443": {
+        "/rest/v10/Notes/f93ca73e-1db7-11ea-b801-02af4f4486a2": {
+          "method": "PUT",
+          "response": {"id": "f93ca73e-1db7-11ea-b801-02af4f4486a2", "name": "Note1"}
+        },
+        "/rest/v10/metadata?type_filter=modules&module_filter=Notes": {
+          "method": "GET",
+          "response": {
+            "modules": {
+              "Notes": {
+                "fields": {
+                  "id": {
+                    "name": "id",
+                    "vname": "LBL_ID",
+                    "type": "id",
+                    "required": true,
+                    "reportable": true,
+                    "duplicate_on_record_copy": "no",
+                    "comment": "Unique identifier",
+                    "mandatory_fetch": true
+                  },
+                  "name": {
+                    "name": "name",
+                    "vname": "LBL_NOTE_SUBJECT",
+                    "dbType": "varchar",
+                    "type": "name",
+                    "len": 255,
+                    "unified_search": true,
+                    "full_text_search": {
+                      "enabled": true,
+                      "searchable": true,
+                      "boost": 0.83
+                    },
+                    "comment": "Name of the note",
+                    "importable": "required",
+                    "required": true
+                  },
+                  "filename": {
+                    "name": "filename",
+                    "vname": "LBL_FILENAME",
+                    "type": "file",
+                    "dbType": "varchar",
+                    "len": 255,
+                    "reportable": true,
+                    "comment": "File name associated with the note (attachment)",
+                    "importable": false,
+                    "duplicate_on_record_copy": "always"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/rest/v10/Notes/f93ca73e-1db7-11ea-b801-02af4f4486a2/file/filename/?filename=attachment.png": {
+          "method": "PUT",
+          "response": "OK"
+        }
+      },
+      "http://file.storage.server": {
+        "/attachment.png": {
+          "method": "GET",
+          "response": "BinaryFileContent"
+        }
+      }
+    }
+  }
+}

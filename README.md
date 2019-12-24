@@ -120,9 +120,12 @@ flow is stopped, this webhook will be destroyed by the platform.
 
 # Actions
 ## Lookup Object By ID
+Given an object, looks up the object with that ID. You must select the type of object to lookup.
 
-Given an object, looks up the object with that ID.  You must select the type of
-object to lookup.
+### Input field description
+* **SugarCRM module to lookup** - dropdown list where you should choose the module, which you want to lookup. E.g. `Accounts`.
+* **Pass binary data to the next component (if found object has it)** - a checkbox, if it is checked and found object has a binary field (type of `file`) then its data will be passed to the next component as a binary attachment.
+
 
 ## Lookup Objects
 Lookup a list of objects satisfying specified criteria.
@@ -168,8 +171,16 @@ object to lookup.
 
 ## Upsert Object By ID
 
-Update an existing entry if the id provided.  Otherwise create a new entry.  You
-must select the type of object to lookup.
+Update an existing entry if the id provided. Otherwise create a new entry. You must select the type of object to lookup.
+Input metadata is fetched dynamically from your SugarCRM account. Output metadata is the same as input metadata, so you may expect all fields that you mapped as input to be returned as output.
+
+#### Input fields description
+* **Module** - Input field where you should choose the object type, which you want to find. E.g. `Note`
+* **Utilize data attachment from previous step (for objects with a binary field)** - a checkbox, if it is checked and an input message contains an attachment and specified object has a binary field (type of `file`) then the attachment is put into object's binary field.
+
+#### Limitations
+When **Utilize data attachment from previous step (for objects with a binary field)** is checked and this action is used with Local Agent error would be thrown: 'getaddrinfo ENOTFOUND steward-service.platform.svc.cluster.local steward-service.platform.svc.cluster.local:8200'
+
 
 ## Bulk Create Objects
 Provides a simple interface for quickly creating large amounts of objects.
