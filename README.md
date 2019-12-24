@@ -221,6 +221,55 @@ Result is an object with the 2 properties:
 * **failed** - `numeric`, how many objects were failed to delete.
 * **status** - `string`, if operation were successful `status="done"`. Operation could consider successful even if `failed > 0`
 
+## Query
+Retrieve a set of records filtered by an expression utilizing the SugarCRM REST API filter endpoint. (See for details - https://support.sugarcrm.com/Documentation/Sugar_Developer/Sugar_Developer_Guide_9.1/Integration/Web_Services/REST_API/Endpoints/modulefilter_POST/)
+
+### Input field description
+* **SugarCRM module** - dropdown list where you should choose the module, which you want to lookup. E.g. `Accounts`.
+* **Output method** - dropdown list with following values: "Emit all", "Emit individually".
+
+### Metadata description
+In the Intergator mode a request can be built by filling the following fields:
+* **Filter expression** - text field for the filter expression. E.g. "[{\"billing_address_country\": {\"$in\":[\"England\",\"France\"]}}]".
+* **Maximum number of records** - maximum number of records to return. Default is 20.
+* **The number of records to skip** - number of records to skip over before records are returned. Default is 0.
+* **How to sort the returned records** - how to sort the returned records, in a comma delimited list with the direction appended to the column name after a colon.
+E.g. "name:DESC,account_type:DESC,date_modified:ASC".
+
+In the Developer mode a request can be built utilizing all features by providing a JSON object (for more information go to the link above).
+E.g.:
+{
+  "filter": [{
+    "$or": [{
+        "$and": [{
+            "billing_address_country": {
+              "$not_in": ["DE", "India"]
+            }
+          },
+          {
+            "acc_float_c": {
+              "$is_null": ""
+            }
+          }
+        ]
+      },
+      {
+        "billing_address_country": {
+          "$equals": "England"
+        }
+      }
+    ]
+  }],
+  "fields": "id,name,billing_address_country,parent_name,accdate_c,acccheck_c,acc_float_c",
+  "max_num": 42
+}
+
+Note that the number of records the component emits may affect the performance of the platform/component.
+
+Output data depends on the configuration field **Output method**:
+"Emit all" - an array of records.
+"Emit individually" - a record.
+
 # Configuration Info
 ## Required environment variables
 For the local testing (e.g. spec-integration) `ELASTICIO_TASK_ID` and `ELASTICIO_STEP_ID` envs should be provided.
