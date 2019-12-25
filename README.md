@@ -230,7 +230,7 @@ Retrieve a set of records filtered by an expression utilizing the SugarCRM REST 
 
 ### Metadata description
 In the Intergator mode a request can be built by filling the following fields:
-* **Filter expression** - text field for the filter expression. E.g. "[{\"billing_address_country\": {\"$in\":[\"England\",\"France\"]}}]".
+* **Filter expression** - JSON object representing the filter expression. E.g. [{"billing_address_country": {"$in":["England","France"]}}].
 * **Maximum number of records** - maximum number of records to return. Default is 20.
 * **The number of records to skip** - number of records to skip over before records are returned. Default is 0.
 * **How to sort the returned records** - how to sort the returned records, in a comma delimited list with the direction appended to the column name after a colon.

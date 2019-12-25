@@ -253,9 +253,8 @@
           "type": "object",
           "properties": {
             "filter": {
-              "maxLength": 20000,
               "title": "Filter expression",
-              "type": "string",
+              "type": "object",
               "required": false
             },
             "max_num": {

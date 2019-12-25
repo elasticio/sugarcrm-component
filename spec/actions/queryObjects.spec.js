@@ -40,8 +40,8 @@ describe('Query Objects module: getModules', () => {
   });
 });
 
-describe("Lookup Objects module: processAction", () => {
-  it(`Queries objects: filter is an object, emitAll`, () => {
+describe("Query Objects module: processAction", () => {
+  it(`Queries objects: emitAll`, () => {
 
     testCommon.configuration.module = "Accounts";
     testCommon.configuration.outputMethod = "emitAll";
@@ -114,23 +114,22 @@ describe("Lookup Objects module: processAction", () => {
     });
   });
 
-  it(`Queries objects: filter is a string, emitIndividually`, async () => {
+  it(`Queries objects: emitIndividually`, async () => {
 
     testCommon.configuration.module = "Accounts";
     testCommon.configuration.outputMethod = "emitIndividually";
 
     const message = {
       body: {
-        filter:'[{"billing_address_country": {"$in":["India","Russia"]}}]',
+        filter: [{
+          "billing_address_country": {
+            "$in": ["India", "Russia"]
+          }
+        }],
         max_num: 1000,
         order_by: 'name:DESC,account_type:DESC,date_modified:ASC'
       }
     };
-
-    const expectedRequestBody = {
-      ...message.body,
-      filter: JSON.parse(message.body.filter)
-    }
 
     const testReply = {
       next_offset: -1,
@@ -159,7 +158,7 @@ describe("Lookup Objects module: processAction", () => {
       .reply(200, sugarModulesReply);
 
     const scope = nock(testCommon.TEST_INSTANCE_URL)
-      .post(`/Accounts/filter`, JSON.stringify(expectedRequestBody))
+      .post(`/Accounts/filter`, JSON.stringify(message.body))
       .reply(200, testReply);
 
     const observedResult = [];
