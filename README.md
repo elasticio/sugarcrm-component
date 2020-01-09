@@ -226,18 +226,28 @@ Retrieve a set of records filtered by an expression utilizing the SugarCRM REST 
 
 ### Input field description
 * **SugarCRM module** - dropdown list where you should choose the module, which you want to lookup. E.g. `Accounts`.
-* **Output method** - dropdown list with following values: "Emit all", "Emit individually".
+* **Output method** - dropdown list with following values: `Emit all`, `Emit individually`.
 
 ### Metadata description
 In the Intergator mode a request can be built by filling the following fields:
-* **Filter expression** - JSON object representing the filter expression. E.g. [{"billing_address_country": {"$in":["England","France"]}}].
+* **Filter expression** - JSON object representing the filter expression. E.g.
+```json
+  [
+    {
+      "billing_address_country":
+      {
+        "$in": ["England","France"]
+      }
+    }
+  ]
+```
 * **Maximum number of records** - maximum number of records to return. Default is 20.
 * **The number of records to skip** - number of records to skip over before records are returned. Default is 0.
 * **How to sort the returned records** - how to sort the returned records, in a comma delimited list with the direction appended to the column name after a colon.
 E.g. "name:DESC,account_type:DESC,date_modified:ASC".
 
-In the Developer mode a request can be built utilizing all features by providing a JSON object (for more information go to the link above).
-E.g.:
+In the Developer mode a request can be built utilizing all features by providing a JSON object (for more information go to the link above). E.g.:
+```json
 {
   "filter": [{
     "$or": [{
@@ -263,12 +273,12 @@ E.g.:
   "fields": "id,name,billing_address_country,parent_name,accdate_c,acccheck_c,acc_float_c",
   "max_num": 42
 }
-
+```
 Note that the number of records the component emits may affect the performance of the platform/component.
 
 Output data depends on the configuration field **Output method**:
-"Emit all" - an array of records.
-"Emit individually" - a record.
+`Emit all` - an array of records.
+`Emit individually` - a record.
 
 # Configuration Info
 ## Required environment variables
