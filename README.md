@@ -20,12 +20,11 @@ following tasks need to be completed:
 * [If using a version of SugarCRM that was released after Winter '18, you must
 register a platform on your SugarCRM
 instance](https://community.sugarcrm.com/community/developer/blog/2017/11/20/unknown-platforms-to-be-restricted-in-winter-18-release)
-  * With Sugar 8, this can [be done through the
-  UI](http://support.sugarcrm.com/Documentation/Sugar_Versions/8.0/Ent/Administration_Guide/Developer_Tools/index.html#Configure_API_Platforms)
+  * With Sugar 8, this can [be done through the UI](http://support.sugarcrm.com/Documentation/Sugar_Versions/8.0/Ent/Administration_Guide/Developer_Tools/index.html#Configure_API_Platforms)
   *(step by step instructions below)*
-  * It is also possible to load new platform values by [creating and installing
-   a
-   module](https://community.sugarcrm.com/docs/DOC-5875-tutorial-how-to-register-custom-platforms-in-sugar-instances)
+  * It is also possible to load new platform values by [creating and installing a module](https://community.sugarcrm.com/docs/DOC-5875-tutorial-how-to-register-custom-platforms-in-sugar-instances)
+  Developers use the `platform` parameter to distinguish their custom platform from other clients when using the Sugar API. For example, when a user accesses Sugar via the desktop client and the mobile client simultaneously without being logged out of either, it is because the API recognizes that they are different platforms due to their unique platform identifiers. The platform identifier also makes it easy for a Sugar administrator to configure which API platforms are allowed to access their instance via Admin > Configure API Platforms.
+  To learn more about platform identifiers, please refer to the [Sugar Developer Blog](https://community.sugarcrm.com/community/developer/blog/2016/05/09/how-platform-parameter-works-in-sugar-v10-rest-api) in the SugarCRM Community.
 * Finally, authentication information for your Sugar instance must be entered into the elastic.io UI *(step by step instructions below)*
 
 ## Creating an app on a SugarCRM instance
