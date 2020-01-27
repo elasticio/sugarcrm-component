@@ -74,7 +74,6 @@
       "type": "webhook",
       "title": "Fetch new and updated objects (getObjects - Webhook)",
       "description": "Get SugarCRM objects which have recently been modified or created",
-      "dynamicMetadata": true,
       "fields": {
         "module": {
           "label": "SugarCRM module to fetch",
