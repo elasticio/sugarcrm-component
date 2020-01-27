@@ -215,8 +215,8 @@
     },
     "upsertObject": {
       "main": "./lib/actions/upsertObject.js",
-      "title": "Upsert Entry",
-      "description": "Update an existing entry if the id provided.  Otherwise create a new entry.",
+      "title": "Upsert Object",
+      "description": "Update an existing entry if the id provided. Otherwise create a new entry.",
       "dynamicMetadata": true,
       "fields": {
         "module": {
