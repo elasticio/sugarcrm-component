@@ -1,0 +1,26 @@
+{
+  "bulkDeleteObjects": {
+    "message": {
+      "body": {
+        "massupdate_params": {
+          "uid": [
+            "ebf22b86-94ea-1601-4f4f-512d09173438",
+            "d5b288b0-0f6b-11ea-815b-06311ffe0da2"
+          ]
+        }
+      },
+      "id": "f4e0d892-2bd0-490f-a8c2-281ac0383ad8"
+    },
+    "configuration": {
+      "module": "Cases"
+    },
+    "responses": {
+      "https://magicsoft.sugaropencloud.eu:443": {
+        "/rest/v10/Cases/MassUpdate": {
+          "method": "DELETE",
+          "response": "{ \"status\": \"done\", \"failed\": 0 }"
+        }
+      }
+    }
+  }
+}

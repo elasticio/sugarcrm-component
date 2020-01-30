@@ -1,187 +1,422 @@
 {
-    "title": "SugarCRM",
-    "description": "SugarCRM REST API",
-    "docsUrl": "https://github.com/elasticio/sugarcrm-component",
-    "credentials": {
-        "fields":{
-            "baseUrl": {
-                "label": "Your SugarCRM domain",
-                "required": true,
-                "viewClass": "TextFieldView",
-                "note": "The DNS location of your SugarCRM instance",
-                "placeholder": "example.demo.sugarcrm.eu"
-            },
-            "userName": {
-                "label": "Your login",
-                "required": true,
-                "viewClass": "TextFieldView",
-                "placeholder": "admin"
-            },
-            "password": {
-                "label": "Your password",
-                "required": true,
-                "viewClass": "PasswordFieldView"
-            },
-            "clientID": {
-                "label": "Your OAuth 2.0 Consumer Key",
-                "required": true,
-                "viewClass": "TextFieldView",
-                "note": "See the 'Creating an app on a SugarCRM instance' section of the documentation at https://github.com/elasticio/sugarcrm-component for more details."
-            },
-            "clientSecret" : {
-                "label": "Your OAuth 2.0 Consumer Secret",
-                "required" : true,
-                "viewClass": "PasswordFieldView",
-                "note": "See the 'Creating an app on a SugarCRM instance' section of the documentation at https://github.com/elasticio/sugarcrm-component for more details."
-            },
-            "platform": {
-                "label": "Custom Platform Value",
-                "required": false,
-                "viewClass": "TextFieldView",
-                "note": "See https://github.com/elasticio/sugarcrm-component for more instructions.  Required for SugarCRM releases after Winter '18.",
-                "placeholder": "myPlatformValue"
-            }
-        }
-    },
-    "triggers": {
-        "getObjectsPolling": {
-            "main": "./lib/triggers/getObjectsPolling.js",
-            "type": "polling",
-            "title": "Fetch new and updated objects (getObjects - Polling)",
-            "description": "Get SugarCRM objects which have recently been modified or created",
-            "fields" : {
-                "module" : {
-                    "label": "SugarCRM module to fetch",
-                    "required": true,
-                    "viewClass": "SelectView",
-                    "model": "modules",
-                    "prompt": "Select a SugarCRM module"
-                },
-                "maxNum": {
-                    "label": "Number of records to fetch",
-                    "viewClass": "TextFieldView",
-                    "prompt": "20",
-                    "note": "Defaults to 20"
-                }
-            },
-            "metadata": {
-                "out": {}
-            }
-        },
-        "getObjectsWebhook": {
-            "main": "./lib/triggers/getObjectsWebhook.js",
-            "type": "webhook",
-            "title": "Fetch new and updated objects (getObjects - Webhook)",
-            "description": "Get SugarCRM objects which have recently been modified or created",
-            "dynamicMetadata": true,
-            "fields" : {
-                "module" : {
-                    "label": "SugarCRM module to fetch",
-                    "required": true,
-                    "viewClass": "SelectView",
-                    "model": "modules",
-                    "prompt": "Select a SugarCRM module"
-                }
-            },
-            "metadata": {
-                "out": {}
-            }
-        },
-        "getDeletedObjectsWebhook": {
-            "main": "./lib/triggers/getDeletedObjectsWebhook.js",
-            "type": "webhook",
-            "title": "Fetch deleted objects (getDeletedObjects - Webhook)",
-            "description": "Get SugarCRM objects which have recently been deleted",
-            "fields" : {
-                "module" : {
-                    "label": "SugarCRM module to fetch",
-                    "required": true,
-                    "viewClass": "SelectView",
-                    "model": "modules",
-                    "prompt": "Select a SugarCRM module"
-                }
-            },
-            "metadata": {
-                "out": {
-                    "type": "object",
-                    "property": {
-                        "id" : {
-                            "type": "string",
-                            "required": true,
-                            "title": "ID of deleted item"
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "actions": {
-        "lookupObject" : {
-            "title": "Lookup Object",
-            "main": "./lib/actions/lookupObject.js",
-            "description": "Given an id, fetches the corresponding object.",
-            "fields" : {
-                "module" : {
-                    "label": "SugarCRM module to lookup",
-                    "required": true,
-                    "viewClass": "SelectView",
-                    "model": "modules",
-                    "prompt": "Select a SugarCRM module"
-                }
-            },
-            "metadata": {
-                "in": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "title": "id",
-                            "type": "string",
-                            "required": true
-                        }
-                    }
-                }
-            }
-        },
-        "deleteObject" : {
-            "title": "Delete Object",
-            "main": "./lib/actions/deleteObject.js",
-            "description": "Given an id, deletes the corresponding object.",
-            "fields" : {
-                "module" : {
-                    "label": "SugarCRM module to delete",
-                    "required": true,
-                    "viewClass": "SelectView",
-                    "model": "modules",
-                    "prompt": "Select a SugarCRM module"
-                }
-            },
-            "metadata": {
-                "in": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "title": "id",
-                            "type": "string",
-                            "required": true
-                        }
-                    }
-                }
-            }
-        },
-        "upsertObject" :{
-            "main": "./lib/actions/upsertObject.js",
-            "title": "Upsert Entry",
-            "description": "Update an existing entry if the id provided.  Otherwise create a new entry.",
-            "dynamicMetadata": true,
-            "fields" : {
-                "module" : {
-                    "label": "SugarCRM module to update",
-                    "required": true,
-                    "viewClass": "SelectView",
-                    "model": "modules",
-                    "prompt": "Select a SugarCRM module"
-                }
-            }
-        }
+  "title": "SugarCRM",
+  "description": "SugarCRM REST API",
+  "docsUrl": "https://github.com/elasticio/sugarcrm-component",
+  "buildType": "docker",
+  "credentials": {
+    "fields": {
+      "baseUrl": {
+        "label": "Your SugarCRM domain",
+        "required": true,
+        "viewClass": "TextFieldView",
+        "note": "The DNS location of your SugarCRM instance",
+        "placeholder": "https://example.demo.sugarcrm.eu"
+      },
+      "userName": {
+        "label": "Your login",
+        "required": true,
+        "viewClass": "TextFieldView",
+        "placeholder": "admin"
+      },
+      "password": {
+        "label": "Your password",
+        "required": true,
+        "viewClass": "PasswordFieldView"
+      },
+      "clientID": {
+        "label": "Your OAuth 2.0 Consumer Key",
+        "required": true,
+        "viewClass": "TextFieldView",
+        "note": "See the 'Creating an app on a SugarCRM instance' section of the documentation at https://github.com/elasticio/sugarcrm-component for more details."
+      },
+      "clientSecret": {
+        "label": "Your OAuth 2.0 Consumer Secret",
+        "required": true,
+        "viewClass": "PasswordFieldView",
+        "note": "See the 'Creating an app on a SugarCRM instance' section of the documentation at https://github.com/elasticio/sugarcrm-component for more details."
+      },
+      "platform": {
+        "label": "Custom Platform Value",
+        "required": false,
+        "viewClass": "TextFieldView",
+        "note": "See https://github.com/elasticio/sugarcrm-component for more instructions.  Required for SugarCRM releases after Winter '18.",
+        "placeholder": "myPlatformValue"
+      }
     }
+  },
+  "triggers": {
+    "getObjectsPolling": {
+      "main": "./lib/triggers/getObjectsPolling.js",
+      "type": "polling",
+      "title": "Fetch new and updated objects (getObjects - Polling)",
+      "description": "Get SugarCRM objects which have recently been modified or created",
+      "fields": {
+        "module": {
+          "label": "SugarCRM module to fetch",
+          "required": true,
+          "viewClass": "SelectView",
+          "model": "modules",
+          "prompt": "Select a SugarCRM module"
+        },
+        "maxNum": {
+          "label": "Number of records to fetch",
+          "viewClass": "TextFieldView",
+          "prompt": "20",
+          "note": "Defaults to 20"
+        }
+      },
+      "metadata": {
+        "out": {}
+      }
+    },
+    "getObjectsWebhook": {
+      "main": "./lib/triggers/getObjectsWebhook.js",
+      "type": "webhook",
+      "title": "Fetch new and updated objects (getObjects - Webhook)",
+      "description": "Get SugarCRM objects which have recently been modified or created",
+      "fields": {
+        "module": {
+          "label": "SugarCRM module to fetch",
+          "required": true,
+          "viewClass": "SelectView",
+          "model": "modules",
+          "prompt": "Select a SugarCRM module"
+        }
+      },
+      "metadata": {
+        "out": {}
+      }
+    },
+    "getDeletedObjectsWebhook": {
+      "main": "./lib/triggers/getDeletedObjectsWebhook.js",
+      "type": "webhook",
+      "title": "Fetch deleted objects (getDeletedObjects - Webhook)",
+      "description": "Get SugarCRM objects which have recently been deleted",
+      "fields": {
+        "module": {
+          "label": "SugarCRM module to fetch",
+          "required": true,
+          "viewClass": "SelectView",
+          "model": "modules",
+          "prompt": "Select a SugarCRM module"
+        }
+      },
+      "metadata": {
+        "out": {
+          "type": "object",
+          "property": {
+            "id": {
+              "type": "string",
+              "required": true,
+              "title": "ID of deleted item"
+            }
+          }
+        }
+      }
+    }
+  },
+  "actions": {
+    "lookupObject": {
+      "title": "Lookup Object",
+      "main": "./lib/actions/lookupObject.js",
+      "description": "Given an id, fetches the corresponding object.",
+      "fields": {
+        "module": {
+          "label": "SugarCRM module to lookup",
+          "required": true,
+          "viewClass": "SelectView",
+          "model": "modules",
+          "prompt": "Select a SugarCRM module"
+        },
+        "allowIdToBeOmitted": {
+          "viewClass": "CheckBoxView",
+          "label": "Allow ID to be omitted"
+        },
+        "allowZeroResults": {
+          "viewClass": "CheckBoxView",
+          "label": "Allow zero results"
+        },
+        "passBinaryData": {
+          "viewClass": "CheckBoxView",
+          "label": "Pass binary data to the next component (if found object has it)"
+        }
+      },
+      "metadata": {
+        "in": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "id",
+              "type": "string",
+              "required": true
+            }
+          }
+        }
+      }
+    },
+    "lookupObjects": {
+      "title": "Lookup Objects",
+      "main": "./lib/actions/lookupObjects.js",
+      "description": "Look for objects satisfying specified criteria",
+      "dynamicMetadata": true,
+      "fields": {
+        "module": {
+          "viewClass": "SelectView",
+          "label": "SugarCRM module to lookup",
+          "required": true,
+          "model": "getModules",
+          "prompt": "Select a SugarCRM module"
+        },
+        "outputMethod": {
+          "viewClass": "SelectView",
+          "label": "Output method",
+          "required": true,
+          "model": {
+            "emitAll": "Emit all",
+            "emitPage": "Emit page",
+            "emitIndividually": "Emit individually"
+          },
+          "prompt": "Please select an output method"
+        },
+        "termNumber": {
+          "viewClass": "TextFieldView",
+          "label": "Number of search terms",
+          "required": true,
+          "placeholder": "Please specify a number of search terms",
+          "note": "Enter a positive integer number [1-99] or 0 to lookup all entities of chosen type"
+        }
+      }
+    },
+    "deleteObject": {
+      "title": "Delete Object",
+      "main": "./lib/actions/deleteObject.js",
+      "description": "Given an id, deletes the corresponding object.",
+      "fields": {
+        "module": {
+          "label": "SugarCRM module to delete",
+          "required": true,
+          "viewClass": "SelectView",
+          "model": "modules",
+          "prompt": "Select a SugarCRM module"
+        }
+      },
+      "metadata": {
+        "in": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "id",
+              "type": "string",
+              "required": true
+            }
+          }
+        }
+      }
+    },
+    "upsertObject": {
+      "main": "./lib/actions/upsertObject.js",
+      "title": "Upsert Object",
+      "description": "Update an existing entry if the id provided. Otherwise create a new entry.",
+      "dynamicMetadata": true,
+      "fields": {
+        "module": {
+          "label": "SugarCRM module to update",
+          "required": true,
+          "viewClass": "SelectView",
+          "model": "modules",
+          "prompt": "Select a SugarCRM module"
+        },
+        "utilizeAttachment": {
+          "viewClass": "CheckBoxView",
+          "label": "Utilize data attachment from previous step (for objects with a binary field)"
+        }
+      }
+    },
+    "queryObjects": {
+      "title": "Query",
+      "main": "./lib/actions/queryObjects.js",
+      "description": "Get a set of records filtered by an expression.",
+      "fields": {
+        "module": {
+          "label": "SugarCRM module",
+          "required": true,
+          "viewClass": "SelectView",
+          "model": "getModules",
+          "prompt": "Select a SugarCRM module"
+        },
+        "outputMethod": {
+          "viewClass": "SelectView",
+          "label": "Output method",
+          "required": true,
+          "model": {
+            "emitAll": "Emit all",
+            "emitIndividually": "Emit individually"
+          },
+          "prompt": "Select an output method"
+        }
+      },
+      "metadata": {
+        "in": {
+          "type": "object",
+          "properties": {
+            "filter": {
+              "title": "Filter expression",
+              "type": "object",
+              "required": false
+            },
+            "max_num": {
+              "title": "Maximum number of records",
+              "type": "number",
+              "required": false
+            },
+            "offset": {
+              "title": "The number of records to skip",
+              "type": "number",
+              "required": false
+            },
+            "order_by": {
+              "maxLength": 20000,
+              "title": "How to sort the returned records",
+              "type": "string",
+              "required": false
+            }
+          }
+        },
+        "out": {}
+      }
+    },
+    "bulkDeleteObjects": {
+      "title": "Bulk Delete Objects",
+      "main": "./lib/actions/bulkDeleteObjects.js",
+      "description": "Given the ids, deletes the corresponding objects.",
+      "fields": {
+        "module": {
+          "label": "SugarCRM module to delete",
+          "required": true,
+          "viewClass": "SelectView",
+          "model": "modules",
+          "prompt": "Select a SugarCRM module"
+        }
+      },
+      "metadata": {
+        "in": {
+          "type": "object",
+          "properties": {
+            "massupdate_params": {
+              "title": "massupdate_params",
+              "type": "object",
+              "required": true
+            }
+          }
+        },
+        "out": {
+          "type": "object",
+          "properties": {
+            "failed": {
+              "title": "failed",
+              "type": "number"
+            },
+            "status": {
+              "title": "status",
+              "required": true,
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "bulkUpdateObjects": {
+      "title": "Bulk Update Objects",
+      "main": "./lib/actions/bulkUpdateObjects.js",
+      "description": "Given the ids, updates the corresponding objects.",
+      "fields": {
+        "module": {
+          "label": "SugarCRM module to update",
+          "required": true,
+          "viewClass": "SelectView",
+          "model": "modules",
+          "prompt": "Select a SugarCRM module"
+        }
+      },
+      "metadata": {
+        "in": {
+          "type": "object",
+          "properties": {
+            "massupdate_params": {
+              "title": "massupdate_params",
+              "type": "object",
+              "required": true
+            }
+          }
+        },
+        "out": {
+          "type": "object",
+          "properties": {
+            "failed": {
+              "title": "failed",
+              "type": "number"
+            },
+            "status": {
+              "title": "status",
+              "required": true,
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "bulkCreateObjects": {
+      "title": "Bulk Create Objects",
+      "main": "./lib/actions/bulkCreateObjects.js",
+      "description": "Creates new objects.",
+      "fields": {
+        "module": {
+          "label": "SugarCRM module to create",
+          "required": true,
+          "viewClass": "SelectView",
+          "model": "modules",
+          "prompt": "Select a SugarCRM module"
+        }
+      },
+      "metadata": {
+        "in": {
+          "type": "object",
+          "properties": {
+            "objects": {
+              "title": "Objects",
+              "type": "object",
+              "required": true
+            }
+          }
+        },
+        "out": {
+          "type": "object",
+          "properties": {
+            "result": {
+              "type": "array",
+              "properties": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "number"
+                  },
+                  "contents": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "headers": {
+                    "type": "array"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

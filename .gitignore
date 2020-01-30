@@ -31,8 +31,11 @@ node_modules
 
 .idea
 *.iml
+.vscode
 
 .env
 *.swp
 
 cci-config-generator.sh
+
+sugarcrm-ext-local

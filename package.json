@@ -1,14 +1,14 @@
 {
   "name": "sugarcrm-component",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "elastic.io component that connects to Sugar CRM API (node.js)",
   "main": "index.js",
   "engines": {
-    "node": "8.1.0"
+    "node": "12.x.x"
   },
   "scripts": {
-    "pretest": "eslint verifyCredentials.js lib spec spec-integration --fix",
-    "test": "mocha spec",
+    "pretest": "eslint verifyCredentials.js lib --fix",
+    "test": "mocha spec --recursive --timeout 50000",
     "integration-test": "mocha spec-integration"
   },
   "repository": {
@@ -28,17 +28,21 @@
   "homepage": "https://github.com/elasticio/sugarcrm-component#readme",
   "dependencies": {
     "crc": "3.2.1",
-    "elasticio-node": "0.0.8",
-    "elasticio-sailor-nodejs": "^2.2.0",
-    "request": "^2.81.0",
-    "underscore": "^1.8.3"
+    "elasticio-node": "0.0.9",
+    "elasticio-rest-node": "1.2.3",
+    "elasticio-sailor-nodejs": "2.6.1",
+    "request": "2.81.0",
+    "request-promise": "4.2.5",
+    "underscore": "1.8.3"
   },
   "devDependencies": {
-    "chai": "^4.1.1",
-    "dotenv": "^4.0.0",
-    "eslint": "^3.1.1",
-    "eslint-plugin-mocha": "^4.8.0",
-    "mocha": "^3.2.0",
+    "chai": "4.1.1",
+    "dotenv": "4.0.0",
+    "eslint": "5.16.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-mocha": "4.8.0",
+    "mocha": "3.2.0",
     "nock": "0.53.0"
   }
 }

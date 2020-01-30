@@ -1,0 +1,27 @@
+{
+  "bulkUpdateObjects": {
+    "message": {
+      "body": {
+        "massupdate_params": {
+          "source": "Twitter",
+          "uid": [
+            "6e87a090-1032-11ea-ad9f-021e085c12ca",
+            "65914b12-1032-11ea-a997-064dc27f89e0"
+          ]
+        }
+      },
+      "id": "f4e0d892-2bd0-490f-a8c2-281ac0383ad8"
+    },
+    "configuration": {
+      "module": "Cases"
+    },
+    "responses": {
+      "https://magicsoft.sugaropencloud.eu:443": {
+        "/rest/v10/Cases/MassUpdate": {
+          "method": "PUT",
+          "response": "{ \"status\": \"done\", \"failed\": 0 }"
+        }
+      }
+    }
+  }
+}

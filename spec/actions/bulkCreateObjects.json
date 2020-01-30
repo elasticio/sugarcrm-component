@@ -1,0 +1,31 @@
+{
+  "bulkCreateObjects": {
+    "message": {
+      "body": {
+        "objects": [
+          {
+            "name": "bulk-1"
+          },
+          {
+            "name": "bulk-2"
+          },
+          {
+            "name": "bulk-3"
+          }
+        ]
+      },
+      "id": "f4e0d892-2bd0-490f-a8c2-281ac0383ad8"
+    },
+    "configuration": {
+      "module": "Cases"
+    },
+    "responses": {
+      "https://magicsoft.sugaropencloud.eu:443": {
+        "/rest/v10/bulk": {
+          "method": "POST",
+          "response": "[{\"id\": \"objectID\"}]"
+        }
+      }
+    }
+  }
+}
