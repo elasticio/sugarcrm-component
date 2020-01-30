@@ -10,7 +10,7 @@
         "required": true,
         "viewClass": "TextFieldView",
         "note": "The DNS location of your SugarCRM instance",
-        "placeholder": "example.demo.sugarcrm.eu"
+        "placeholder": "https://example.demo.sugarcrm.eu"
       },
       "userName": {
         "label": "Your login",

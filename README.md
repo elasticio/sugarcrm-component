@@ -206,6 +206,8 @@ Result is an object with the 2 properties:
 * **failed** - `numeric`, how many objects were failed to update.
 * **status** - `string`, if operation were successful `status="done"`. Operation could consider successful even if `failed > 0`
 
+Note: SugarCRM server doesn't return errors in case of a wrong uid.
+
 ## Bulk Delete Objects
 
 Provides a simple interface for quickly deleting large amounts of objects.
