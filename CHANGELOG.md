@@ -1,3 +1,7 @@
+## 1.1.1 (June 6, 2020)
+
+* Remove update docs on deploy script
+
 ## 1.1.0 (December 25, 2019)
 
 * Add support for `Bulk operations` (Create/Update/Delete)
