@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/elasticio/sugarcrm-component#readme",
   "dependencies": {
+    "@elastic.io/component-commons-library": "1.1.2",
     "crc": "3.2.1",
     "elasticio-node": "0.0.9",
     "elasticio-rest-node": "1.2.3",
@@ -43,6 +44,7 @@
     "eslint-plugin-import": "2.18.0",
     "eslint-plugin-mocha": "4.8.0",
     "mocha": "3.2.0",
-    "nock": "0.53.0"
+    "nock": "0.53.0",
+    "sinon": "9.0.3"
   }
 }

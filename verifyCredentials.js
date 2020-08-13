@@ -3,7 +3,7 @@ const SugarCRM = require('./lib/sugarcrm');
 module.exports = function Verify(credentials, cb) {
   try {
     const instance = new SugarCRM(credentials, this);
-    instance.makeRequest('ping', 'GET').then((pingResponse) => {
+    return instance.makeRequest('ping', 'GET').then((pingResponse) => {
       if (pingResponse === 'pong') {
         this.logger.info('Successfully verified credentials.');
         return cb(null, { verified: true });

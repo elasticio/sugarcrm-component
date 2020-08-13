@@ -11,6 +11,8 @@ const lookupObject = require('../lib/actions/lookupObject');
 const deleteObject = require('../lib/actions/deleteObject');
 const upsertObject = require('../lib/actions/upsertObject');
 const fs = require('fs');
+const sinon = require('sinon');
+const { Logger } = require('@elastic.io/component-commons-library');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
@@ -113,14 +115,6 @@ describe('Integration Test', function GetEntryTest() {
 
             expect(schema.in.properties.id.required).to.be.false;
         });
-
-        it('Build out schema', async function BuildOutSchemaTest() {
-            cfg.module = 'Contacts';
-            const schema = await getObjectsWebhook.getMetaModel(cfg);
-
-            expect(schema.out.properties.id.required).to.be.true;
-            expect(schema.out.properties.date_modified).to.exist;
-        });
     });
 
     describe('Token Exchange tests', function VerifyTokenExchangeTests() {
@@ -139,15 +133,17 @@ describe('Integration Test', function GetEntryTest() {
 
     describe('Verify Credentials Tests', function VerifyCredentialsTests() {
         it('Correct Password', async function CorrectPasswordTest() {
-            const authResult = await verifyCredentials.call({}, cfg);
-            expect(authResult).to.be.true;
+            const cb = sinon.spy();
+            await verifyCredentials.call({logger: Logger.getLogger()}, cfg, cb);
+            expect(cb.getCall(0).args[1].verified).to.be.true;
         });
 
         it('Incorrect Password', async function IncorrectPasswordTest() {
+            const cb = sinon.spy();
             const wrongCfg = JSON.parse(JSON.stringify(cfg));
             wrongCfg.password = 'WrongPassword';
-            const authResult = await verifyCredentials.call({}, wrongCfg);
-            expect(authResult).to.be.false;
+            const authResult = await verifyCredentials.call({logger: Logger.getLogger()}, wrongCfg, cb);
+            expect(cb.getCall(0).args[1].verified).to.be.false;
         });
     });
 
@@ -200,7 +196,7 @@ describe('Integration Test', function GetEntryTest() {
             await lookupObject.process.call(emitter, msg, cfg);
 
             expect(emitter.data.length).to.equal(1);
-            expect(emitter.data[0].body.name).to.be.equal('Fred Jones');
+            expect(emitter.data[0].body.name).to.be.equal('Dennis Shaw');
         });
 
     });
