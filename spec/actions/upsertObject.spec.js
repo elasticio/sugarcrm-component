@@ -10,8 +10,8 @@ nock.disableNetConnect();
 
 describe('SugarCRM upsert', () => {
   beforeEach(async () => {
-    nock(testCommon.refresh_token.url)
-      .post('')
+    nock(testCommon.TEST_INSTANCE_URL)
+      .post('/oauth/token')
       .times(3)
       .reply(200, testCommon.refresh_token.response);
   });

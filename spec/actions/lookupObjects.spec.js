@@ -9,9 +9,9 @@ const lookupObjects = require('../../lib/actions/lookupObjects.js');
 // Disable real HTTP requests
 nock.disableNetConnect();
 
-nock(testCommon.refresh_token.url)
+nock(testCommon.TEST_INSTANCE_URL)
       .persist()
-      .post('')
+      .post('/oauth2/token')
       .reply(200, testCommon.refresh_token.response);
 
 const LOGICAL_OPERATORS = {

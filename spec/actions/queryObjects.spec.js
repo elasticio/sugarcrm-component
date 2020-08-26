@@ -11,7 +11,7 @@ nock.disableNetConnect();
 
 nock(testCommon.refresh_token.url)
       .persist()
-      .post('')
+      .post('/')
       .reply(200, testCommon.refresh_token.response);
 
 describe('Query Objects module: getModules', () => {
