@@ -16,10 +16,10 @@ const { Logger } = require('@elastic.io/component-commons-library');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
-    let password8;
+    let password;
     let appId;
     let appSecret;
-    let sugarDomain8;
+    let sugarDomain;
     let platform;
 
     this.timeout(10000);
@@ -29,18 +29,18 @@ describe('Integration Test', function GetEntryTest() {
     }
 
     username = process.env.SUGAR_USERNAME;
-    password8 = process.env.PASSWORD_8;
+    password = process.env.PASSWORD;
     appId = process.env.OAUTH_APPLICATION_ID;
     appSecret = process.env.OAUTH_APPLICATION_SECRET;
-    sugarDomain8 = process.env.SUGAR_8_URL;
+    sugarDomain = process.env.SUGAR_URL;
     platform = process.env.PLATFORM;
 
     const cfg = {
         clientID: appId,
         clientSecret: appSecret,
         userName: username,
-        password: password8,
-        baseUrl: sugarDomain8,
+        password: password,
+        baseUrl: sugarDomain,
         platform
     };
 
@@ -184,7 +184,7 @@ describe('Integration Test', function GetEntryTest() {
         });
 
         it('Lookup test', async function LookupTest() {
-            const idToLookup = process.env.CONTACT_ID_8;
+            const idToLookup = process.env.CONTACT_ID;
             const emitter = new TestEmitter();
             const msg = {
                 body: {

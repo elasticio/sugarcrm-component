@@ -18,11 +18,11 @@
     },
     "responses": {
       "https://magicsoft.sugaropencloud.eu:443": {
-        "/rest/v10/Notes/f93ca73e-1db7-11ea-b801-02af4f4486a2": {
+        "/rest/v11_6/Notes/f93ca73e-1db7-11ea-b801-02af4f4486a2": {
           "method": "PUT",
           "response": {"id": "f93ca73e-1db7-11ea-b801-02af4f4486a2", "name": "Note1"}
         },
-        "/rest/v10/metadata?type_filter=modules&module_filter=Notes": {
+        "/rest/v11_6/metadata?type_filter=modules&module_filter=Notes": {
           "method": "GET",
           "response": {
             "modules": {
@@ -70,7 +70,7 @@
             }
           }
         },
-        "/rest/v10/Notes/f93ca73e-1db7-11ea-b801-02af4f4486a2/file/filename/?filename=attachment.png": {
+        "/rest/v11_6/Notes/f93ca73e-1db7-11ea-b801-02af4f4486a2/file/filename/?filename=attachment.png": {
           "method": "PUT",
           "response": "OK"
         }
