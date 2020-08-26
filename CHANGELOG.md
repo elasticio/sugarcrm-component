@@ -5,6 +5,7 @@
 * Bump dependencies
 * Fix tests
 * Update integration test environment names
+* Fix Node Version
 
 ## 1.1.1 (June 6, 2020)
 
