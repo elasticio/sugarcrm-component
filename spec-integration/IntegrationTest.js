@@ -112,6 +112,9 @@ describe('Integration Test', function GetEntryTest() {
             expect(schema.in.properties.name).to.not.exist;
             expect(schema.in.properties._hash).to.not.exist;
             expect(schema.in.properties.salutation.enum).to.include.members(['Mr.']);
+            expect(schema.in.properties.email1).to.exist;
+            expect(schema.in.properties.reports_to_link).to.not.exist;
+            expect(schema.in.properties.calls).to.not.exist;
 
             expect(schema.in.properties.id.required).to.be.false;
         });
