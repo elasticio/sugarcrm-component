@@ -11,13 +11,15 @@ const lookupObject = require('../lib/actions/lookupObject');
 const deleteObject = require('../lib/actions/deleteObject');
 const upsertObject = require('../lib/actions/upsertObject');
 const fs = require('fs');
+const sinon = require('sinon');
+const { Logger } = require('@elastic.io/component-commons-library');
 
 describe('Integration Test', function GetEntryTest() {
     let username;
-    let password8;
+    let password;
     let appId;
     let appSecret;
-    let sugarDomain8;
+    let sugarDomain;
     let platform;
 
     this.timeout(10000);
@@ -27,18 +29,18 @@ describe('Integration Test', function GetEntryTest() {
     }
 
     username = process.env.SUGAR_USERNAME;
-    password8 = process.env.PASSWORD_8;
+    password = process.env.PASSWORD;
     appId = process.env.OAUTH_APPLICATION_ID;
     appSecret = process.env.OAUTH_APPLICATION_SECRET;
-    sugarDomain8 = process.env.SUGAR_8_URL;
+    sugarDomain = process.env.SUGAR_URL;
     platform = process.env.PLATFORM;
 
     const cfg = {
         clientID: appId,
         clientSecret: appSecret,
         userName: username,
-        password: password8,
-        baseUrl: sugarDomain8,
+        password: password,
+        baseUrl: sugarDomain,
         platform
     };
 
@@ -110,16 +112,12 @@ describe('Integration Test', function GetEntryTest() {
             expect(schema.in.properties.name).to.not.exist;
             expect(schema.in.properties._hash).to.not.exist;
             expect(schema.in.properties.salutation.enum).to.include.members(['Mr.']);
+            expect(schema.in.properties.email1).to.exist;
+            expect(schema.in.properties.email).to.not.exist;
+            expect(schema.in.properties.reports_to_link).to.not.exist;
+            expect(schema.in.properties.calls).to.not.exist;
 
             expect(schema.in.properties.id.required).to.be.false;
-        });
-
-        it('Build out schema', async function BuildOutSchemaTest() {
-            cfg.module = 'Contacts';
-            const schema = await getObjectsWebhook.getMetaModel(cfg);
-
-            expect(schema.out.properties.id.required).to.be.true;
-            expect(schema.out.properties.date_modified).to.exist;
         });
     });
 
@@ -139,15 +137,17 @@ describe('Integration Test', function GetEntryTest() {
 
     describe('Verify Credentials Tests', function VerifyCredentialsTests() {
         it('Correct Password', async function CorrectPasswordTest() {
-            const authResult = await verifyCredentials.call({}, cfg);
-            expect(authResult).to.be.true;
+            const cb = sinon.spy();
+            await verifyCredentials.call({logger: Logger.getLogger()}, cfg, cb);
+            expect(cb.getCall(0).args[1].verified).to.be.true;
         });
 
         it('Incorrect Password', async function IncorrectPasswordTest() {
+            const cb = sinon.spy();
             const wrongCfg = JSON.parse(JSON.stringify(cfg));
             wrongCfg.password = 'WrongPassword';
-            const authResult = await verifyCredentials.call({}, wrongCfg);
-            expect(authResult).to.be.false;
+            const authResult = await verifyCredentials.call({logger: Logger.getLogger()}, wrongCfg, cb);
+            expect(cb.getCall(0).args[1].verified).to.be.false;
         });
     });
 
@@ -188,7 +188,7 @@ describe('Integration Test', function GetEntryTest() {
         });
 
         it('Lookup test', async function LookupTest() {
-            const idToLookup = process.env.CONTACT_ID_8;
+            const idToLookup = process.env.CONTACT_ID;
             const emitter = new TestEmitter();
             const msg = {
                 body: {
@@ -200,7 +200,7 @@ describe('Integration Test', function GetEntryTest() {
             await lookupObject.process.call(emitter, msg, cfg);
 
             expect(emitter.data.length).to.equal(1);
-            expect(emitter.data[0].body.name).to.be.equal('Fred Jones');
+            expect(emitter.data[0].body.name).to.be.equal('Dennis Shaw');
         });
 
     });

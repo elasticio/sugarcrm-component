@@ -1,6 +1,7 @@
 'use strict';
 
 const EventEmitter = require('events');
+const { Logger } = require('@elastic.io/component-commons-library');
 
 module.exports = class TestEmitter extends EventEmitter {
     constructor() {
@@ -17,5 +18,6 @@ module.exports = class TestEmitter extends EventEmitter {
         });
         this.on('snapshot', (value) => this.snapshot.push(value));
         this.on('updateKeys', (value) => this.keys.push(value));
+        this.logger = Logger.getLogger();
     }
 };

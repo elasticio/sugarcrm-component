@@ -17,7 +17,7 @@
     },
     "responses": {
       "https://magicsoft.sugaropencloud.eu:443": {
-        "/rest/v10/Cases/MassUpdate": {
+        "/rest/v11_6/Cases/MassUpdate": {
           "method": "PUT",
           "response": "{ \"status\": \"done\", \"failed\": 0 }"
         }

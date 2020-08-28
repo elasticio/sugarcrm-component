@@ -173,6 +173,14 @@ object to lookup.
 Update an existing entry if the id provided. Otherwise create a new entry. You must select the type of object to lookup.
 Input metadata is fetched dynamically from your SugarCRM account. Output metadata is the same as input metadata, so you may expect all fields that you mapped as input to be returned as output.
 
+Currently, the following fields are excluded from the list of writable fields:
+* Fields that are set to read only (e.g. `date_modified`)
+* Fields that are compiled from other fields (e.g. `full_name` for `Contact` objects)
+* Custom fields that are calculated from other fields (i.e. [Dependant Fields](https://support.sugarcrm.com/Knowledge_Base/Studio_and_Module_Builder/Sugar_Logic/Dependent_Field__Date_Equals_Today/))
+* Fields with type `relate` as these fields are values read from columns of linked tables (e.g. `account_name` for `Contact` objects)
+* Fields which signify a link to another object
+* Fields which are not sourced from the db and have non-primary data types (e.g. `date`, `url`, `id`, `bool`, `enum`, `int`, `text`, `varchar`, `float`)
+
 #### Input fields description
 * **Module** - Input field where you should choose the object type, which you want to find. E.g. `Note`
 * **Utilize data attachment from previous step (for objects with a binary field)** - a checkbox, if it is checked and an input message contains an attachment and specified object has a binary field (type of `file`) then the attachment is put into object's binary field.

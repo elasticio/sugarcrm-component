@@ -41,7 +41,7 @@ module.exports = {
     },
   },
   refresh_token: {
-    url: 'https://magicsoft.sugaropencloud.eu/rest/v10/oauth2/token',
+    url: 'https://magicsoft.sugaropencloud.eu/rest/v11_6/oauth2/token',
     response: {
       access_token: 'the unthinkable top secret access token',
       refresh_token: 'the not less important also unthinkable top secret refresh token',
@@ -68,5 +68,5 @@ module.exports = {
   },
   emitCallback: null,
   EXT_FILE_STORAGE,
-  TEST_INSTANCE_URL: 'https://magicsoft.sugaropencloud.eu/rest/v10',
+  TEST_INSTANCE_URL: 'https://magicsoft.sugaropencloud.eu/rest/v11_6',
 };

@@ -1,3 +1,12 @@
+## 1.2.0 (Aug 28, 2020)
+
+* Extend the list of writable fields that can be populated for SugarCRM objects
+* Use REST API Version `11.6` instead of `10`
+* Bump dependencies
+* Fix tests
+* Update integration test environment names
+* Fix Node Version
+
 ## 1.1.1 (June 6, 2020)
 
 * Remove update docs on deploy script
