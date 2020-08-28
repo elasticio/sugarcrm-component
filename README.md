@@ -179,6 +179,7 @@ Currently, the following fields are excluded from the list of writable fields:
 * Custom fields that are calculated from other fields (i.e. [Dependant Fields](https://support.sugarcrm.com/Knowledge_Base/Studio_and_Module_Builder/Sugar_Logic/Dependent_Field__Date_Equals_Today/))
 * Fields with type `relate` as these fields are values read from columns of linked tables (e.g. `account_name` for `Contact` objects)
 * Fields which signify a link to another object
+* Fields which are not sourced from the db and have non-primary data types (e.g. `date`, `url`, `id`, `bool`, `enum`, `int`, `text`, `varchar`, `float`)
 
 #### Input fields description
 * **Module** - Input field where you should choose the object type, which you want to find. E.g. `Note`
