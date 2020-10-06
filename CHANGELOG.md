@@ -1,3 +1,7 @@
+## 1.1.2 (October 6, 2020)
+
+* Remove potentially sensitive data from logs
+
 ## 1.1.1 (June 6, 2020)
 
 * Remove update docs on deploy script
