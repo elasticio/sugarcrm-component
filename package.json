@@ -4,7 +4,7 @@
   "description": "elastic.io component that connects to Sugar CRM API (node.js)",
   "main": "index.js",
   "engines": {
-    "node": "12.x.x"
+    "node": ">=14"
   },
   "scripts": {
     "pretest": "eslint verifyCredentials.js lib --fix",
@@ -29,8 +29,8 @@
   "dependencies": {
     "crc": "3.2.1",
     "elasticio-node": "0.0.9",
-    "elasticio-rest-node": "1.2.3",
-    "elasticio-sailor-nodejs": "2.6.1",
+    "elasticio-rest-node": "1.2.6",
+    "elasticio-sailor-nodejs": "2.6.18",
     "request": "2.81.0",
     "request-promise": "4.2.5",
     "underscore": "1.8.3"
