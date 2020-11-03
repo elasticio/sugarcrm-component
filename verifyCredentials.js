@@ -8,7 +8,7 @@ module.exports = function Verify(credentials, cb) {
         this.logger.info('Successfully verified credentials.');
         return cb(null, { verified: true });
       }
-      this.logger.info('Error in validating credentials.  Expected pong');
+      this.logger.info('Error in validating credentials. Expected pong');
       return cb(null, { verified: false });
     }).catch((e) => {
       this.logger.error('Verification request failed with en Exception!');
