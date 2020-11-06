@@ -1,5 +1,6 @@
 const { expect } = require('chai');
 const fs = require('fs');
+const logger = require('@elastic.io/component-logger')();
 const getObjectsPolling = require('../lib/triggers/getObjectsPolling');
 const SugarCrm = require('../lib/sugarcrm');
 const TestEmitter = require('./TestEmitter');
@@ -131,7 +132,7 @@ describe('Integration Test', function GetEntryTest() {
 
   describe('Verify Credentials Tests', () => {
     it('Correct Password', async () => {
-      const authResult = await verifyCredentials.call({}, cfg);
+      const authResult = await verifyCredentials.call({ logger }, cfg);
       expect(authResult).to.equal(true);
     });
 

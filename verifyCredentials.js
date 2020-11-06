@@ -1,22 +1,19 @@
 const SugarCRM = require('./lib/sugarcrm');
 
-module.exports = function Verify(credentials, cb) {
+module.exports = async function Verify(credentials) {
+  this.logger.info('Verify credentials started...');
+  let pingResponse;
   try {
     const instance = new SugarCRM(credentials, this);
-    instance.makeRequest('ping', 'GET').then((pingResponse) => {
-      if (pingResponse === 'pong') {
-        this.logger.info('Successfully verified credentials.');
-        return cb(null, { verified: true });
-      }
-      this.logger.info('Error in validating credentials. Expected pong');
-      return cb(null, { verified: false });
-    }).catch((e) => {
-      this.logger.error('Verification request failed with en Exception!');
-      return cb(e, { verified: false });
-    });
+    pingResponse = await instance.makeRequest('ping', 'GET');
   } catch (e) {
-    // Workaround for https://github.com/elasticio/sailor-nodejs/issues/58
     this.logger.error('Credentials verification failed!');
-    return cb(e, { verified: false });
+    throw e;
   }
+  if (pingResponse === 'pong') {
+    this.logger.info('Successfully verified credentials.');
+    return { verified: true };
+  }
+  this.logger.info('Error in validating credentials. Expected pong response');
+  throw new Error('Error in validating credentials. Expected pong response');
 };
