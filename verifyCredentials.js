@@ -7,8 +7,9 @@ module.exports = async function Verify(credentials) {
     const instance = new SugarCRM(credentials, this);
     pingResponse = await instance.makeRequest('ping', 'GET');
   } catch (e) {
-    this.logger.error('Credentials verification failed!');
-    throw e;
+    const err = `Credentials verification failed!${e.statusCode ? ` StatusCode: ${e.statusCode}` : ''}${e.errorCode ? ` Reason: ${e.errorCode}` : ''}`;
+    this.logger.error(err);
+    throw err;
   }
   if (pingResponse === 'pong') {
     this.logger.info('Successfully verified credentials.');

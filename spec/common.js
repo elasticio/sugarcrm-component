@@ -1,5 +1,6 @@
 process.env.OAUTH_CLIENT_ID = 'asd';
 process.env.OAUTH_CLIENT_SECRET = 'sdc';
+const logger = require('@elastic.io/component-logger')();
 
 require('elasticio-rest-node');
 
@@ -59,14 +60,7 @@ module.exports = {
       this.emitCallback(what, message);
     }
   },
-  logger: {
-    fatal: () => { },
-    error: () => { },
-    warn: () => { },
-    info: () => { },
-    debug: () => { },
-    trace: () => { },
-  },
+  logger,
   emitCallback: null,
   EXT_FILE_STORAGE,
   TEST_INSTANCE_URL: 'https://magicsoft.sugaropencloud.eu/rest/v10',
