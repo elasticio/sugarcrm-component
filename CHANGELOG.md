@@ -3,6 +3,8 @@
 * Upgrade to sailor 2.6.18
 * Annual audit of the component code to check if it exposes a sensitive data in the logs
 * Annual npm vulnerabilities audit
+* Fix bug: `Verify` credentials button does not really verify credentials
+* Fix exception, emit called without await
 
 ## 1.1.2 (October 6, 2020)
 
