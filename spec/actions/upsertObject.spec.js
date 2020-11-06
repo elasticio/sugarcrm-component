@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in,no-restricted-syntax */
 const chai = require('chai');
 const nock = require('nock');
 
@@ -10,28 +11,26 @@ nock.disableNetConnect();
 
 describe('SugarCRM upsert', () => {
   beforeEach(async () => {
-    nock(testCommon.refresh_token.url)
-      .post('')
+    nock(testCommon.TEST_INSTANCE_URL)
+      .post(testCommon.refresh_token.path)
       .times(3)
       .reply(200, testCommon.refresh_token.response);
   });
 
 
   it('action upsert with attachment', async () => {
-    console.log('action upsert with attachment');
-
     const data = testData.upsertObjects;
     data.configuration = { ...testCommon.configuration, ...data.configuration };
 
     const expectedResult = { id: 'f93ca73e-1db7-11ea-b801-02af4f4486a2', name: 'Note1', filename: 'attachment.png' };
 
     const scopes = [];
-    for (let host in data.responses) {
-      for (let path in data.responses[host]) {
+    for (const host in data.responses) {
+      for (const path in data.responses[host]) {
         const resp = data.responses[host][path].response;
-        scopes.push(nock(host).
-          intercept(path, data.responses[host][path].method).
-          reply(200, typeof (resp) === 'object' ? JSON.stringify(resp) : resp, data.responses[host][path].header));
+        scopes.push(nock(host)
+          .intercept(path, data.responses[host][path].method)
+          .reply(200, typeof (resp) === 'object' ? JSON.stringify(resp) : resp, data.responses[host][path].header));
       }
     }
 

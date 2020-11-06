@@ -42,6 +42,7 @@ module.exports = {
   },
   refresh_token: {
     url: 'https://magicsoft.sugaropencloud.eu/rest/v10/oauth2/token',
+    path: '/oauth2/token',
     response: {
       access_token: 'the unthinkable top secret access token',
       refresh_token: 'the not less important also unthinkable top secret refresh token',

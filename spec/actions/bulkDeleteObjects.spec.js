@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax,guard-for-in */
 const chai = require('chai');
 const nock = require('nock');
 
@@ -10,26 +11,24 @@ nock.disableNetConnect();
 
 describe('SugarCRM bulk', () => {
   beforeEach(async () => {
-    nock(testCommon.refresh_token.url)
-      .post('')
+    nock(testCommon.TEST_INSTANCE_URL)
+      .post(testCommon.refresh_token.path)
       .reply(200, testCommon.refresh_token.response);
   });
 
 
   it('action delete', async () => {
-    console.log('action delete');
-
     const data = testData.bulkDeleteObjects;
     data.configuration = { ...testCommon.configuration, ...data.configuration };
 
     const expectedResult = { status: 'done', failed: 0 };
 
     const scopes = [];
-    for (let host in data.responses) {
-      for (let path in data.responses[host]) {
-        scopes.push(nock(host).
-          intercept(path, data.responses[host][path].method).
-          reply(200, data.responses[host][path].response, data.responses[host][path].header));
+    for (const host in data.responses) {
+      for (const path in data.responses[host]) {
+        scopes.push(nock(host)
+          .intercept(path, data.responses[host][path].method)
+          .reply(200, data.responses[host][path].response, data.responses[host][path].header));
       }
     }
 
