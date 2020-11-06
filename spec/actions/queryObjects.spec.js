@@ -9,10 +9,10 @@ const queryObjects = require('../../lib/actions/queryObjects.js');
 // Disable real HTTP requests
 nock.disableNetConnect();
 
-nock(testCommon.refresh_token.url)
-      .persist()
-      .post('')
-      .reply(200, testCommon.refresh_token.response);
+nock(testCommon.TEST_INSTANCE_URL)
+  .persist()
+  .post(testCommon.refresh_token.path)
+  .reply(200, testCommon.refresh_token.response);
 
 describe('Query Objects module: getModules', () => {
   it('Retrieves the list of sugar modules', async () => {
@@ -40,71 +40,71 @@ describe('Query Objects module: getModules', () => {
   });
 });
 
-describe("Query Objects module: processAction", () => {
-  it(`Queries objects: emitAll`, () => {
-
-    testCommon.configuration.module = "Accounts";
-    testCommon.configuration.outputMethod = "emitAll";
+describe('Query Objects module: processAction', () => {
+  it('Queries objects: emitAll', () => {
+    testCommon.configuration.module = 'Accounts';
+    testCommon.configuration.outputMethod = 'emitAll';
 
     const message = {
       body: {
-        filter:[
+        filter: [
           {
             $or: [
               {
                 $and: [
                   {
-                    "billing_address_country": {"$in":["India","Russia"]}
+                    billing_address_country: { $in: ['India', 'Russia'] },
                   },
                   {
-                    "somefield": {"$not_null":""}
-                  }
-                ]
+                    somefield: { $not_null: '' },
+                  },
+                ],
               },
               {
-                "somefield2": {"$is_null":""}
-              }
-            ]
-          }
+                somefield2: { $is_null: '' },
+              },
+            ],
+          },
         ],
-        fields: "id,name,billing_address_country,parent_name,modified_user_id,phone_office,accdate_c,acccheck_c,acc_float_c",
-        max_num: 1000
-      }
+        fields: 'id,name,billing_address_country,parent_name,modified_user_id,phone_office,accdate_c,acccheck_c,acc_float_c',
+        max_num: 1000,
+      },
     };
 
     const testReply = {
       next_offset: -1,
       records: [{
-        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
-        "name": "Test_Account_52",
-        "date_modified": "2019-12-04T16:02:57+00:00",
-        "modified_by_name": "Mr Black",
-        "billing_address_country": "Butan",
-        "phone_office": "02021024103",
-        "parent_name": "",
+        id: '8a09adbc-16af-11ea-8530-021e085c12ca',
+        name: 'Test_Account_52',
+        date_modified: '2019-12-04T16:02:57+00:00',
+        modified_by_name: 'Mr Black',
+        billing_address_country: 'Butan',
+        phone_office: '02021024103',
+        parent_name: '',
       },
       {
-        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
-        "name": "Test_Account_52",
-        "date_modified": "2019-12-04T16:02:57+00:00",
-        "modified_by_name": "Mr White",
-        "billing_address_country": "France",
-        "phone_office": "02021024103",
-        "parent_name": "",
-      }
-    ]};
+        id: '8a09adbc-16af-11ea-8530-021e085c12ca',
+        name: 'Test_Account_52',
+        date_modified: '2019-12-04T16:02:57+00:00',
+        modified_by_name: 'Mr White',
+        billing_address_country: 'France',
+        phone_office: '02021024103',
+        parent_name: '',
+      },
+      ],
+    };
 
     nock(testCommon.TEST_INSTANCE_URL)
       .get(`/metadata?type_filter=modules&module_filter=${testCommon.configuration.module}`)
       .reply(200, sugarModulesReply);
 
     const scope = nock(testCommon.TEST_INSTANCE_URL)
-      .post(`/Accounts/filter`, JSON.stringify(message.body))
+      .post('/Accounts/filter', JSON.stringify(message.body))
       .reply(200, testReply);
 
     queryObjects.process.call(testCommon, message, testCommon.configuration);
-    return new Promise(resolve => {
-      testCommon.emitCallback = function(what, msg) {
+    return new Promise((resolve) => {
+      testCommon.emitCallback = function emitCallback(what, msg) {
         if (what === 'data') {
           chai.expect(msg.body).to.deep.equal(testReply.records);
           scope.done();
@@ -114,55 +114,55 @@ describe("Query Objects module: processAction", () => {
     });
   });
 
-  it(`Queries objects: emitIndividually`, async () => {
-
-    testCommon.configuration.module = "Accounts";
-    testCommon.configuration.outputMethod = "emitIndividually";
+  it('Queries objects: emitIndividually', async () => {
+    testCommon.configuration.module = 'Accounts';
+    testCommon.configuration.outputMethod = 'emitIndividually';
 
     const message = {
       body: {
         filter: [{
-          "billing_address_country": {
-            "$in": ["India", "Russia"]
-          }
+          billing_address_country: {
+            $in: ['India', 'Russia'],
+          },
         }],
         max_num: 1000,
-        order_by: 'name:DESC,account_type:DESC,date_modified:ASC'
-      }
+        order_by: 'name:DESC,account_type:DESC,date_modified:ASC',
+      },
     };
 
     const testReply = {
       next_offset: -1,
       records: [{
-        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
-        "name": "Test_Account_52",
-        "date_modified": "2019-12-04T16:02:57+00:00",
-        "modified_by_name": "Mr Black",
-        "billing_address_country": "Butan",
-        "phone_office": "02021024103",
-        "parent_name": "",
+        id: '8a09adbc-16af-11ea-8530-021e085c12ca',
+        name: 'Test_Account_52',
+        date_modified: '2019-12-04T16:02:57+00:00',
+        modified_by_name: 'Mr Black',
+        billing_address_country: 'Butan',
+        phone_office: '02021024103',
+        parent_name: '',
       },
       {
-        "id": "8a09adbc-16af-11ea-8530-021e085c12ca",
-        "name": "Test_Account_52",
-        "date_modified": "2019-12-04T16:02:57+00:00",
-        "modified_by_name": "Mr White",
-        "billing_address_country": "France",
-        "phone_office": "02021024103",
-        "parent_name": "",
-      }
-    ]};
+        id: '8a09adbc-16af-11ea-8530-021e085c12ca',
+        name: 'Test_Account_52',
+        date_modified: '2019-12-04T16:02:57+00:00',
+        modified_by_name: 'Mr White',
+        billing_address_country: 'France',
+        phone_office: '02021024103',
+        parent_name: '',
+      },
+      ],
+    };
 
     nock(testCommon.TEST_INSTANCE_URL)
       .get(`/metadata?type_filter=modules&module_filter=${testCommon.configuration.module}`)
       .reply(200, sugarModulesReply);
 
     const scope = nock(testCommon.TEST_INSTANCE_URL)
-      .post(`/Accounts/filter`, JSON.stringify(message.body))
+      .post('/Accounts/filter', JSON.stringify(message.body))
       .reply(200, testReply);
 
     const observedResult = [];
-    testCommon.emitCallback = function(what, msg) {
+    testCommon.emitCallback = function emitCallback(what, msg) {
       if (what === 'data') {
         observedResult.push(msg.body);
       }
