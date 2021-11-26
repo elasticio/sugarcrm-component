@@ -32,7 +32,7 @@
     "elasticio-sailor-nodejs": "2.6.26",
     "request": "2.88.2",
     "request-promise": "4.2.5",
-    "underscore": "1.8.3"
+    "underscore": "1.12.1"
   },
   "devDependencies": {
     "@elastic.io/component-logger": "0.0.1",
