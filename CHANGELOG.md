@@ -1,6 +1,6 @@
 ## 1.1.5 (November 26, 2021)
 
-* Added metadata wet it was missing
+* Added metadata where it was missing
 
 ## 1.1.4 (November 26, 2021)
 
