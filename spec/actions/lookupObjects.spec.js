@@ -166,7 +166,7 @@ describe('Lookup Objects module: getMetaModel', () => {
 
     return lookupObjects.getMetaModel.call(testCommon, configuration)
       .then((data) => {
-        chai.expect(data).to.deep.equal(expectedResult);
+        chai.expect(data.in).to.deep.equal(expectedResult.in);
         sugarScope.done();
       });
   }
