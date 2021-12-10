@@ -1,6 +1,6 @@
 {
   "title": "SugarCRM",
-  "version": "1.1.4",
+  "version": "1.1.5-dev.4",
   "description": "SugarCRM REST API",
   "docsUrl": "https://github.com/elasticio/sugarcrm-component",
   "buildType": "docker",
@@ -66,9 +66,7 @@
           "note": "Defaults to 20"
         }
       },
-      "metadata": {
-        "out": {}
-      }
+      "dynamicMetadata": true
     },
     "getObjectsWebhook": {
       "main": "./lib/triggers/getObjectsWebhook.js",
@@ -84,9 +82,7 @@
           "prompt": "Select a SugarCRM module"
         }
       },
-      "metadata": {
-        "out": {}
-      }
+      "dynamicMetadata": true
     },
     "getDeletedObjectsWebhook": {
       "main": "./lib/triggers/getDeletedObjectsWebhook.js",
@@ -142,18 +138,7 @@
           "label": "Pass binary data to the next component (if found object has it)"
         }
       },
-      "metadata": {
-        "in": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "title": "id",
-              "type": "string",
-              "required": true
-            }
-          }
-        }
-      }
+      "dynamicMetadata": true
     },
     "lookupObjects": {
       "title": "Lookup Objects",
@@ -211,6 +196,16 @@
               "required": true
             }
           }
+        },
+        "out": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "id",
+              "type": "string",
+              "required": true
+            }
+          }
         }
       }
     },
@@ -256,35 +251,7 @@
           "prompt": "Select an output method"
         }
       },
-      "metadata": {
-        "in": {
-          "type": "object",
-          "properties": {
-            "filter": {
-              "title": "Filter expression",
-              "type": "object",
-              "required": false
-            },
-            "max_num": {
-              "title": "Maximum number of records",
-              "type": "number",
-              "required": false
-            },
-            "offset": {
-              "title": "The number of records to skip",
-              "type": "number",
-              "required": false
-            },
-            "order_by": {
-              "maxLength": 20000,
-              "title": "How to sort the returned records",
-              "type": "string",
-              "required": false
-            }
-          }
-        },
-        "out": {}
-      }
+      "dynamicMetadata": true
     },
     "bulkDeleteObjects": {
       "title": "Bulk Delete Objects",

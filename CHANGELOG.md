@@ -1,3 +1,7 @@
+## 1.1.5 (November 26, 2021)
+
+* Added metadata where it was missing
+
 ## 1.1.4 (November 26, 2021)
 
 * Upgrade sailor version to 2.6.26
