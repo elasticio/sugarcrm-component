@@ -1,3 +1,10 @@
+## 1.1.6 (August 11, 2022)
+
+* Added ability to set `email1` and `email2` in metadata for `Contacts` in `Upsert Action`
+* Updated Circle.ci config 
+* Updated elasticio-sailor-nodejs to v2.6.29 
+* Get rid of vulnerabilities
+
 ## 1.1.5 (November 26, 2021)
 
 * Added metadata where it was missing
