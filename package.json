@@ -3,7 +3,7 @@
   "description": "elastic.io component that connects to Sugar CRM API (node.js)",
   "main": "index.js",
   "engines": {
-    "node": "14"
+    "node": "16.x"
   },
   "scripts": {
     "pretest": "eslint verifyCredentials.js lib --fix",
@@ -28,22 +28,21 @@
   "dependencies": {
     "crc": "3.2.1",
     "elasticio-node": "0.0.9",
-    "elasticio-rest-node": "1.2.6",
-    "elasticio-sailor-nodejs": "2.6.26",
+    "elasticio-rest-node": "1.2.7",
+    "elasticio-sailor-nodejs": "2.6.29",
     "request": "2.88.2",
     "request-promise": "4.2.5",
-    "underscore": "1.8.3"
+    "underscore": "1.13.4"
   },
   "devDependencies": {
     "@elastic.io/component-logger": "0.0.1",
     "chai": "4.1.1",
     "chai-as-promised": "7.1.1",
     "dotenv": "4.0.0",
-    "eslint": "5.16.0",
-    "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "2.18.0",
-    "eslint-plugin-mocha": "4.8.0",
-    "mocha": "6.2.3",
+    "eslint": "7.32.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-plugin-import": "2.24.2",
+    "mocha": "10.0.0",
     "nock": "13.0.4"
   }
 }

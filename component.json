@@ -1,9 +1,8 @@
 {
   "title": "SugarCRM",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "SugarCRM REST API",
   "docsUrl": "https://github.com/elasticio/sugarcrm-component",
-  "buildType": "docker",
   "credentials": {
     "fields": {
       "baseUrl": {

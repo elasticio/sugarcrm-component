@@ -94,17 +94,27 @@ describe('Integration Test', function GetEntryTest() {
       expect(modules).to.not.have.any.keys('_hash', 'MergeRecords', 'Audit');
     });
 
-    it('Build in schema', async () => {
+    it('Build in schema, module: Contacts', async () => {
       cfg.module = 'Contacts';
       const schema = await upsertObject.getMetaModel(cfg);
 
       expect(schema.in.properties.last_name.required).to.equal(true);
+      expect(schema.in.properties).to.have.own.property('email1');
+      expect(schema.in.properties).to.have.own.property('email2');
       expect(schema.in.properties).to.not.have.own.property('date_modified');
       expect(schema.in.properties).to.not.have.own.property('name');
       expect(schema.in.properties).to.not.have.own.property('_hash');
       expect(schema.in.properties.salutation.enum).to.include.members(['Mr.']);
 
       expect(schema.in.properties.id.required).to.equal(false);
+    });
+
+    it('Build in schema, module: Accounts', async () => {
+      cfg.module = 'Accounts';
+      const schema = await upsertObject.getMetaModel(cfg);
+
+      expect(schema.in.properties).to.not.have.own.property('email1');
+      expect(schema.in.properties).to.not.have.own.property('email2');
     });
 
     it('Build out schema', async () => {
