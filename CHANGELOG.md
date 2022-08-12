@@ -1,4 +1,4 @@
-## 1.1.6 (August 11, 2022)
+## 1.1.6 (August 12, 2022)
 
 * Added `email1` and `email2` fields for metadata of `Contacts` module in `Upsert Action`
 * Updated Circle.ci config 
